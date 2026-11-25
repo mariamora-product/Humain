@@ -637,7 +637,7 @@ span.ichip{cursor:default}
 .ichip:not(.on):not(.soon) em{color:var(--petrol);font-weight:500;font-size:13px}
 .ichipw{position:relative;display:inline-flex}
 .ichipw .amenu.pm{left:0;right:auto;min-width:180px}
-/* ===== Accesibilidad ===== */
+/* ===== Accessibility ===== */
 .skip{position:absolute;left:12px;top:-64px;z-index:100;background:var(--deep);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;text-decoration:none}
 .skip:focus{top:12px}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
@@ -6815,7 +6815,7 @@ function pageProjects() {
       : ""
   }${ps.length ? `<div class="cards">${ps.map(projCard).join("")}</div>` : all.length ? emptyTab(f) : `<div class="empty">${I("layer-group")}<b>Aún no tienes proyectos</b><p>Crea uno y HUMAIN propondrá las personas, el software y la IA que necesita.</p>${isBoard() ? "" : `<button class="btn btn-p sm" data-new>Nuevo proyecto</button>`}</div>`}`;
 }
-/* ===== Equipo: the register of people. A manager sees her team; Leadership sees every team. ===== */
+/* ===== People: the register of people. A manager sees her team; Leadership sees every team. ===== */
 /* a team with nobody yet: its card with a way to add the first person */
 const tact = (lead, t) => {
   const k = esc(lead + "||" + t),
@@ -6927,7 +6927,7 @@ function pagePeople() {
   }
   return `${head}${toolReqHTML("person")}${viewSeg}${groups(false)}`;
 }
-/* ===== Software e IA. Contracts are Leadership's: it sees what to do (seats to buy, unused seats before a renewal) and every tool with who holds its seats.
+/* ===== Software and AI. Contracts are Leadership's: it sees what to do (seats to buy, unused seats before a renewal) and every tool with who holds its seats.
    A project lead sees the tools of her team and whether her projects have their seats. ===== */
 const licPrice = (l) => toEUR(l.opt, opt(l.opt).p);
 const licMonthly = (l) => {

@@ -1,0 +1,75 @@
+/* ===== Micro-interactions: hover/press state system ===== */
+:root{--tr:background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .2s ease,transform .12s ease,opacity .18s ease;--p1:.98;--p2:.99;--hovs:0 2px 10px rgba(13,58,62,.06);--hovi:var(--hover-ctl)}
+button,select,[role=button],a[href],.rcard,.rl,.rl::before,.arl,.rchev,.pic,.nic,.tour-ic,.opt .ic,.i,.csel,.fm .fh,.cn{transition:var(--tr)}
+.skip{transition:none}
+/* Pressed: also applies on touch */
+.btn:not(:disabled):active,.chip:not(:disabled):active,.ib:not(:disabled):active,.seg button:not(:disabled):active,.stp button:not(:disabled):active,.topt:active,.addrole:active,.ichip:not(:disabled):active,.cd:not(:disabled):active,.opt:active,.procard button:active,.btn-pro:active,.lgbtn:active,.wsbtn[data-ws]:active,.accbtn:active,.bell:active,.nv:active,.av:active,.pill.hire:active,.amenu button:not(:disabled):active,.wsmenu button:active,.rp:active,.leg.tg button:active{transform:scale(var(--p1))}
+.pcard:active,.rtoggle:active,.tour-i:active{transform:scale(var(--p2))}
+.rl:is(button,a):active{background:var(--press-bg)}
+.tog:active{transform:scale(var(--p1))}
+@media(hover:hover){
+/* PATTERN 1 - LIST ROW (.rl): veil --hover-bg, radius 8, overhangs the content by 8px; inset dividers that hide next to the row */
+.rl:is(button,a):hover{background:var(--hover-bg)}
+.rl:hover::before,.rl:hover+.rl::before,.tcat:has(>.rl:hover):not(:has(.tlist))+.tcat>.rl::before{border-top-color:transparent}
+.rl:hover .arl{color:var(--petrol)}
+.rl:is(button,a):hover .rchev{transform:translateX(2px)}
+/* PATRON 2 - TARJETA / BALDOSA: veil solido + borde --hover-bd + sombra; sin subrayado; pulsado scale(.99) */
+.pcard:hover,.rcard.closed:hover,.opt:not([aria-pressed=true]):hover,.tour-i:hover,.topt:not([aria-pressed=true]):not(.other):hover{border-color:var(--hover-bd);background:var(--hover-solid);box-shadow:var(--hovs)}
+/* Add (dashed) */
+.addrole:hover,.topt.other:hover{border-color:var(--hover-bd);background:var(--hover-bg);color:var(--deep)}
+/* Botones */
+.btn-s:not(:disabled):hover{background:var(--hover-ctl)}
+.btn-l:not(:disabled):hover{background:#CFE2DE;box-shadow:0 0 0 3px rgba(255,255,255,.14)}
+.btn-g:not(:disabled):hover{background:#ffffff2e;border-color:#ffffff66}
+.btn-p:not(:disabled):hover,.btn-pro:not(:disabled):hover{background:var(--petrol-hi)}
+.btn-p:not(:disabled):active,.btn-pro:not(:disabled):active{background:var(--deep)}
+.wsbtn[data-ws]:hover{background:#ffffff18}
+.procard button:not(:disabled):hover{background:var(--terra-deep)}
+.brandrow:hover{opacity:.85}
+button:hover>.av{background:var(--mist)}
+.pill.hire:not(:disabled):hover{filter:brightness(.96)}
+/* Barra lateral */
+.nv:not([aria-current=page]):hover{background:rgba(255,255,255,.06);color:#fff}
+.bell:not([aria-current=page]):hover,.accbtn:hover{background:rgba(255,255,255,.08);color:#fff}
+.accbtn:hover .i{color:#fff}
+/* Chips, segmented controls, steppers, icons: darker neutral border, no colour fill */
+.chip:not(:disabled):not([aria-pressed=true]):hover,.ichip:not(.on):not(.soon):hover{background:var(--hover-ctl);color:var(--ink)}
+.chip[aria-pressed=true]:not(:disabled):hover{background:var(--petrol-hi);border-color:var(--petrol-hi)}
+button.ichip.on:hover{background:#C4E3D4}
+.seg button:not(:disabled):not([aria-checked=true]):hover{background:rgba(255,255,255,.6);color:var(--ink);box-shadow:none}
+.leg.tg button:hover{background:var(--hover-ctl);color:var(--ink)}
+.stp button:not(:disabled):hover{background:var(--hover-ctl)!important;color:var(--petrol)}
+.ib:not(:disabled):not(.dk):hover{background:var(--hover-ctl);color:var(--petrol)}
+.ib.dk:not(:disabled):hover{background:#ffffff14}
+.cd:not(:disabled):not(.on):hover,.rp:hover,.amenu button:not(:disabled):hover,.wsmenu button:hover{background:var(--hover-ctl)}
+.amenu .danger:not(:disabled):hover{background:var(--neg-bg)}
+.tdel:hover{color:var(--err);background:var(--errbg)}
+.tog:not(:disabled):hover{background:var(--tog-off-hi)}
+.tog[aria-checked=true]:not(:disabled):hover{background:#0F7A71}
+.ownchk:hover input:not(:disabled):not(:checked){background:var(--hover-ctl)}
+.csel:not(:disabled):hover,select.big:not(:disabled):hover,.big:not(:disabled):not(:focus):hover,.hin:not(:disabled):not(:focus):hover{background-color:var(--hover-bg);border-color:var(--field-hover)}
+.dtag:hover{color:var(--deep);background:var(--hover-ctl)}
+/* Text links */
+.lnk:hover,.lk:hover,.more.lk:hover,.backl:hover{text-decoration:underline;text-underline-offset:3px}
+.lnk:not(.prem):not(.mute):hover,.lk:hover,.backl:hover{color:var(--deep)}
+.lnk.mute:hover{color:var(--ink2)}
+}
+/* Fase micro: ajustes finales */
+.btn:disabled,.ib:disabled,.chip:disabled,.btn-p:disabled,.btn-s:disabled{cursor:default}
+@media(hover:hover){
+.advbtn:hover{text-decoration:underline;text-underline-offset:3px;color:var(--deep)}
+}
+@media(prefers-reduced-motion:reduce){:root{--tr:background-color .1s ease,border-color .1s ease,color .1s ease,box-shadow .1s ease,opacity .1s ease;--p1:1;--p2:1}}
+/* Cost provenance and sources */
+.srcb{display:inline;padding:0;background:none;border:0;font:inherit;color:inherit;text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:#0D3A3E40;text-underline-offset:3px}
+.srcb.est{text-decoration-style:dotted}
+.small.one .srcb,small.one .srcb{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;vertical-align:bottom}
+.irow.lrow small a,.srcs a,.sbody .note a{color:var(--petrol);text-decoration:underline;text-underline-offset:3px}
+.irow.lrow span:first-child{max-width:70%}
+.irow.lrow small{display:block}
+.irow.lrow span:last-child{white-space:nowrap}
+.estt{font-weight:600;color:var(--terra-deep)}
+.srcs .line small{display:block}
+@media(hover:hover){.srcb:hover{color:var(--deep);text-decoration-style:solid}.irow.lrow small a:hover,.srcs a:hover{color:var(--deep)}}
+@media(max-width:600px){.srcb{display:inline-flex;align-items:center;min-height:44px}.irow.lrow span:first-child{max-width:62%}}
+

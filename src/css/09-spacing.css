@@ -1,0 +1,275 @@
+/* ===== spacing pass ===== */
+.sheet .advbtn{padding:16px 0;margin-top:8px;border-top:1px solid var(--line2)}
+.sheet .advbtn .advt small{margin-top:4px}
+.sheet .advbox{margin:4px 0 20px;padding:16px;border-radius:14px;background:#F6F5F2}
+.sheet .advbox .field:last-child{margin-bottom:0}
+.sheet .advbox .seg{background:#fff}
+.sheet .advbox .dsel{background:#fff}
+.btn.btn-s.addp{margin-top:4px}
+.btn.btn-s.addp+.alert.rtnote,.area+.alert.rtnote{margin-top:12px}
+.alert.rtnote{margin-bottom:0}
+.cmain>.linkrow.rl{margin-top:16px}
+.ferr{margin-top:8px}
+.pfdanger{padding:4px 0 8px}
+.pfdanger .lnk.danger{display:inline-flex;align-items:center;gap:8px;color:#A3352B;font-weight:600;font-size:14px;padding:8px 0;min-height:40px;text-decoration:none}
+.pfdanger .lnk.danger .i{width:16px;height:16px}
+.sheet .sact .prm{display:none}
+.lvrow .lvn b,.lvrow .lvn small{display:block}.lvrow .lvn small{margin:2px 0 0}
+
+.lvu .lvb.over>i{background:#C98A1E}
+.seg.pz{width:100%}
+.seg.pz button{flex:1}
+.sech.tsum+.tusage{margin-top:-4px}
+.field>label+.alert.info{margin-top:0}
+.lvu b.neg,.lvfree.neg{color:#8A5A12!important}
+.sheet>.advbox{margin:4px 24px 20px}
+.lauto{display:inline-flex;align-items:center;gap:8px;margin-top:8px;font-size:13px;font-weight:500;color:var(--ink2)}.lauto .lsy{width:10px;height:10px;border-radius:50%;background:var(--pos-fg,#12897F);box-shadow:0 0 0 4px rgba(18,137,127,.15)}
+@media(max-width:600px){.ph:has(>.phact){flex-wrap:wrap;row-gap:8px}.ph>.phact .btn.sm:only-child{white-space:nowrap}.ph:has([data-nreadall]) .phact{width:100%}.ph [data-nreadall]{background:none!important;padding:0!important;height:auto!important;color:var(--petrol);font-weight:600;text-decoration:underline;text-underline-offset:3px}}
+.sheet>.alert.info:first-of-type{margin-top:0}
+.sheet>.alert.info{margin:0 24px 20px!important}
+.alert.rtnote+.rcard.asmc,.alert.rtnote+.asmc{margin-top:12px}
+.ppl4 .tr.c4>.xtools{padding-left:42px}
+.cmain>.asmc{margin-top:12px}
+
+/* chips v2: readable on white and on beige */
+.pchip{background:#fff;border:1px solid rgba(13,58,62,.24);color:var(--ink);font-weight:500}
+.pchip.ai{background:#E8F3DB;border-color:#B9D696;color:#264A0A}
+.pchip b{color:inherit}
+.pchip.dnew{background:#E8F3DB;border:1px dashed #7FAE50;color:#264A0A}
+/* view selector: not full width on desktop */
+@media(min-width:601px){.seg.pz.pvs{display:inline-flex;width:auto}.seg.pz.pvs button{flex:0 0 auto;min-width:120px;padding-left:20px;padding-right:20px}}
+
+/* messages from people (Leadership / project lead) in quotation marks */
+.rvc .rvx>p:first-of-type::before{content:"«"}
+.rvc .rvx>p:first-of-type::after{content:"»"}
+
+/* home project card: team on the right */
+.hpf{align-items:flex-end}
+.hteamc{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.hteamc small{font-size:12px;color:var(--ink3)}
+.havs{display:flex}
+.hav{width:28px;height:28px;border-radius:50%;background:#EEF2F1;border:2px solid #fff;margin-left:-8px;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:10.5px;font-weight:600;color:var(--petrol);letter-spacing:.02em}
+.havs .hav:first-child{margin-left:0}
+.hav.nw{background:#fff;box-shadow:inset 0 0 0 1px rgba(13,58,62,.28);border-style:solid}
+.hav.nw .i{width:13px;height:13px;color:var(--ink3)}
+.hav.more{background:var(--petrol);color:#fff}
+
+.hav{box-sizing:border-box;flex:none;line-height:1}
+.hav.more{font-size:10.5px}
+.hpf>span:not(.hteamc){flex:none}
+@media(max-width:600px){.hpf{gap:16px}.hteamc small{display:none}.hav{width:26px;height:26px;font-size:10px}}
+
+.hteamc{gap:2px}
+.hav{width:24px;height:24px;padding:0;margin-left:-6px;font-size:9.5px}
+.hav.nw .i{width:12px;height:12px}
+.hav.more{background:#E3E9E8;color:var(--ink);font-size:9.5px;padding:0}
+@media(max-width:600px){.hav{width:24px;height:24px}}
+
+/* hover without underline: action links show a soft background (without moving the layout) */
+@media(hover:hover){
+.lnk:hover,.lk:hover,.more.lk:hover,.backl:hover,.rdel:hover,.advbtn:hover,.rvb3 .btn.rq:hover,.sheet .sact .btn.trhide:hover,.treq .trx .lnk.dng:hover,.asl li small a:hover,.asm .line small a:hover,.note.aiev a:hover{text-decoration:none!important}
+.srch:hover span,.treq.clk:hover .tlink,.arear:hover .atx b{text-decoration:none!important}
+.lnk:hover,.lk:hover,.more.lk:hover,.backl:hover,.rdel:hover,.rvb3 .btn.rq:hover,.sheet .sact .btn.trhide:hover,.treq .trx .lnk.dng:hover{background:rgba(13,58,62,.06)!important;box-shadow:0 0 0 5px rgba(13,58,62,.06);border-radius:6px}
+.lnk.dng:hover,.rdel:hover,.sheet .sact .btn.trhide:hover,.treq .trx .lnk.dng:hover,.lnk.danger:hover{background:rgba(181,69,58,.08)!important;box-shadow:0 0 0 5px rgba(181,69,58,.08)}
+.treq.clk:hover .tlink,.srch:hover span{color:var(--deep)}
+}
+@media(hover:hover){.btn.trhide:hover,.rvb3 .btn.rq:hover{box-shadow:none!important}}
+@media(hover:hover){.more.lk:hover,button.more:hover{box-shadow:none!important;background:transparent!important;color:var(--deep)}.more.lk:hover .i{transform:translateX(2px);transition:transform .15s}}
+
+.rqask{margin:20px 24px 0;padding:16px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.rql{display:block;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.rqrow{display:flex;flex-direction:column;gap:4px}.rqrow+.rqrow{margin-top:12px;padding-top:12px;border-top:1px solid var(--line2)}
+.rqrow b{font-size:15px;font-weight:600;color:var(--ink)}.rqrow>span:not(.pchips){font-size:13px;color:var(--ink2)}
+.rqrow .pchips{margin-top:6px}
+.rqopen{display:inline-flex;align-items:center;gap:4px;margin-top:14px;font-size:14px;font-weight:600;color:var(--petrol);padding:0;min-height:0}.rqopen .i{width:14px;height:14px}
+
+.card.ampc{margin-bottom:16px}
+.ampc .linkrow+.linkrow{border-top:0}
+.ampc .linkrow+.linkrow::before{content:"";position:absolute;top:0;left:8px;right:8px;height:1px;background:var(--line2)}
+
+/* what the project lead writes (beige) also goes in quotation marks, like what Leadership writes (green) */
+.just>p:first-of-type::before{content:"«"}.just>p:first-of-type::after{content:"»"}
+
+/* collapsible areas (project in progress) */
+.afold .afh{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;padding:0;margin:0;font:inherit;color:inherit;text-align:left;cursor:pointer}
+.afold:not(.open){padding-bottom:var(--afpb,inherit)}
+.afold:not(.open) .afh{margin-bottom:0}
+.afold .afs{margin-left:auto;display:flex;align-items:center;gap:16px}
+.afold .afm{font-size:13px;color:var(--ink3);white-space:nowrap}.afold .afm b{font-size:15px;font-weight:600;color:var(--ink)}
+.afold .afs>.i{width:18px;height:18px;color:var(--ink2);transition:transform .2s}
+.afold.open .afs>.i{transform:rotate(180deg)}
+@media(hover:hover){.afold .afh:hover h2{color:var(--deep)}.afold:not(.open):hover{border-color:var(--hover-bd)}}
+.afold .afh:focus-visible{outline:2px solid var(--acc);outline-offset:4px;border-radius:8px}
+@media(max-width:600px){.afold .havs{display:none}}
+
+.rcard.afold:not(.open){padding:18px 20px!important}
+.afold .afh h2{margin:0}
+@media(max-width:600px){.afold .afh h2{font-size:16px}.afold .afs{gap:10px}}
+
+.addrow{display:flex;gap:12px;margin:4px 0 16px}
+.addrow .btn.addp{flex:1 1 0;width:auto;min-width:0}
+.addrow .btn.resug{flex:1 1 0;height:50px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:500}
+.addrow .btn.resug .i{width:18px;height:18px}
+@media(max-width:600px){.addrow{flex-direction:column;gap:8px}.addrow .btn.addp,.addrow .btn.resug{flex:none;width:100%}}
+.addrow{align-items:stretch}.addrow .btn{margin:0!important;height:50px!important}
+
+/* hierarchy: «Añadir persona» leads; proposing again is a secondary action without a box */
+.addrow{align-items:center}
+.addrow .btn.resug{flex:none!important;width:auto;background:transparent!important;border:0;box-shadow:none;color:var(--petrol);font-weight:600;padding:0 14px;height:44px!important;border-radius:10px}
+@media(hover:hover){.addrow .btn.resug:hover{background:rgba(13,58,62,.06)!important}}
+@media(max-width:600px){.addrow{align-items:stretch}.addrow .btn.resug{align-self:center}}
+
+/* notificaciones: mismo aire a izquierda (icono) y derecha (papelera) */
+.nlist .nitem .nmain{padding-left:14px}
+.nitem .nact,.nitem.op .nact{right:7px}
+.nlist .nitem .nb{padding-right:56px}
+
+.gonel{display:flex;gap:8px;align-items:flex-start;margin:0 0 14px 56px;font-size:13px;color:var(--ink2);line-height:1.45}
+.gonel .i{width:16px;height:16px;flex:none;margin-top:1px;color:var(--ink3)}
+.gonel b{font-weight:600;color:var(--ink)}
+@media(max-width:600px){.gonel{margin-left:0}}
+
+/* text links: no box on hover (it looked like a button); the colour changes */
+@media(hover:hover){
+.lnk:hover,.lk:hover,.backl:hover,.rdel:hover,.treq .trx .lnk.dng:hover{background:transparent!important;box-shadow:none!important;color:var(--acc)!important}
+.lnk.dng:hover,.rdel:hover,.lnk.danger:hover,.treq .trx .lnk.dng:hover{color:#8F3329!important}
+.lnk:hover .i,.lk:hover .i,.backl:hover .i{color:inherit}
+}
+.lnk,.lk,.backl{transition:color .12s}
+
+.btn.btn-p.btn-dng{background:#A5432F;border-color:#A5432F;color:#fff}
+@media(hover:hover){.btn.btn-p.btn-dng:hover{background:#8F3329;border-color:#8F3329}}
+.sheet>.alert.lvwarn{margin:0 24px 20px}
+
+.pfnew{display:flex;align-items:flex-start;gap:10px;width:100%;padding:12px 14px;margin-top:6px;border:0;border-top:1px solid var(--line2);background:none;font:inherit;text-align:left;cursor:pointer;color:var(--petrol)}
+.pfnew .i{width:18px;height:18px;flex:none;margin-top:1px}
+.pfnew span{display:flex;flex-direction:column;font-size:14px;font-weight:600}.pfnew small{font-size:12px;font-weight:400;color:var(--ink3);margin-top:2px}
+@media(hover:hover){.pfnew:hover{background:var(--tint,#F2F6F5)}}
+.pfnbox{margin:6px 8px 8px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#FAFAF8}
+.pfnbox>b{display:block;font-size:14px;margin-bottom:10px}
+.pfnbox .field{margin:0 0 12px}
+.pfnact{display:flex;justify-content:flex-end;gap:8px}
+.pchip.preq{border-style:dashed;border-color:rgba(13,58,62,.4)}
+.pchip.preq.ai{border-color:#7FAE50}
+
+/* propuesta imprimible: estilo documento formal (blanco, tinta, reglas finas) */
+.xdoc{color:#111;font-size:12.5px}
+.xdoc .xdh{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding-bottom:18px;border-bottom:2px solid #0F2426}
+.xdoc .xbrand{display:flex;align-items:center;gap:10px}.xdoc .xiso{width:34px;height:34px}.xdoc .xlogo{height:15px;width:auto}
+.xdoc .xdt{text-align:right}.xdoc .xdt>b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.xdoc .xdt dl{display:grid;grid-template-columns:auto auto;gap:2px 12px;margin:0;justify-content:end;font-size:12px}
+.xdoc .xdt dt{color:#5b6466;text-align:right}.xdoc .xdt dd{margin:0;text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
+.xdoc h1{font-size:22px;margin:22px 0 14px;letter-spacing:-.01em}
+.xparties{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid #cfd4d4;margin-bottom:14px}
+.xparties>div{padding:10px 12px;border-left:1px solid #cfd4d4;display:flex;flex-direction:column;gap:1px}.xparties>div:first-child{border-left:0}
+.xparties small,.xsigns small{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#5b6466}
+.xparties b{font-size:13px;font-weight:600}.xparties span{font-size:11.5px;color:#5b6466}
+.xmeta{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:6px}
+.xmeta th{text-align:left;font-weight:500;color:#5b6466;padding:5px 10px 5px 0;width:16%;vertical-align:top;white-space:nowrap}
+.xmeta td{padding:5px 16px 5px 0;vertical-align:top}
+.xmeta tr+tr th,.xmeta tr+tr td{border-top:1px solid #e3e6e6}
+.xdoc h2{color:#111!important;font-size:11px!important;letter-spacing:.1em;margin:24px 0 6px!important;padding-bottom:6px;border-bottom:1px solid #0F2426}
+.xdoc .xt th{color:#5b6466;border-bottom:1px solid #cfd4d4}
+.xdoc .xt td{border-bottom:1px solid #e3e6e6}
+.xtotw{display:flex;justify-content:flex-end;margin-top:22px}
+.xtot{border-collapse:collapse;min-width:320px;font-size:12.5px}
+.xtot td{padding:5px 0}.xtot td.r{text-align:right;padding-left:32px;font-variant-numeric:tabular-nums}
+.xtot tr.sub td{border-top:1px solid #cfd4d4;font-weight:600}
+.xtot tr.grand td{border-top:2px solid #0F2426;border-bottom:2px solid #0F2426;font-weight:700;font-size:14px;padding:8px 0}
+.xtot tr.split td{font-size:11.5px;color:#5b6466;padding:3px 0}
+.xsigns{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:28px;break-inside:avoid}
+.xsigns>div{display:flex;flex-direction:column;gap:2px}
+.xsigns b{font-size:12.5px;font-weight:500}
+.xsigns i{display:block;height:44px;border-bottom:1px solid #111}
+.xsigns span{font-size:10.5px;color:#5b6466;margin-top:4px}
+.xsign.ok{margin-top:24px;padding:10px 12px;border:1px solid #cfd4d4;border-left:3px solid #0F2426;display:flex;flex-direction:column;gap:2px}
+.xsign.ok span{color:#5b6466;font-size:12px}
+.xdoc .xf{display:flex;justify-content:space-between;gap:16px;border-top:1px solid #cfd4d4;color:#5b6466}
+.xdoc .xa{color:#333}
+@media(max-width:700px){.xdoc .xdh{flex-direction:column}.xdoc .xdt{text-align:left}.xdoc .xdt dl{justify-content:start}.xdoc .xdt dt,.xdoc .xdt dd{text-align:left}.xparties{grid-template-columns:1fr}.xparties>div{border-left:0;border-top:1px solid #cfd4d4}.xparties>div:first-child{border-top:0}.xtot{min-width:0;width:100%}.xsigns{grid-template-columns:1fr}}
+@media print{.xdoc{font-size:11.5px}.xtot,.xsigns,.xparties,.xmeta{break-inside:avoid}}
+.xtot tr.sub td{color:#111}.xdoc .xa{padding-left:18px;margin-right:0}
+
+/* licence detail: the same small label + value pattern in every list; footer with icon and text together */
+.lvl2{margin-top:10px}
+.lvx .lfoot{justify-content:flex-start}
+.lvx .lfoot .lsync{display:inline-flex;align-items:center;gap:6px}
+.lvx .lfoot .lsync .i{color:var(--acc)}
+.lvl li{color:var(--ink);font-size:13px}
+
+/* hiring in progress: status strip with a clear action (not a standalone link) */
+.hirel.hirel2{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;margin:4px 0 0;padding:12px 14px;border-radius:12px;background:#F6F5F2;border:1px solid var(--line2)}
+.hirel2>.i{width:18px;height:18px;flex:none;color:var(--ink2);align-self:flex-start;margin-top:2px}
+.hirel2>span{display:flex;flex-direction:column;gap:2px;flex:1;min-width:0;white-space:normal!important}
+.hirel2 b{font-size:14px;font-weight:600;color:var(--ink)}
+.hirel2 small{font-size:12.5px;color:var(--ink3);line-height:1.4}
+.hirel2 .btn{flex:none;display:inline-flex;align-items:center;gap:6px;background:#fff}
+.hirel2 .btn .i{width:16px;height:16px}
+@media(max-width:600px){.hirel.hirel2{flex-wrap:wrap}.hirel2 .btn{width:100%;justify-content:center}}
+@media(min-width:601px){.prow .hirel.hirel2{margin-left:56px}}
+
+/* proposal: soft lines (grey-green) and the logo centred with the isotype */
+.xdoc .xdh{border-bottom:1px solid #C9DCD8;align-items:center}
+.xdoc .xbrand{align-items:center}
+.xdoc .xbrand .xlogo{display:block;align-self:center;margin:0!important}
+.xdoc .xbrand .xiso{display:block;margin:0}
+.xdoc h2{border-bottom:1px solid #D6E4E2!important}
+.xparties,.xparties>div{border-color:#D6E4E2!important}
+.xtot tr.grand td{border-top:1px solid #9FC1BB;border-bottom:1px solid #9FC1BB}
+.xsign.ok{border-color:#D6E4E2;border-left-color:var(--acc)}
+.xsigns i{border-bottom-color:#9FC1BB}
+
+.avs .asgq{display:inline-flex;margin-left:8px;font-size:13px;font-weight:600;color:var(--petrol);padding:0;min-height:0}
+.sheet>.alert.info{margin:0 24px 20px}
+
+/* option cards: thin border when selected too */
+.opcard{border-width:1px}
+.opcard[aria-checked="true"]{box-shadow:none!important;border-color:var(--pos-fg,#12897F)}
+
+/* «Ajustes por defecto» of a new project: card with an icon, no dividers around it */
+.sheet .advbtn.advcard{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:4px;background:#fff;text-align:left}
+.sheet .advbtn.advcard[aria-expanded="true"]{border-radius:14px 14px 0 0;border-bottom-color:transparent;background:#F6F5F2}
+.sheet .advcard .advic{width:36px;height:36px;border-radius:10px;background:#F1F3F2;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.sheet .advcard .advic .i{width:18px;height:18px;color:var(--petrol)}
+.sheet .advcard .advt{flex:1;min-width:0}
+@media(hover:hover){.sheet .advbtn.advcard:hover{border-color:var(--hover-bd);text-decoration:none!important}}
+.sheet .advcard[aria-expanded="true"]+.advbox{margin-top:-1px!important;border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px}
+.sheet .advcard~.sact{border-top:0!important}
+
+/* proposal: it's the company's document; HUMAIN only signs the footer */
+.xdoc .xorg{gap:12px}
+.xdoc .xolg{width:44px;height:44px;border-radius:10px;object-fit:cover;display:block}
+.xdoc .xoin{width:44px;height:44px;border-radius:10px;background:#0F2426;color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.xdoc .xon{display:flex;flex-direction:column;line-height:1.2}.xdoc .xon b{font-size:18px;font-weight:600}.xdoc .xon small{font-size:12px;color:#5b6466;margin-top:2px}
+.xdoc .xfby{display:inline-flex;align-items:center;gap:6px}.xdoc .xfiso{width:14px;height:14px;display:block}
+
+/* one-line summary: the card keeps its height when the option changes */
+.sheet .advcard .advt small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.sheet .advcard .advic{background:#E1EEEB;border:1px solid #C9DFDA}
+
+/* segmented selector: same height as buttons (44), not fields */
+.seg.pz{height:44px;box-sizing:border-box;padding:3px;align-items:stretch}
+.seg.pz button{height:auto!important;min-height:0!important;padding-top:0;padding-bottom:0}
+
+.fcount{display:flex;justify-content:space-between;gap:12px;margin:6px 0 0;font-size:12.5px;color:var(--ink3)}.fcount b{font-weight:500;color:var(--ink2)}
+/* very long old titles: at most two lines in headers and one in cards */
+.phw h1{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.pcard h2,.hpc .hpt b{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+
+.pfreg{margin-top:12px}.pfreg label{display:block;font-size:14px;color:var(--ink2);margin-bottom:6px}
+
+/* counter inside the label: separated, as a mini badge */
+.tusage .pchip b{margin-left:8px;padding:1px 7px;border-radius:99px;background:rgba(13,58,62,.08);font-size:12px;font-weight:600;line-height:1.4}
+.tusage .pchip.ai b{background:rgba(38,74,10,.1)}
+
+/* on the panel's beige, white elements get a border like fields */
+.advbox .advsr{border:1px solid rgba(13,58,62,.16)}
+.advbox .seg{box-shadow:inset 0 0 0 1px rgba(13,58,62,.16)}
+
+.pfdanger .lnk.danger .i,.pfdanger .lnk.danger svg{color:#A3352B!important}
+@media(hover:hover){.pfdanger .lnk.danger:hover,.pfdanger .lnk.danger:hover .i{color:#8F3329!important}}
+
+/* destructive links: like other text links, only the colour changes on hover */
+@media(hover:hover){.lnk.danger:hover,.lnk.dng:hover,.pfdanger .lnk.danger:hover{background:transparent!important;box-shadow:none!important}}
+

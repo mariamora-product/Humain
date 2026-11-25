@@ -1,0 +1,31 @@
+/* ===== Accessibility ===== */
+.skip{position:absolute;left:12px;top:-64px;z-index:100;background:var(--deep);color:#fff;padding:10px 16px;border-radius:10px;font-size:14px;text-decoration:none}
+.skip:focus{top:12px}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+#side :focus-visible,.hero2 :focus-visible,.sumbar :focus-visible,.procard :focus-visible,.isob:focus-visible,.dk:focus-visible{outline-color:var(--mist)}
+#app:focus,.sheet:focus{outline:0}
+.toast.out{opacity:0;transition:opacity .3s}
+.soonlbl{font-style:normal;font-size:11px;color:var(--ink3);margin-left:8px;font-weight:400}
+.amenu button:disabled{color:var(--ink3);cursor:default;background:none}
+.amenu .danger:disabled{color:var(--ink3)}
+.chip:disabled{cursor:not-allowed;color:var(--ink3)}
+.req{color:var(--err)}
+.sact{flex-wrap:wrap}
+.whyd{flex:none;width:100%;order:3;margin:2px 0 0;font-size:13px;color:var(--ink3);text-align:right}
+textarea.big{resize:vertical;font-family:inherit;height:auto;padding-top:12px;padding-bottom:12px}
+@media(max-width:600px){
+.btn,.btn.sm,.btn-l,.btn-g,.chip,.lnk,.seg button,.stp button,.ib,.ib.s,.ib.x,.inv .ib.s{min-height:44px}
+.ib,.ib.s,.ib.x,.inv .ib.s,.stp button{min-width:44px}
+.lnk{padding-top:0;padding-bottom:0}
+.tog{box-sizing:content-box;border:8px solid transparent;background-clip:padding-box;margin-top:-8px;margin-bottom:-8px}
+.topt,.thead,.ownchk,.addrole,.linkrow,.rp,.rtoggle,.ichip,.hin,.csel,.cd,.amenu button,.bell,.av,.isob,.skip,[data-series]{min-height:44px}
+.lk,.backl{display:inline-flex;align-items:center;min-height:44px}
+.pill.hire{border-top:11px solid transparent;border-bottom:11px solid transparent;background-clip:padding-box;margin:-11px 0}
+}
+
+@media(prefers-reduced-motion:reduce){
+.tog::after,
+#side,
+.tip,
+.toast.out{transition:none;animation:none}
+}

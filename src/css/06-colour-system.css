@@ -1,0 +1,69 @@
+/* ===== Refined colour system: neutral by default, petrol for the brand, colour only with meaning ===== */
+/* Surfaces and borders: hairline */
+.opt,.chip,.big,.csel,.hin,.ichip,.stp,.ib,.btn-s,.stp button{border-color:var(--ctl)}
+.opt,.chip,.big,.csel,.hin,.ichip,.stp,.btn-s,.big.md{border-width:1.5px}
+.ib{border-width:1px}
+.btn-s{background:#fff;color:var(--petrol);border-color:var(--ctl)}
+.addrole,.topt.other,.empty{border-color:var(--ctl)}
+.org.haslead>.rcard:not(.lead)::before{border-left-color:var(--ctl);border-bottom-color:var(--ctl)}
+.rcard.lead{background:var(--note-bg);border-color:var(--line)}
+.topt{background:var(--note-bg);border:1.5px solid transparent}
+.topt[aria-pressed=true]{background:#fff;border-color:var(--deep)}
+.pcard,.rcard,.card,.kpi,.tbl,.nlist,.lic,.side,.cblock,.plan,.tour-i,.alert,.amenu,.cal,.ccol,.paper{border-color:var(--line)}
+.ownchk input{border-color:var(--ctl)}
+.tr,.line,.pick,.pc2,.lctr,.lfoot,.cr,.igr,.advbtn,.rdone,.more{border-color:var(--line2)}
+.rcard.open{box-shadow:none}
+.cblock.hint{border-color:var(--hover-bd);box-shadow:none}
+/* Icons without a box: 18 px, fixed column */
+.pic .i,.nic .i,.opt .ic .i,.tour-ic .i{width:18px;height:18px}
+.arow .i,.rtoggle>.i,.rchev,.tdel,.alert .i{color:var(--icon)}
+.arow.warn .i,.alert.warn .i,.lup.warn>.i,.nitem.nalert .nic{color:var(--terra)}
+.arow.ok .i,.lnote .i,.lfoot .i,.wsmenu .i,.lup>.i{color:var(--icon)}
+.arow.ok .i{color:var(--pos-fg)}
+.plan li .i,.plan.rec li .i{color:var(--icon)}
+/* Notices: neutral for information, soft terracotta for alerts, no coloured border */
+.alert.ok,.lup,.cassume,.ftypes,.fseat{background:var(--note-bg);border:0}
+.alert.warn,.lup.warn{background:var(--warn-bg);border:0;color:var(--ink)}
+.ccol.ai{border-color:var(--ctl);background:var(--note-bg)}
+.cassume .stp{background:#fff}
+/* Labels: soft solid fills, no border, text in the darkest shade */
+.pill{background:var(--neu-bg);color:var(--neu-fg);border:0}
+.pill.active{background:var(--pos-bg);color:var(--pos-fg)}
+.pill.draft{background:var(--neu-bg);color:var(--neu-fg)}
+.pill.ai{background:var(--ai-bg);color:var(--ai-fg);gap:4px}
+.pill.ai,.tr .pill.ai,.cteam .pill.ai{display:inline-flex;align-items:center}
+.pill.ai .i{width:12px;height:12px}
+.pill.hire{background:var(--neg-bg);color:var(--neg-fg);border:0}
+.pill.hire.on{background:var(--pos-bg);color:var(--pos-fg)}
+.pill.warnp{background:var(--neu-bg);color:var(--neu-fg)}
+.dd.good,.cteam em,.rp em.lv1{background:var(--pos-bg);color:var(--pos-fg)}
+.dd.bad{background:var(--neg-bg);color:var(--neg-fg)}
+.dd.eq,.rp em{background:var(--neu-bg);color:var(--neu-fg)}
+.rp em.lv1{background:var(--ai-bg);color:var(--ai-fg)}
+.rp em.lv2{background:var(--petrol);color:#fff}
+.chip .cn{background:var(--cnt-bg);color:var(--cnt-fg);font-weight:500}
+.chip[aria-pressed=true] .cn,.chip[aria-pressed=true]:hover .cn{background:rgba(255,255,255,.18);color:#fff;font-weight:500}
+.chip:not(:disabled):not([aria-pressed=true]):hover .cn{background:var(--cnt-bg)}
+.estt{color:var(--neg-fg)}
+.neg,.lsum .bad,.lneed .bad,.nd{color:var(--neg-fg)}
+.chead.good,.mgline .ok,.ok,.row.ok span,.st em,.irow.okr span:last-child,.irow.okr.lrow span:last-child{color:var(--pos-fg)}
+/* Sidebar Premium card: translucent, no terracotta fill */
+/* Plans: a single accent (Premium) */
+.plan.rec{border-color:var(--terra);box-shadow:none}
+.plan .badge{background:var(--terra)}
+.plan>b .spark{fill:var(--terra)}
+.btn-pro{background:var(--petrol);color:#fff}
+.btn-del{background:var(--terra);color:#fff}
+@media(hover:hover){.btn-del:not(:disabled):hover{background:var(--terra-deep)}}
+.btn-del:not(:disabled):active{background:var(--neg-fg)}
+.lnk .i,.lk .i,.backl .i{color:var(--petrol)}
+.lnk.mute .i{color:var(--ink3)}
+/* Bars and tracks */
+.seat,.spb{background:var(--track)}
+.lctr,.lfoot{border-top-color:var(--line2)}
+.dot.l,.seats i.l,.seat i.l{box-shadow:inset 0 0 0 1.5px var(--ctl)}
+.tbox,.after,.advbox,.fcap{background:var(--note-bg)}
+.leg.tg button[aria-pressed=false] i{box-shadow:inset 0 0 0 1.5px var(--ctl)}
+.arow.ok{color:var(--ink)}
+.arow.ok .i{color:var(--icon)}
+
