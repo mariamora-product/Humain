@@ -157,9 +157,6 @@ const TC = {
   other: { n: "Otros programas", roles: [], optional: true, opts: [] },
 };
 
-/* generic tool icon by category (Unicons): stands in for the vendor's mark, which HUMAIN does not reproduce */
-const CATIC = { qa: "check-circle", ui: "palette", research: "users-alt", creative: "pen", stock: "image", imgai: "image", code: "brackets-curly", devices: "mobile-android", crm: "envelope", seo: "globe", pm: "layer-group", genai: "robot" };
-const catOf = (oid) => Object.keys(TC).find((k) => TC[k].opts.some((o) => o.id === oid));
 /* the vendor's own SVG, when the company adds it to assets/tools/ (names below); until then the category icon */
 const TOOLSVG = {
   figma_pro: "figma", figma_org: "figma", maze: "maze", hotjar: "contentsquare", cc_pro: "adobe-creative-cloud", cc_one: "adobe-creative-cloud",
@@ -619,15 +616,6 @@ const ARCH_ES = {
   manager: "Gestión de personas",
   head: "Dirección",
 };
-const LEADTXT = {
-  pdesign: "el diseño",
-  creative: "la creatividad",
-  eng: "la parte técnica",
-  data: "los datos",
-  qa: "la calidad",
-  mkt: "el marketing",
-  product: "el producto",
-};
 const AIDESC = {
   product: "Usa IA para redactar historias de usuario, resumir reuniones y analizar datos.",
   pdesign: "Usa IA para investigar, generar variantes y prototipar.",
@@ -637,7 +625,6 @@ const AIDESC = {
   qa: "Genera y mantiene pruebas automáticas con IA.",
   mkt: "Usa IA para redactar, adaptar contenidos y analizar campañas.",
 };
-const isLead = (id) => ["lead", "manager", "head"].includes(F(id).arch);
 /* Per-person monthly rate. Precedence: the role's own figure > the company rate (Ajustes · Tarifas de la empresa) > a custom role's rate > illustrative reference > null (no data).
    pr (optional) gives the default country (the paying company's). src: "Tu tarifa" | "Tarifa de tu empresa" | "Ilustrativo" | "Sin datos". */
 const gradeOf = (r) => {
@@ -726,20 +713,6 @@ function provBtn(r, pr, ri, short) {
   if (RT.src !== "Ref. de mercado" && RT.src !== "Estimación") return esc(t);
   return `<button class="lnk srcb ${RT.src === "Estimación" ? "est" : ""}" data-src="${esc(pr.id)}|${ri}" aria-haspopup="dialog" title="${esc(provTitle(r, pr))}">${esc(t)}</button>`;
 }
-function provSummary(pr) {
-  const c = { "Tu tarifa": 0, "Tarifa de tu empresa": 0, "Ref. de mercado": 0, Estimación: 0 };
-  pr.roles.forEach((r) => {
-    if (r.ct === "own") return;
-    const s = rateOf(r, pr).src;
-    if (s in c) c[s]++;
-  });
-  const parts = [];
-  if (c["Tu tarifa"]) parts.push(c["Tu tarifa"] + " con tu tarifa");
-  if (c["Tarifa de tu empresa"]) parts.push(c["Tarifa de tu empresa"] + " con la tarifa de tu empresa");
-  if (c["Ref. de mercado"]) parts.push(c["Ref. de mercado"] + " con ref. de mercado");
-  if (c.Estimación) parts.push(c.Estimación + " con estimación");
-  return parts.join(" · ");
-}
 const f2 = (x) => x.toFixed(2).replace(".", ",");
 const srcLink = (x) =>
   `<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.n)}${I("external-link-alt")}<span class="sr"> (se abre en una pestaña nueva)</span></a>`;
@@ -808,7 +781,6 @@ const dname = (r) => {
     g = f.gr.length && r.grade && r.grade !== "mid" ? GR[r.grade][0] + " " : "";
   return esc(g + t + (r.lead && f.arch === "ic" ? " · Lead" : "")); /* escaped: always used inside HTML */
 };
-const rname = dname;
 const CT = {
   free: ["Freelance", 0.92, 45, "Por proyecto o por horas. Factura sus horas; más flexible."],
   emp: ["Empleado", 1, 550, "Contrato laboral a jornada completa, gestionado con un proveedor de empleo (EOR)."],
@@ -2401,7 +2373,6 @@ function unregisterCustom() {
   registered.roles = [];
 }
 const seatsOf = (r) => r.n || 1; /* a role has one seat per person; a part-time (hours) role has one */
-const isoOk = (v) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) && !isNaN(new Date(v + "T12:00"));
 function repairRole(r, p) {
   if (MIG[r.id]) {
     const [nid, ex] = MIG[r.id];
@@ -2713,7 +2684,6 @@ const initials = (t) =>
     .join("")
     .slice(0, 2)
     .toUpperCase();
-const SPARK = `<svg class="spark" viewBox="-36 -36 72 72" aria-hidden="true"><path d="M-5.00 -17.35L-5.00 -17.27L-5.00 -17.19L-5.01 -17.12L-5.01 -17.04L-5.01 -16.96L-5.02 -16.89L-5.02 -16.81L-5.02 -16.73L-5.03 -16.66L-5.03 -16.58L-5.04 -16.50L-5.05 -16.43L-5.05 -16.35L-5.06 -16.27L-5.07 -16.20L-5.08 -16.12L-5.08 -16.05L-5.09 -15.97L-5.10 -15.89L-5.11 -15.82L-5.12 -15.74L-5.14 -15.67L-5.15 -15.59L-5.16 -15.51L-5.17 -15.44L-5.18 -15.36L-5.20 -15.29L-5.21 -15.21L-5.23 -15.14L-5.24 -15.06L-5.26 -14.99L-5.27 -14.91L-5.29 -14.84L-5.30 -14.76L-5.32 -14.69L-5.34 -14.61L-5.36 -14.54L-5.37 -14.46L-5.39 -14.39L-5.41 -14.31L-5.43 -14.24L-5.45 -14.17L-5.47 -14.09L-5.49 -14.02L-5.52 -13.94L-5.54 -13.87L-5.56 -13.80L-5.58 -13.72L-5.61 -13.65L-5.63 -13.58L-5.66 -13.51L-5.68 -13.43L-5.71 -13.36L-5.73 -13.29L-5.76 -13.22L-5.78 -13.14L-5.81 -13.07L-5.84 -13.00L-5.87 -12.93L-5.89 -12.86L-5.92 -12.79L-5.95 -12.72L-5.98 -12.65L-6.01 -12.58L-6.04 -12.50L-6.07 -12.43L-6.10 -12.36L-6.14 -12.29L-6.17 -12.22L-6.20 -12.16L-6.23 -12.09L-6.27 -12.02L-6.30 -11.95L-6.33 -11.88L-6.37 -11.81L-6.40 -11.74L-6.44 -11.68L-6.48 -11.61L-6.51 -11.54L-6.55 -11.47L-6.59 -11.41L-6.62 -11.34L-6.66 -11.27L-6.70 -11.21L-6.74 -11.14L-6.78 -11.07L-6.82 -11.01L-6.86 -10.94L-6.90 -10.88L-6.94 -10.81L-6.98 -10.75L-7.02 -10.68L-7.06 -10.62L-7.11 -10.56L-7.15 -10.49L-7.19 -10.43L-7.24 -10.37L-7.28 -10.30L-7.32 -10.24L-7.37 -10.18L-7.41 -10.12L-7.46 -10.05L-7.51 -9.99L-7.55 -9.93L-7.60 -9.87L-7.65 -9.81L-7.69 -9.75L-7.74 -9.69L-7.79 -9.63L-7.84 -9.57L-7.89 -9.51L-7.94 -9.45L-7.98 -9.39L-8.03 -9.34L-8.09 -9.28L-8.14 -9.22L-8.19 -9.16L-8.24 -9.11L-8.29 -9.05L-8.34 -8.99L-8.39 -8.94L-8.45 -8.88L-8.50 -8.83L-8.55 -8.77L-8.61 -8.72L-8.66 -8.66L-8.72 -8.61L-8.77 -8.55L-8.83 -8.50L-8.88 -8.45L-8.94 -8.39L-8.99 -8.34L-9.05 -8.29L-9.11 -8.24L-9.16 -8.19L-9.22 -8.14L-9.28 -8.09L-9.34 -8.03L-9.39 -7.98L-9.45 -7.94L-9.51 -7.89L-9.57 -7.84L-9.63 -7.79L-9.69 -7.74L-9.75 -7.69L-9.81 -7.65L-9.87 -7.60L-9.93 -7.55L-9.99 -7.51L-10.05 -7.46L-10.12 -7.41L-10.18 -7.37L-10.24 -7.32L-10.30 -7.28L-10.37 -7.24L-10.43 -7.19L-10.49 -7.15L-10.56 -7.11L-10.62 -7.06L-10.68 -7.02L-10.75 -6.98L-10.81 -6.94L-10.88 -6.90L-10.94 -6.86L-11.01 -6.82L-11.07 -6.78L-11.14 -6.74L-11.21 -6.70L-11.27 -6.66L-11.34 -6.62L-11.41 -6.59L-11.47 -6.55L-11.54 -6.51L-11.61 -6.48L-11.68 -6.44L-11.74 -6.40L-11.81 -6.37L-11.88 -6.33L-11.95 -6.30L-12.02 -6.27L-12.09 -6.23L-12.16 -6.20L-12.22 -6.17L-12.29 -6.14L-12.36 -6.10L-12.43 -6.07L-12.50 -6.04L-12.58 -6.01L-12.65 -5.98L-12.72 -5.95L-12.79 -5.92L-12.86 -5.89L-12.93 -5.87L-13.00 -5.84L-13.07 -5.81L-13.14 -5.78L-13.22 -5.76L-13.29 -5.73L-13.36 -5.71L-13.43 -5.68L-13.51 -5.66L-13.58 -5.63L-13.65 -5.61L-13.72 -5.58L-13.80 -5.56L-13.87 -5.54L-13.94 -5.52L-14.02 -5.49L-14.09 -5.47L-14.17 -5.45L-14.24 -5.43L-14.31 -5.41L-14.39 -5.39L-14.46 -5.37L-14.54 -5.36L-14.61 -5.34L-14.69 -5.32L-14.76 -5.30L-14.84 -5.29L-14.91 -5.27L-14.99 -5.26L-15.06 -5.24L-15.14 -5.23L-15.21 -5.21L-15.29 -5.20L-15.36 -5.18L-15.44 -5.17L-15.51 -5.16L-15.59 -5.15L-15.67 -5.14L-15.74 -5.12L-15.82 -5.11L-15.89 -5.10L-15.97 -5.09L-16.05 -5.08L-16.12 -5.08L-16.20 -5.07L-16.27 -5.06L-16.35 -5.05L-16.43 -5.05L-16.50 -5.04L-16.58 -5.03L-16.66 -5.03L-16.73 -5.02L-16.81 -5.02L-16.89 -5.02L-16.96 -5.01L-17.04 -5.01L-17.12 -5.01L-17.19 -5.00L-17.27 -5.00L-17.35 -5.00L-17.42 -5.00L-17.50 -5.00L-35.00 -5.00L-35.00 5.00L-17.50 5.00L-17.42 5.00L-17.35 5.00L-17.27 5.00L-17.19 5.00L-17.12 5.01L-17.04 5.01L-16.96 5.01L-16.89 5.02L-16.81 5.02L-16.73 5.02L-16.66 5.03L-16.58 5.03L-16.50 5.04L-16.43 5.05L-16.35 5.05L-16.27 5.06L-16.20 5.07L-16.12 5.08L-16.05 5.08L-15.97 5.09L-15.89 5.10L-15.82 5.11L-15.74 5.12L-15.67 5.14L-15.59 5.15L-15.51 5.16L-15.44 5.17L-15.36 5.18L-15.29 5.20L-15.21 5.21L-15.14 5.23L-15.06 5.24L-14.99 5.26L-14.91 5.27L-14.84 5.29L-14.76 5.30L-14.69 5.32L-14.61 5.34L-14.54 5.36L-14.46 5.37L-14.39 5.39L-14.31 5.41L-14.24 5.43L-14.17 5.45L-14.09 5.47L-14.02 5.49L-13.94 5.52L-13.87 5.54L-13.80 5.56L-13.72 5.58L-13.65 5.61L-13.58 5.63L-13.51 5.66L-13.43 5.68L-13.36 5.71L-13.29 5.73L-13.22 5.76L-13.14 5.78L-13.07 5.81L-13.00 5.84L-12.93 5.87L-12.86 5.89L-12.79 5.92L-12.72 5.95L-12.65 5.98L-12.58 6.01L-12.50 6.04L-12.43 6.07L-12.36 6.10L-12.29 6.14L-12.22 6.17L-12.16 6.20L-12.09 6.23L-12.02 6.27L-11.95 6.30L-11.88 6.33L-11.81 6.37L-11.74 6.40L-11.68 6.44L-11.61 6.48L-11.54 6.51L-11.47 6.55L-11.41 6.59L-11.34 6.62L-11.27 6.66L-11.21 6.70L-11.14 6.74L-11.07 6.78L-11.01 6.82L-10.94 6.86L-10.88 6.90L-10.81 6.94L-10.75 6.98L-10.68 7.02L-10.62 7.06L-10.56 7.11L-10.49 7.15L-10.43 7.19L-10.37 7.24L-10.30 7.28L-10.24 7.32L-10.18 7.37L-10.12 7.41L-10.05 7.46L-9.99 7.51L-9.93 7.55L-9.87 7.60L-9.81 7.65L-9.75 7.69L-9.69 7.74L-9.63 7.79L-9.57 7.84L-9.51 7.89L-9.45 7.94L-9.39 7.98L-9.34 8.03L-9.28 8.09L-9.22 8.14L-9.16 8.19L-9.11 8.24L-9.05 8.29L-8.99 8.34L-8.94 8.39L-8.88 8.45L-8.83 8.50L-8.77 8.55L-8.72 8.61L-8.66 8.66L-8.61 8.72L-8.55 8.77L-8.50 8.83L-8.45 8.88L-8.39 8.94L-8.34 8.99L-8.29 9.05L-8.24 9.11L-8.19 9.16L-8.14 9.22L-8.09 9.28L-8.03 9.34L-7.98 9.39L-7.94 9.45L-7.89 9.51L-7.84 9.57L-7.79 9.63L-7.74 9.69L-7.69 9.75L-7.65 9.81L-7.60 9.87L-7.55 9.93L-7.51 9.99L-7.46 10.05L-7.41 10.12L-7.37 10.18L-7.32 10.24L-7.28 10.30L-7.24 10.37L-7.19 10.43L-7.15 10.49L-7.11 10.56L-7.06 10.62L-7.02 10.68L-6.98 10.75L-6.94 10.81L-6.90 10.88L-6.86 10.94L-6.82 11.01L-6.78 11.07L-6.74 11.14L-6.70 11.21L-6.66 11.27L-6.62 11.34L-6.59 11.41L-6.55 11.47L-6.51 11.54L-6.48 11.61L-6.44 11.68L-6.40 11.74L-6.37 11.81L-6.33 11.88L-6.30 11.95L-6.27 12.02L-6.23 12.09L-6.20 12.16L-6.17 12.22L-6.14 12.29L-6.10 12.36L-6.07 12.43L-6.04 12.50L-6.01 12.58L-5.98 12.65L-5.95 12.72L-5.92 12.79L-5.89 12.86L-5.87 12.93L-5.84 13.00L-5.81 13.07L-5.78 13.14L-5.76 13.22L-5.73 13.29L-5.71 13.36L-5.68 13.43L-5.66 13.51L-5.63 13.58L-5.61 13.65L-5.58 13.72L-5.56 13.80L-5.54 13.87L-5.52 13.94L-5.49 14.02L-5.47 14.09L-5.45 14.17L-5.43 14.24L-5.41 14.31L-5.39 14.39L-5.37 14.46L-5.36 14.54L-5.34 14.61L-5.32 14.69L-5.30 14.76L-5.29 14.84L-5.27 14.91L-5.26 14.99L-5.24 15.06L-5.23 15.14L-5.21 15.21L-5.20 15.29L-5.18 15.36L-5.17 15.44L-5.16 15.51L-5.15 15.59L-5.14 15.67L-5.12 15.74L-5.11 15.82L-5.10 15.89L-5.09 15.97L-5.08 16.05L-5.08 16.12L-5.07 16.20L-5.06 16.27L-5.05 16.35L-5.05 16.43L-5.04 16.50L-5.03 16.58L-5.03 16.66L-5.02 16.73L-5.02 16.81L-5.02 16.89L-5.01 16.96L-5.01 17.04L-5.01 17.12L-5.00 17.19L-5.00 17.27L-5.00 17.35L-5.00 17.42L-5.00 17.50L-5.00 35.00L5.00 35.00L5.00 17.50L5.00 17.42L5.00 17.35L5.00 17.27L5.00 17.19L5.01 17.12L5.01 17.04L5.01 16.96L5.02 16.89L5.02 16.81L5.02 16.73L5.03 16.66L5.03 16.58L5.04 16.50L5.05 16.43L5.05 16.35L5.06 16.27L5.07 16.20L5.08 16.12L5.08 16.05L5.09 15.97L5.10 15.89L5.11 15.82L5.12 15.74L5.14 15.67L5.15 15.59L5.16 15.51L5.17 15.44L5.18 15.36L5.20 15.29L5.21 15.21L5.23 15.14L5.24 15.06L5.26 14.99L5.27 14.91L5.29 14.84L5.30 14.76L5.32 14.69L5.34 14.61L5.36 14.54L5.37 14.46L5.39 14.39L5.41 14.31L5.43 14.24L5.45 14.17L5.47 14.09L5.49 14.02L5.52 13.94L5.54 13.87L5.56 13.80L5.58 13.72L5.61 13.65L5.63 13.58L5.66 13.51L5.68 13.43L5.71 13.36L5.73 13.29L5.76 13.22L5.78 13.14L5.81 13.07L5.84 13.00L5.87 12.93L5.89 12.86L5.92 12.79L5.95 12.72L5.98 12.65L6.01 12.58L6.04 12.50L6.07 12.43L6.10 12.36L6.14 12.29L6.17 12.22L6.20 12.16L6.23 12.09L6.27 12.02L6.30 11.95L6.33 11.88L6.37 11.81L6.40 11.74L6.44 11.68L6.48 11.61L6.51 11.54L6.55 11.47L6.59 11.41L6.62 11.34L6.66 11.27L6.70 11.21L6.74 11.14L6.78 11.07L6.82 11.01L6.86 10.94L6.90 10.88L6.94 10.81L6.98 10.75L7.02 10.68L7.06 10.62L7.11 10.56L7.15 10.49L7.19 10.43L7.24 10.37L7.28 10.30L7.32 10.24L7.37 10.18L7.41 10.12L7.46 10.05L7.51 9.99L7.55 9.93L7.60 9.87L7.65 9.81L7.69 9.75L7.74 9.69L7.79 9.63L7.84 9.57L7.89 9.51L7.94 9.45L7.98 9.39L8.03 9.34L8.09 9.28L8.14 9.22L8.19 9.16L8.24 9.11L8.29 9.05L8.34 8.99L8.39 8.94L8.45 8.88L8.50 8.83L8.55 8.77L8.61 8.72L8.66 8.66L8.72 8.61L8.77 8.55L8.83 8.50L8.88 8.45L8.94 8.39L8.99 8.34L9.05 8.29L9.11 8.24L9.16 8.19L9.22 8.14L9.28 8.09L9.34 8.03L9.39 7.98L9.45 7.94L9.51 7.89L9.57 7.84L9.63 7.79L9.69 7.74L9.75 7.69L9.81 7.65L9.87 7.60L9.93 7.55L9.99 7.51L10.05 7.46L10.12 7.41L10.18 7.37L10.24 7.32L10.30 7.28L10.37 7.24L10.43 7.19L10.49 7.15L10.56 7.11L10.62 7.06L10.68 7.02L10.75 6.98L10.81 6.94L10.88 6.90L10.94 6.86L11.01 6.82L11.07 6.78L11.14 6.74L11.21 6.70L11.27 6.66L11.34 6.62L11.41 6.59L11.47 6.55L11.54 6.51L11.61 6.48L11.68 6.44L11.74 6.40L11.81 6.37L11.88 6.33L11.95 6.30L12.02 6.27L12.09 6.23L12.16 6.20L12.22 6.17L12.29 6.14L12.36 6.10L12.43 6.07L12.50 6.04L12.58 6.01L12.65 5.98L12.72 5.95L12.79 5.92L12.86 5.89L12.93 5.87L13.00 5.84L13.07 5.81L13.14 5.78L13.22 5.76L13.29 5.73L13.36 5.71L13.43 5.68L13.51 5.66L13.58 5.63L13.65 5.61L13.72 5.58L13.80 5.56L13.87 5.54L13.94 5.52L14.02 5.49L14.09 5.47L14.17 5.45L14.24 5.43L14.31 5.41L14.39 5.39L14.46 5.37L14.54 5.36L14.61 5.34L14.69 5.32L14.76 5.30L14.84 5.29L14.91 5.27L14.99 5.26L15.06 5.24L15.14 5.23L15.21 5.21L15.29 5.20L15.36 5.18L15.44 5.17L15.51 5.16L15.59 5.15L15.67 5.14L15.74 5.12L15.82 5.11L15.89 5.10L15.97 5.09L16.05 5.08L16.12 5.08L16.20 5.07L16.27 5.06L16.35 5.05L16.43 5.05L16.50 5.04L16.58 5.03L16.66 5.03L16.73 5.02L16.81 5.02L16.89 5.02L16.96 5.01L17.04 5.01L17.12 5.01L17.19 5.00L17.27 5.00L17.35 5.00L17.42 5.00L17.50 5.00L35.00 5.00L35.00 -5.00L17.50 -5.00L17.42 -5.00L17.35 -5.00L17.27 -5.00L17.19 -5.00L17.12 -5.01L17.04 -5.01L16.96 -5.01L16.89 -5.02L16.81 -5.02L16.73 -5.02L16.66 -5.03L16.58 -5.03L16.50 -5.04L16.43 -5.05L16.35 -5.05L16.27 -5.06L16.20 -5.07L16.12 -5.08L16.05 -5.08L15.97 -5.09L15.89 -5.10L15.82 -5.11L15.74 -5.12L15.67 -5.14L15.59 -5.15L15.51 -5.16L15.44 -5.17L15.36 -5.18L15.29 -5.20L15.21 -5.21L15.14 -5.23L15.06 -5.24L14.99 -5.26L14.91 -5.27L14.84 -5.29L14.76 -5.30L14.69 -5.32L14.61 -5.34L14.54 -5.36L14.46 -5.37L14.39 -5.39L14.31 -5.41L14.24 -5.43L14.17 -5.45L14.09 -5.47L14.02 -5.49L13.94 -5.52L13.87 -5.54L13.80 -5.56L13.72 -5.58L13.65 -5.61L13.58 -5.63L13.51 -5.66L13.43 -5.68L13.36 -5.71L13.29 -5.73L13.22 -5.76L13.14 -5.78L13.07 -5.81L13.00 -5.84L12.93 -5.87L12.86 -5.89L12.79 -5.92L12.72 -5.95L12.65 -5.98L12.58 -6.01L12.50 -6.04L12.43 -6.07L12.36 -6.10L12.29 -6.14L12.22 -6.17L12.16 -6.20L12.09 -6.23L12.02 -6.27L11.95 -6.30L11.88 -6.33L11.81 -6.37L11.74 -6.40L11.68 -6.44L11.61 -6.48L11.54 -6.51L11.47 -6.55L11.41 -6.59L11.34 -6.62L11.27 -6.66L11.21 -6.70L11.14 -6.74L11.07 -6.78L11.01 -6.82L10.94 -6.86L10.88 -6.90L10.81 -6.94L10.75 -6.98L10.68 -7.02L10.62 -7.06L10.56 -7.11L10.49 -7.15L10.43 -7.19L10.37 -7.24L10.30 -7.28L10.24 -7.32L10.18 -7.37L10.12 -7.41L10.05 -7.46L9.99 -7.51L9.93 -7.55L9.87 -7.60L9.81 -7.65L9.75 -7.69L9.69 -7.74L9.63 -7.79L9.57 -7.84L9.51 -7.89L9.45 -7.94L9.39 -7.98L9.34 -8.03L9.28 -8.09L9.22 -8.14L9.16 -8.19L9.11 -8.24L9.05 -8.29L8.99 -8.34L8.94 -8.39L8.88 -8.45L8.83 -8.50L8.77 -8.55L8.72 -8.61L8.66 -8.66L8.61 -8.72L8.55 -8.77L8.50 -8.83L8.45 -8.88L8.39 -8.94L8.34 -8.99L8.29 -9.05L8.24 -9.11L8.19 -9.16L8.14 -9.22L8.09 -9.28L8.03 -9.34L7.98 -9.39L7.94 -9.45L7.89 -9.51L7.84 -9.57L7.79 -9.63L7.74 -9.69L7.69 -9.75L7.65 -9.81L7.60 -9.87L7.55 -9.93L7.51 -9.99L7.46 -10.05L7.41 -10.12L7.37 -10.18L7.32 -10.24L7.28 -10.30L7.24 -10.37L7.19 -10.43L7.15 -10.49L7.11 -10.56L7.06 -10.62L7.02 -10.68L6.98 -10.75L6.94 -10.81L6.90 -10.88L6.86 -10.94L6.82 -11.01L6.78 -11.07L6.74 -11.14L6.70 -11.21L6.66 -11.27L6.62 -11.34L6.59 -11.41L6.55 -11.47L6.51 -11.54L6.48 -11.61L6.44 -11.68L6.40 -11.74L6.37 -11.81L6.33 -11.88L6.30 -11.95L6.27 -12.02L6.23 -12.09L6.20 -12.16L6.17 -12.22L6.14 -12.29L6.10 -12.36L6.07 -12.43L6.04 -12.50L6.01 -12.58L5.98 -12.65L5.95 -12.72L5.92 -12.79L5.89 -12.86L5.87 -12.93L5.84 -13.00L5.81 -13.07L5.78 -13.14L5.76 -13.22L5.73 -13.29L5.71 -13.36L5.68 -13.43L5.66 -13.51L5.63 -13.58L5.61 -13.65L5.58 -13.72L5.56 -13.80L5.54 -13.87L5.52 -13.94L5.49 -14.02L5.47 -14.09L5.45 -14.17L5.43 -14.24L5.41 -14.31L5.39 -14.39L5.37 -14.46L5.36 -14.54L5.34 -14.61L5.32 -14.69L5.30 -14.76L5.29 -14.84L5.27 -14.91L5.26 -14.99L5.24 -15.06L5.23 -15.14L5.21 -15.21L5.20 -15.29L5.18 -15.36L5.17 -15.44L5.16 -15.51L5.15 -15.59L5.14 -15.67L5.12 -15.74L5.11 -15.82L5.10 -15.89L5.09 -15.97L5.08 -16.05L5.08 -16.12L5.07 -16.20L5.06 -16.27L5.05 -16.35L5.05 -16.43L5.04 -16.50L5.03 -16.58L5.03 -16.66L5.02 -16.73L5.02 -16.81L5.02 -16.89L5.01 -16.96L5.01 -17.04L5.01 -17.12L5.00 -17.19L5.00 -17.27L5.00 -17.35L5.00 -17.42L5.00 -17.50L5.00 -35.00L-5.00 -35.00L-5.00 -17.50L-5.00 -17.42Z"/></svg>`;
 const plazo = (pr) =>
   pr.end
     ? "Hasta el " + fdate(pr.end)
@@ -2730,47 +2700,6 @@ const price = (o) =>
     : o.p === 0
     ? "Gratis"
     : `${eur(toEUR(o.id, o.p))}<small>${o.once ? " pago único" : "/" + (o.unit === "plan" ? "mes" : "persona·mes")}</small>`;
-/* who already has a seat, by first name when they are few */
-const hasNames = (t) => {
-  const ns = (t.hasP || []).map((pid) => (PERSON(pid) || { name: "" }).name.split(" ")[0]).filter(Boolean);
-  return ns.length && ns.length <= 2 ? ns.join(" y ") + (ns.length > 1 ? " ya lo tienen" : " ya lo tiene") : `${t.has} ya lo tienen`;
-};
-function toolState(pr, K, id) {
-  const t = K.tools.find((x) => x.id === id);
-  if (!t) return "";
-  const live = pr.status === "active",
-    pl = (n, a, b) => (n > 1 ? b : a);
-  if (t.own) return "<em>Propia del proyecto</em>";
-  const parts = [];
-  if (t.has) parts.push(hasNames(t));
-  if (t.pool) parts.push(live ? `${t.pool} de tu contrato` : `${t.pool} libre${pl(t.pool, "", "s")} que ya pagas`);
-  const ok = parts.length ? `<em>${parts.join(" · ")}</em>` : "";
-  if (!t.buy) return ok ? `${ok}${t.q > 0 ? " · sin coste extra" : ""}` : "";
-  const nb = live ? `${t.buy} por añadir al contrato` : `${t.buy} nuevo${pl(t.buy, "", "s")} a ${eur(toEUR(t.id, opt(t.id).p))}`;
-  return ok ? `${ok} + ${nb}` : `${nb}${live ? "" : " · no quedan libres en la empresa"}`;
-}
-function catHTML(pr, K, key, ck, sel, q, who) {
-  const c = TC[ck],
-    o = opt(sel),
-    open = V.open === key + "|" + ck,
-    st = o ? toolState(pr, K, o.id) : "";
-  const fr = o && isFig(o.id) && key !== "s" && pr.roles[key] ? FIGT[figType(pr.roles[key])] : null;
-  return `<div class="tcat"><button class="thead rl" data-open="${key}|${ck}"><span><small>${c.n}${c.ai ? " · IA" : ""}</small><span class="tnm">${o ? toolIc(o.id) + esc(o.n) : "Ninguna"}</span>${st ? `<small class="st">${st}</small>` : ""}</span><span class="tp">${o ? price(o) : ""}</span>${I(open ? "angle-up" : "angle-down")}</button>${
-    open
-      ? `<div class="tlist">${c.opts
-          .map((x) => {
-            const f = freeSeatsFor(x.id, pr),
-              b = `<button class="topt" data-tsel="${key}|${ck}|${x.id}" aria-pressed="${sel === x.id}"><span>${esc(x.n)}<small>${f ? `<b class="ok">${f} asiento${f > 1 ? "s" : ""} libre${f > 1 ? "s" : ""} ya pagado${f > 1 ? "s" : ""}</b> · ` : ""}${esc(x.note || "")}</small></span><span class="tp">${price(x)}</span></button>`;
-            return /^c\d+$/.test(x.id)
-              ? `<div class="toptw">${b}<button class="ib s tdel" data-deltool="${x.id}" aria-label="Eliminar ${esc(x.n)} del catálogo">${I("trash-alt")}</button></div>`
-              : b;
-          })
-          .join(
-            "",
-          )}${c.optional ? `<button class="topt" data-tsel="${key}|${ck}|" aria-pressed="${!sel}"><span>Ninguna</span></button>` : ""}<button class="topt other" data-othertool="${key}|${ck}"><span>Otra herramienta</span></button>${o && o.p > 0 ? `<label class="ownchk"><input type="checkbox" data-ownp="${o.id}" ${(pr.own || []).includes(o.id) ? "checked" : ""}/> Ya tenemos ${esc(o.n)} para este proyecto</label>` : ""}</div>`
-      : ""
-  }${fr ? `<p class="fseat">Asiento recomendado para este puesto: <b>${fr[0]}</b> (${fr[2]}) · ${eur(figSeat(o.id, figType(pr.roles[key])))}/mes con pago anual</p>` : ""}${o && o.p > 0 && o.unit !== "plan" && !(pr.own || []).includes(o.id) ? `<div class="line"><span>Asientos <small>${who}</small></span>${stp(`qty="${key}|${ck}"`, q, 0, 40, "asientos")}</div>` : ""}</div>`;
-}
 function scoped() {
   return D.projects.filter((p) => inEnt(p) && !p.archived && canSee(p));
 }
@@ -3009,11 +2938,6 @@ const pmenu = (p, cls = "") => {
   /* in lists of cards the ⋯ is always there, even with one action, so every card looks the same */
   return `<div class="pmw ${cls}"><button class="ib s" data-pmenu="${p.id}" aria-label="Más acciones de ${esc(p.name)}" aria-haspopup="menu" aria-expanded="${open}">${I("ellipsis")}</button>${open ? `<div class="amenu pm" role="menu">${items}</div>` : ""}</div>`;
 };
-const rowMenu = (key, x, cov) => {
-  const open = V.menu === "rm:" + key,
-    nm = x.noname ? "Sin nombre" : esc(x.name);
-  return `<div class="pmw rmw"><button class="ib s" data-rmenu="${key}" aria-label="Más acciones de ${nm}" title="Más acciones" aria-haspopup="menu" aria-expanded="${open}">${I("ellipsis-h")}</button>${open ? `<div class="amenu pm" role="menu"><button role="menuitem" data-coveredit="${cov}"><span>${x.noname ? "Poner nombre" : "Cambiar persona"}</span></button><button role="menuitem" class="danger" data-uncover="${cov}"><span>Quitar del puesto<small>El puesto vuelve a quedar por cubrir</small></span></button></div>` : ""}</div>`;
-};
 function projCard(p) {
   const c = cost(p);
   return `<div class="pcw ${p.archived ? "arch" : ""}"><button class="pcard" data-openp="${p.id}"><div class="pc1"><span class="pic">${I(p.parent ? "pen" : TYPES[p.type][0])}</span><div><h2>${p.parent ? "Cambios en «" + esc(p.name) + "»" : esc(p.name)}</h2><small>${isBoard() ? esc(p.owner) + " · " : ""}${plazo(p)}${p.start ? " · " + startLabel(p) : ""}</small></div>${stPill(p)}</div><div class="pc2"><span>${c.ppl} puesto${c.ppl !== 1 ? "s" : ""} · inversión nueva ${eur(c.og ? c.inv : c.invTotal)}${c.og ? "/mes" : ""}</span><b>${eur(c.monthly)}<small>/mes</small></b></div></button>${pmenu(p)}</div>`;
@@ -3080,8 +3004,6 @@ const tact = (lead, t) => {
     mine = (D.people || []).filter((x) => x.team === lead && areaOf(x) === t);
   return `<div class="pmw tact"><button class="ib" data-pmenu="${k}" aria-label="Acciones de ${esc(t)}" aria-haspopup="menu" aria-expanded="${V.menu === "pm:" + lead + "||" + t}">${I("ellipsis")}</button>${V.menu === "pm:" + lead + "||" + t ? `<div class="amenu pm" role="menu"><button role="menuitem" data-addperson="${esc(k)}">${I(EVIC.hire)}Añadir persona</button>${isBoard() ? "" : `${mine.some((x) => isOpen(x.id)) ? `<button role="menuitem" data-asgopen="${k}">${I(EVIC.assign)}Asignar a un proyecto</button>` : ""}${mine.some((x) => projectsOf(x.id).some((q) => q.owner === meName())) ? `<button role="menuitem" data-pxopen="${k}">${I(EVIC.unassign)}Sacar de un proyecto</button>` : ""}<button role="menuitem" class="danger" data-leaveopen="${k}">${I(EVIC.leave)}Dar de baja a alguien</button>`}</div>` : ""}</div>`;
 };
-const emptyTeam = (lead, t, who) =>
-  `<div class="tbl pgrp ppl4"><div class="pgh"><b>${esc(t)}</b><small>${who ? esc(who) + " · " : ""}sin personas</small></div><div class="tempty"><span class="tei" aria-hidden="true">${I("users-alt")}</span><b>Aún no hay nadie en ${esc(t)}</b>${isBoard() ? `<p>Añade a quien ya trabaja en la empresa.</p><button class="btn btn-s sm" data-addperson="${esc(lead + "||" + t)}">Añadir persona</button>` : `<p>Añade a quien ya trabaja en tu equipo. Las contrataciones nuevas se piden desde un proyecto.</p><button class="btn btn-s sm" data-addperson="${esc(lead + "||" + t)}">Añadir persona</button>`}</div></div>`;
 /* a monthly cost is real (someone typed it), an estimate (market reference) or missing */
 const costOf = (x) => {
   if (x.cost > 0) return { v: x.cost, k: "real" };
@@ -3154,7 +3076,6 @@ function pagePeople() {
         return out.join("") + (fr.length ? tbl(fr, `<b>Sin proyecto</b>${sub(fr, true)}`) : "");
       }
       /* teams the Responsable (or Dirección) created: their own group, before the areas; people placed in one leave their area group */
-      /* «Nuevo equipo» is gone: people are grouped only by area, which comes from their puesto */
       const own = [],
         inOwn = (x) => own.includes(x.unit);
       return (
@@ -3266,13 +3187,6 @@ const personReqs = (all) =>
         par = D.projects.find((q) => q.id === c.parent);
       return { id: c.id, kind: "person", why: (c.justif || "").trim(), fid: c.roles[0].id, asg: ((c.roles[0].fill || [])[0] || {}).src === "mine" ? (PERSON(c.roles[0].fill[0].pid) || {}).name || "persona" : "", by: c.owner, ts: c.sentAt, status: st === "rejected" ? "rejected" : ["approved", "active"].includes(st) ? "approved" : "pending", comment: (c.review && c.review.comment) || "", forName: "Para «" + (par ? par.name : "proyecto") + "»", remindedAt: c.remindedAt, amend: true, hid: c.hidReq || [] };
     });
-/* «Para Ana, Luis y Pau»: a small stack of initials and the names, shortened when there are many */
-function whoAv(who) {
-  const ns = String(who).split(/,\s*| y /).map((x) => x.trim()).filter(Boolean);
-  if (!ns.length) return "";
-  const txt = ns.length <= 2 ? ns.join(" y ") : `${ns[0]} y ${ns.length - 1} más`;
-  return `<span class="trwho"><span class="avg" aria-hidden="true">${ns.slice(0, 3).map((n) => `<i>${esc(initials(n))}</i>`).join("")}</span>Para ${esc(txt)}</span> · `;
-}
 function toolReqHTML(kind) {
   const b = isBoard(),
     all = b ? (kind === "person" ? [...(D.toolReqs || []).filter((r) => r.kind === "person"), ...personReqs(true)].sort((x, y) => y.ts - x.ts) : (D.toolReqs || []).filter((r) => r.kind !== "person")) : kind === "person" ? [...(D.toolReqs || []).filter((r) => r.kind === "person"), ...personReqs()].sort((x, y) => y.ts - x.ts) : (D.toolReqs || []).filter((r) => r.kind !== "person");
@@ -3735,97 +3649,6 @@ const roleSum = (r, pr) => {
 };
 const seg = (lab, attr, i, opts, cur, note) =>
   `<div class="line"><span>${lab}${note ? ` <small>${note}</small>` : ""}</span><span class="seg" role="radiogroup" aria-label="${lab}">${opts.map(([k, t, dis]) => `<button role="radio" aria-checked="${cur === k}" data-${attr}="${i}" data-v="${k}" ${dis ? `disabled title="${dis}"` : ""}>${t}</button>`).join("")}</span></div>`;
-/* The editing controls of a role (contract, level, dedication, AI, tools, advanced). They open under the role's seats in the proposal. */
-const roleEditor = (pr, K, r, i) => {
-  const adv = !!(V.radv || {})[pr.id + ":" + i],
-    f = F(r.id),
-    RT = rateOf(r, pr);
-  /* the same kind of role at another level or title: a cheaper one when the budget is tight */
-  const rcats = ["pdesign", "creative"].includes(f.cat) ? ["pdesign", "creative"] : [f.cat],
-    rchg = Object.values(FAM).filter((x) => rcats.includes(x.cat)).map((x) => [x.id, x.t]);
-  return `<div class="redit" id="role-${i}">
-  ${rchg.length > 1 ? `<div class="field rchg"><label for="rchg-${i}">Puesto</label>${ddHTML({ id: "rchg-" + i, value: r.id, ariaLabel: "Puesto", options: rchg })}<p class="note fh">Cambia el puesto si Dirección pide algo más ajustado, por ejemplo un perfil de menor nivel.</p></div>` : ""}
-  ${seg(
-    "Tipo de contrato",
-    "ct",
-    i,
-    Object.entries(CT).filter(([k]) => k !== "own" || r.ct === "own").map(([k, [t]]) => [k, t]),
-    r.ct || "free",
-    CT[r.ct || "free"][3],
-  )}
-  ${
-    f.gr.length
-      ? seg(
-          "Nivel",
-          "grade",
-          i,
-          f.gr.map((k) => [k, GR[k][0]]),
-          r.grade || (f.arch === "lead" ? f.gr[0] : "mid"),
-          f.gr.includes("staff") && f.arch === "ic" ? "Staff y Principal son especialistas muy sénior, no gestionan personas." : "",
-        )
-      : ""
-  }
-  ${seg(
-    "Dedicación",
-    "ded",
-    i,
-    [
-      ["fte", "Jornada completa"],
-      ["hrs", "Por horas", r.ct === "emp" ? "Los empleados van a jornada completa" : ""],
-    ],
-    r.n > 0 ? "fte" : "hrs",
-  )}${r.n ? `<div class="line"><span>Personas</span>${stp(`ppl="${i}"`, r.n, 1, 20, "personas")}</div>` : ""}
-  ${r.n ? "" : `<div class="line"><span>Horas al mes <small>Escribe la cifra o ajusta de 5 en 5</small></span><span class="stp"><button data-hrs="${i}" data-d="-1" ${r.hours <= 5 ? "disabled" : ""} aria-label="Menos horas">−</button><input class="hin" data-hin="${i}" inputmode="numeric" value="${r.hours}" aria-label="Horas al mes"/><button data-hrs="${i}" data-d="1" ${r.hours >= 160 ? "disabled" : ""} aria-label="Más horas">+</button></span></div>`}
-  ${r.ct === "own" ? "" : `<div class="line"><span>Coste de referencia por persona al mes <small>${RT.v == null ? "Sin referencia para este puesto: indica tu cifra en Avanzado." : provBtn(r, pr, i)}</small></span><span class="rc">${RT.v != null ? `${eur(RT.v)}<small>/mes</small>` : '<em class="nd">Sin coste</em>'}</span></div>`}
-  <button class="advbtn" data-radv="${i}" aria-expanded="${adv}" aria-controls="adv-${i}"><span class="advt">Avanzado<small>Ubicación, liderazgo y coste propio</small></span>${I(adv ? "angle-up" : "angle-down")}</button>
-  ${
-    adv
-      ? `<div class="advbox" id="adv-${i}">
-  ${f.custom ? `<div class="line"><span>Nombre del puesto <small>Rol personalizado de tu empresa</small></span><input class="big md tin" data-crname="${r.id}" value="${esc(f.t)}" aria-label="Nombre del puesto"/></div>` : ""}
-  <div class="line"><span>Tipo de puesto <small>${{ ic: "Aporta trabajo de su especialidad.", delivery: "Coordina la entrega. No tiene personas a cargo por defecto.", lead: "Lidera la parte técnica o del proyecto. No implica tener personas a cargo.", manager: "Gestiona a un equipo de personas.", head: "Dirige una o varias áreas." }[f.arch]}</small></span><span class="pill">${ARCH_ES[f.arch]}</span></div>
-  ${
-    f.arch === "lead"
-      ? seg(
-          "Liderazgo",
-          "lr",
-          i,
-          [
-            ["tech", "Técnico o de disciplina"],
-            ["delivery", "De proyecto"],
-          ],
-          r.lr || "tech",
-        )
-      : ""
-  }
-  ${f.arch === "manager" || f.arch === "head" || f.arch === "lead" ? `<div class="line"><span>Personas a su cargo <small>${f.arch === "lead" ? "Solo si gestiona personas de verdad." : "Para dimensionar su responsabilidad."}</small></span>${stp(`reports="${i}"`, r.reports || 0, 0, 60, "personas a cargo")}</div>` : ""}
-  ${f.arch === "head" ? `<div class="line col"><span>Áreas que dirige <small>${f.cross ? "Una sola persona, se cobra una vez aunque dirija varias áreas." : "Puede abarcar varias áreas."}</small></span><div class="chips">${(f.cross ? HOD_SCOPES.map((x) => [x, x]) : CATS.map(([id, es]) => [id, es])).map(([k, t]) => `<button class="chip" data-scope="${i}" data-v="${k}" aria-pressed="${(r.scopes || []).includes(k)}">${t}</button>`).join("")}</div></div>` : ""}
-  <div class="line"><span>Ubicación <small>${r.loc === "remote" ? "Coste de referencia: el de los países con mejor relación calidad-precio." : "El coste de referencia depende del país."}</small></span><span class="seg" role="radiogroup" aria-label="Ubicación"><button role="radio" aria-checked="${r.loc !== "remote"}" data-loc="${i}" data-v="country">Un país</button><button role="radio" aria-checked="${r.loc === "remote"}" data-loc="${i}" data-v="remote">Cualquier país</button></span></div>
-  ${
-    r.loc === "remote"
-      ? ""
-      : `<div class="line"><span>País</span>${ddHTML({ id: "country-" + i, size: "sm", ariaLabel: "País", value: r.country || ENT(pr.ent).country, options: Object.keys(COUNTRY).map((c) => [c, c]) })}</div>${seg(
-          "Modalidad",
-          "mod",
-          i,
-          [
-            ["remote", "Remoto"],
-            ["hybrid", "Híbrido"],
-            ["onsite", "Presencial"],
-          ],
-          r.mod || "remote",
-        )}`
-  }
-  ${r.ct === "own" ? "" : `<div class="line"><span>Tu coste por persona al mes <small>Sustituye a la referencia y a la tarifa de tu empresa solo en este puesto. ${r.n ? "A jornada completa." : "Equivale a jornada completa; se prorratea por horas."}</small></span><span class="rate"><input class="hin wide" data-rate="${i}" inputmode="numeric" placeholder="€/mes" value="${r.rate || ""}" aria-label="Tu coste por persona al mes en euros"/>${r.rate ? `<button class="lnk mute" data-rateclr="${i}">Quitar</button>` : ""}</span></div>`}
-  </div>`
-      : ""
-  }
-  <div class="rdone">${(() => {
-      const ppl = (r.fill || []).filter((f) => f.pid).length;
-      return ppl && V.delAsk === i
-        ? `<span class="rdelq">Hay ${ppl} persona${ppl > 1 ? "s" : ""} asignada${ppl > 1 ? "s" : ""}. ¿Eliminar el puesto?</span><button class="rdel" data-del="${i}" data-sure aria-label="Confirmar: eliminar puesto ${esc(dname(r))}">Sí, eliminar</button><button class="lnk lact" data-delno>Cancelar</button>`
-        : `<button class="rdel" data-del="${i}" aria-label="Eliminar puesto ${esc(dname(r))}">Eliminar puesto</button>`;
-    })()}<button class="btn btn-s sm" data-ropen="${i}">Guardar</button></div></div>`;
-};
 /* example-data tag under the company selector: quiet info chip that opens a tiny popover */
 const demoTag = () => "";
 /* ===== Printable proposal ===== */
@@ -3887,80 +3710,10 @@ function pageExport() {
 /* ===== Software and AI of a proposal: one line per licence, what is already paid and what is new ===== */
 const catOfOpt = (id) => Object.keys(TC).find((k) => TC[k].opts.some((o) => o.id === id)),
   isAiTool = (id) => !!(catOfOpt(id) && TC[catOfOpt(id)].ai);
-function toolLine(t, rm) {
-  const o = opt(t.id),
-    pl = (n, a, b) => (n === 1 ? a : b),
-    parts = o.once
-      ? [t.buy ? "Compra puntual" : "Compra puntual · ya la tenéis"]
-      : t.plan
-        ? [t.buy ? "Tarifa plana · nueva" : "Tarifa plana · ya la tenéis"]
-        : t.own
-          ? [`${t.q} ${pl(t.q, "asiento", "asientos")}`, "propios del proyecto"]
-          : [
-              `${t.q} ${pl(t.q, "asiento", "asientos")}`,
-              t.has ? hasNames(t) : "",
-              t.pool ? `${t.pool} ${pl(t.pool, "libre que ya pagáis", "libres que ya pagáis")}` : "",
-              t.buy ? `${t.buy} ${pl(t.buy, "nuevo", "nuevos")}` : "",
-            ].filter(Boolean);
-  return `<div class="tline"><span class="tn"><b>${esc(t.n)}</b><small>${parts.join(" · ")}</small></span><span class="tc">${t.m + t.saved > 0 ? `<b>${eur(t.m + t.saved)}<small>/mes</small></b><small>${t.m ? `${eur(t.m)} nuevo` : "ya pagado"}</small>` : `<b>Incluido</b><small>sin coste propio</small>`}</span>${rm ? `<button class="ib s" data-toolchg="${t.id}" aria-expanded="${V.tchg === t.id}" aria-label="Cambiar ${esc(t.n)} por otra herramienta" title="Cambiar de herramienta">${I(V.tchg === t.id ? "angle-up" : "pen")}</button><button class="ib s srm" data-toolrm="${t.id}" aria-label="Quitar ${esc(t.n)}" title="Quitar ${esc(t.n)}">${I("times")}</button>` : ""}</div>${rm && V.tchg === t.id ? toolSwap(t) : ""}`;
-}
-/* swap one tool for another of its category: the options open under its line, no hidden panel */
-function toolSwap(t) {
-  const ck = catOfOpt(t.id);
-  if (!ck) return "";
-  return `<div class="tlist tswap">${TC[ck].opts
-    .filter((x) => x.id !== t.id)
-    .map((x) => `<button class="topt" data-toolswap="${t.id}|${x.id}"><span>${esc(x.n)}<small>${esc(x.note || "")}</small></span><span class="tp">${price(x)}</span></button>`)
-    .join("")}<button class="topt other" data-othertool="s|${ck}"><span>Otra herramienta</span></button></div>`;
-}
-/* add a tool of the whole team in a category that has none yet */
-function toolAdd(pr, K, ai) {
-  const cks = Object.keys(pr.shared || {}).filter((ck) => !pr.shared[ck] && !!TC[ck].ai === ai && (ck !== "genai" || K.aiPpl));
-  if (!cks.length) return "";
-  const k = pr.id + ":" + (ai ? "ai" : "sw"),
-    open = V.tnew === k;
-  return `<button class="addrole addtool" data-tnew="${k}" aria-expanded="${open}">Añadir ${ai ? "IA" : "software"}</button>${
-    open
-      ? cks.map((ck) => `<div class="tlist tswap"><small class="taddc">${esc(TC[ck].n)}</small>${TC[ck].opts.map((x) => `<button class="topt" data-tsel="s|${ck}|${x.id}"><span>${esc(x.n)}<small>${esc(x.note || "")}</small></span><span class="tp">${price(x)}</span></button>`).join("")}</div>`).join("")
-      : ""
-  }`;
-}
-/* an amendment asks for people only: the licences they bring are worked out from the role, so they show as one short list, not as two full sections */
 /* Dirección decides from this card, so it starts open for them; the Responsable starts with it folded */
 const askOpen = (pr) => (isBoard() ? V.askopen !== "x" + pr.id : V.askopen === pr.id);
 /* what the edit form compares against: «Guardar cambios» stays off until something differs from the request as it was sent */
 const askSig = (d) => JSON.stringify([d.opt || "", d.where || "", d.pid || "", d.fid || "", (d.whoIds || []).slice().sort(), (d.why || "").trim(), d.when || ""]);
-function licNeedCard(K) {
-  const ts = K.tools.filter((t) => t.q > 0),
-    nw = ts.filter((t) => t.m > 0),
-    cov = ts.filter((t) => !(t.m > 0));
-  return ts.length ? `<section class="rcard blk" aria-labelledby="lnh"><div class="rh"><h2 id="lnh">Licencias de este puesto</h2>${nw.length ? `<span class="cnt">${nw.length}</span>` : ""}</div><p class="note">Salen del puesto. Solo cuesta lo nuevo.</p>${nw.map(toolLine).join("")}${cov.length ? `<p class="note lcov">Ya cubierto: ${cov.map((t) => esc(t.n)).join(", ")}</p>` : ""}</section>` : "";
-}
-function softwareCard(pr, K, ed) {
-  const ts = K.tools.filter((t) => t.q > 0 && !isAiTool(t.id));
-  return `<section class="rcard blk" aria-labelledby="swh"><div class="rh"><h2 id="swh">Software</h2>${ts.length ? `<span class="cnt">${ts.length}</span>` : ""}</div>${ts.length ? ts.map((t) => toolLine(t, ed)).join("") : `<p class="note">Este equipo no necesita licencias de software.</p>`}${ed ? toolAdd(pr, K, false) : ""}</section>`;
-}
-/* ===== «La IA en este equipo»: which AI tools the team carries and what they cost. The gain the studies measure is
-   shown as information only: it never takes people off the team. ===== */
-function aiCard(pr, K, ed) {
-  const ts = K.tools.filter((t) => t.q > 0 && isAiTool(t.id)),
-    cats = [...new Set(pr.roles.filter((r) => r.ai).map((r) => F(r.id).cat))].filter((c) => AIUP[c]),
-    L = (x) => `<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.n.split(",")[0].split(":")[0])}${I("external-link-alt")}<span class="sr"> (se abre en una pestaña nueva)</span></a>`,
-    pctS = (v) => (v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v) + "\u00a0%",
-    srcs = [...new Set(cats.flatMap((c) => AIUP[c].src))],
-    lead =
-      pr.aiPref === "none"
-        ? "Has pedido el proyecto sin IA."
-        : !ts.length
-          ? pr.aiPref === "own"
-            ? "Solo con la IA que ya tenéis: no quedan asientos libres de herramientas de IA."
-            : "Este equipo no lleva herramientas de IA."
-          : `${K.aiPpl} de ${K.ppl} ${K.ppl === 1 ? "persona trabaja" : "personas trabajan"} con IA. Cuesta ${eur(ts.reduce((a, t) => a + t.m + t.saved, 0))} al mes${ts.some((t) => t.m) ? `, de los que ${eur(ts.reduce((a, t) => a + t.m, 0))} son nuevos` : ", ya pagados"}.`;
-  const gain = cats.length
-    ? `<p class="note aiev"><span>Mejora estimada por los estudios: ${cats.map((c) => `${esc(CATS.find((x) => x[0] === c)[1].toLowerCase())} ${pctS(AIUP[c].v)}`).join(", ")}. Es un dato informativo: no se descuenta del equipo.${srcs.length ? " Fuentes: " + srcs.map((k) => L(AIEV[k])).join(", ") + "." : ""}</span></p>`
-    : "";
-  return `<section class="rcard blk aic" aria-labelledby="aih"><div class="rh"><h2 id="aih">La IA en este equipo</h2>${ts.length ? `<span class="cnt">${ts.length}</span>` : ""}</div><p class="aisub">${lead}</p>${ts.map((t) => toolLine(t, ed)).join("")}${ed && pr.roles.length ? `<div class="aiusers"><small class="aiul">Quién trabaja con IA</small>${pr.roles.map((r, i) => `<div class="line"><span>${esc(dname(r))}<small>${r.n > 1 ? `${r.ai} de ${r.n} personas` : r.ai ? "Con IA" : "Sin IA"}</small></span>${r.n > 1 ? stp(`aip="${i}"`, r.ai, 0, r.n, "con IA") : `<button class="tog" role="switch" aria-label="${esc(dname(r))} usa IA" aria-checked="${r.ai > 0}" data-aitog="${i}"></button>`}</div>`).join("")}</div>` : ""}${gain}${ed ? toolAdd(pr, K, true) : ""}</section>`;
-}
 /* ===== «Supuestos del cálculo»: every number the estimate rests on, with its source; the estimated work is editable ===== */
 function assumeCard(pr, K) {
   if (!pr.roles.length && !pr.work) return "";
@@ -3985,23 +3738,6 @@ function assumeCard(pr, K) {
   </div>`;
   return `<div class="rcard asmc"><button class="advbtn" data-assume aria-expanded="${open}" aria-controls="asm-${pr.id}"><span class="advt">Supuestos del cálculo<small>Trabajo estimado, jornada, mejora con IA y de dónde sale cada coste</small></span>${I(open ? "angle-up" : "angle-down")}</button>${open ? body : ""}</div>`;
 }
-/* team capacity vs the estimated work, in plain words: hours short, just enough, or spare % */
-const covHead = (pr, K) =>
-  K.cov < 0.95
-    ? `Faltan unas ${numFmt(Math.round(((1 - K.cov) * pr.work) / 10) * 10)} horas de trabajo`
-    : K.cov < 1.1
-      ? "El equipo llega justo al trabajo estimado"
-      : `El equipo puede hacer un ${Math.round((K.cov - 1) * 100)}\u00a0% más del trabajo estimado`;
-const capMsg = (c) =>
-  c < 0.95
-    ? "Añade personas u horas, o alarga el plazo"
-    : c < 1.1
-      ? "Sin margen para imprevistos"
-      : c <= 1.6
-        ? "Margen para imprevistos"
-        : "Te sobra equipo: podrías acortar el plazo o quitar horas";
-const sig = (pr) =>
-  JSON.stringify([pr.roles.map(({ people, ...r }) => r), pr.shared, pr.qty, pr.own, pr.name, pr.months, pr.budget, pr.ent]);
 /* ===== The proposal ===== */
 const canEdit = (pr) => !isBoard() && pr.owner === meName() && (pr.status === "draft" || pr.status === "changes") && !pr.archived;
 const dedTxt = (r) => (r.n ? "jornada completa" : r.hours === HPM / 2 ? "media jornada" : `${Math.round(r.hours / 4)} h/semana`);
@@ -4100,58 +3836,11 @@ function seatLine(pr, r, ri, i, x, ed, open, noPen) {
       : `<b>${title}${aiTag}</b><small>${meta}</small>`;
   return `<div class="sline src-${f.src}${i ? " cont" : ""}${ed ? " ed" : act ? " act nt" : " nt"}${noPen && !sn ? " nosn" : ""}"><span class="sn">${sn}${ed ? "" : `<span class="stag">${tag}</span>`}${note}</span><span class="scost">${cost}</span>${ed || act ? `<span class="sact2">${act}${pen}${rm}</span>` : ""}</div>`;
 }
-/* tools and AI of one role, right under its people: what each person of the role works with */
-function roleTools(pr, K, r, i, ed) {
-  const cks = Object.keys(r.tools),
-    chip = (ck) => {
-      const o = opt(r.tools[ck]),
-        open = V.open === i + "|" + ck;
-      if (!ed) return o ? `<span class="tchip">${esc(o.n)}</span>` : "";
-      return o
-        ? `<button class="tchip" data-open="${i}|${ck}" aria-expanded="${open}" title="Cambiar o quitar">${esc(o.n)}${I(open ? "angle-up" : "angle-down")}</button>`
-        : `<button class="tchip add" data-open="${i}|${ck}" aria-expanded="${open}">${I("plus")}${esc(TC[ck].n)}</button>`;
-    },
-    sw = cks.filter((ck) => !TC[ck].ai).map(chip).join(""),
-    aiTools = cks.filter((ck) => TC[ck].ai).map(chip).join(""),
-    gs = genaiAll(pr).map((x) => opt(x)),
-    g = gs.length ? { n: gs.map((o) => o.n).join(", ") } : null,
-    aiRow = ed
-      ? `<div class="line aiu"><span>${r.n > 1 ? "Personas que usan IA" : "Usa IA"}${g ? `<small>${esc(g.n)}</small>` : ""}</span>${r.n > 1 ? stp(`aip="${i}"`, r.ai, 0, r.n, "con IA") : `<button class="tog" role="switch" aria-label="Usa IA" aria-checked="${r.ai > 0}" data-aitog="${i}"></button>`}</div>`
-      : r.ai && g ? `<span class="tchip">${esc(g.n)}${r.n > 1 ? ` · ${r.ai} de ${r.n}` : ""}</span>` : "";
-  const openCk = cks.find((ck) => V.open === i + "|" + ck),
-    panel = openCk ? catHTML(pr, K, i, openCk, r.tools[openCk], (K.qr[i] || {})[openCk], TC[openCk].ai ? `para ${r.ai} con IA` : `para ${Math.max(1, r.n)}`) : "";
-  if (!sw && !aiTools && !aiRow) return "";
-  return `<div class="rtools">${seatsOf(r) > 1 ? `<p class="rtfor">Para las ${seatsOf(r)} personas de este puesto</p>` : ""}${sw ? `<div class="rtg"><small>Software</small><div class="chips">${sw}</div></div>` : ""}${aiTools || aiRow ? `<div class="rtg"><small>IA</small>${aiTools ? `<div class="chips">${aiTools}</div>` : ""}${aiRow}</div>` : ""}${panel}</div>`;
-}
 /* ===== The team by area: one folded row per profile; unfolded, its card with people, programs and AI ===== */
 const rOpen = (pr, i, ed) => {
   const v = (V.rx || {})[pr.id + ":" + i];
   return v === undefined ? !ed : v;
 };
-/* programs / AIs as a multi-choice dropdown: it opens in place, one choice per category */
-function multiSel(pr, K, r, i, kind) {
-  const ai = kind === "ai",
-    cks = Object.keys(r.tools).filter((ck) => !!TC[ck].ai === ai),
-    groups = cks.map((ck) => ({ ck, k: String(i), n: TC[ck].n, opts: TC[ck].opts, sel: r.tools[ck] }));
-  if (ai && pr.shared && "genai" in pr.shared) groups.push({ ck: "genai", k: "s", n: "IA general · puedes elegir más de una", opts: TC.genai.opts, sels: genaiAll(pr), multi: true });
-  if (!groups.length) return "";
-  const chosen = groups.flatMap((g) => (g.multi ? g.sels : [g.sel]).map((x) => opt(x))).filter(Boolean),
-    key = i + "|" + kind,
-    open = V.ms === key,
-    ph = ai ? "Elige las IA" : "Elige los programas";
-  return `<div class="msw"><button type="button" class="dsel big md msb" data-ms="${key}" aria-expanded="${open}" aria-haspopup="true"><span class="ddt${chosen.length ? "" : " ddph"}">${esc(chosen.length ? chosen.map((o) => o.n).join(", ") : ph)}</span>${I(open ? "angle-up" : "angle-down")}</button>${
-    open
-      ? `<div class="mspanel" role="group" aria-label="${ph}">${groups
-          .map(
-            (g) =>
-              `<div class="msg"><small>${esc(g.n)}</small>${g.opts
-                .map((x) => `<button type="button" class="msopt" role="checkbox" aria-checked="${(g.multi ? g.sels.includes(x.id) : g.sel === x.id)}" data-msel="${g.k}|${g.ck}|${x.id}"><i class="mscb" aria-hidden="true">${(g.multi ? g.sels.includes(x.id) : g.sel === x.id) ? I("check") : ""}</i><span>${esc(x.n)}<small>${esc(x.note || "")}</small></span><span class="tp">${price(x)}</span></button>`)
-                .join("")}</div>`,
-          )
-          .join("")}</div>`
-      : ""
-  }</div>`;
-}
 function areaTeam(pr, K, ed) {
   const ord = { head: 0, manager: 1, lead: 2, delivery: 3, ic: 4 },
     cix = (r) => CATS.findIndex((c) => c[0] === F(r.id).cat),
@@ -4223,24 +3912,6 @@ function areaTeam(pr, K, ed) {
     .join("") + (pr.roles.length ? "" : `<section class="rcard blk"><div class="rh"><h2>Personas</h2><span class="cnt">0</span></div><p class="note">Aún no hay nadie. Añade a la primera persona.</p></section>`) +
     (ed ? `<div class="addrow"><button class="btn btn-s addp" data-addrole>${I("plus")}Añadir persona</button>${pr.work && !pr.full ? `<button class="btn btn-s resug" data-resuggest title="HUMAIN vuelve a proponer el equipo según el trabajo. Puedes deshacerlo.">${I("exchange")}Volver a proponer el equipo</button>` : ""}</div>` : "") +
     "";
-}
-function peopleCard(pr, K, ed) {
-  const ord = { head: 0, manager: 1, lead: 2, delivery: 3, ic: 4 },
-    cix = (r) => CATS.findIndex((c) => c[0] === F(r.id).cat),
-    W = pr.roles.map((r, i) => [r, i]).sort((a, b) => cix(a[0]) - cix(b[0]) || ord[F(a[0].id).arch] - ord[F(b[0].id).arch]);
-  const grp = ([r, i]) => {
-    const sc = seatCosts(r, pr),
-      open = ed && V.ropen === pr.id + ":" + i;
-    return `<div class="sgrp ${open ? "open" : ""}">${sc.map((x, k) => seatLine(pr, r, i, k, x, ed, open)).join("")}${roleTools(pr, K, r, i, ed)}${open ? roleEditor(pr, K, r, i) : ""}</div>`;
-  };
-  const anyRef = pr.roles.some((r) => seatCosts(r, pr).some((x) => !x.real));
-  /* a 4th column exists when a row carries an action (Dirección assigning, «Incorporada») */
-  const anyAct = !ed && pr.roles.some((r) => (r.fill || []).some((f) => (isBoard() && pr.status === "pending" && (f.src === "other" || f.src === "new" || f.byBoard)) || (f.src === "new" && f.hiring && pr.status === "active" && (isBoard() || pr.owner === meName()))));
-  return `<section class="rcard blk" aria-labelledby="pph"><div class="rh"><h2 id="pph">Personas</h2><span class="cnt">${K.ppl}</span></div>${
-    pr.roles.length
-      ? `${anyRef ? `<p class="note bnote">Coste real de las personas de la empresa. Las referencias llevan un rango orientativo de ±10\u00a0%.</p>` : ""}${ed ? "" : `<div class="sline shd nt${anyAct ? " act" : ""}" aria-hidden="true"><span>Puesto</span><span>Coste al mes</span></div>`}${W.map(grp).join("")}`
-      : `<p class="note">Aún no hay puestos.</p>`
-  }${ed ? `<button class="addrole" data-addrole>Añadir puesto</button>` : ""}${teamTools(pr).length ? `<p class="note rtnote">Para todo el equipo: ${esc(andList(teamTools(pr)))}.</p>` : ""}</section>`;
 }
 /* side panel: the three figures, the budget, why it is needed and the action that fits the state and who is looking */
 /* móvil: las dos cifras arriba; el panel completo (justificación y decisión) sigue al final */
@@ -4336,8 +4007,6 @@ function pageProject() {
  
  </div><aside class="cside" aria-label="Resumen y decisión">${panelHTML(pr, K)}</aside></div>${narrow ? `<div class="asmtail">${assumeCard(pr, K)}</div>` : ""}${mbar}`;
 }
-/* the dashed outline of a message box, drawn in SVG so its dashes can travel around the shape */
-const rvFrame = () => `<svg class="rvfr" aria-hidden="true" preserveAspectRatio="none"><rect x="0.75" y="0.75" rx="12" ry="12" pathLength="100"/></svg>`;
 /* demo controls: outside the product chrome, so nobody mistakes them for a feature */
 function demoHTML() {
   if (!D.me) return "";
@@ -5610,29 +5279,6 @@ function _render() {
     );
   }
 }
-function calHTML(d) {
-  const min = new Date(Date.now() + 14 * 864e5);
-  min.setHours(0, 0, 0, 0);
-  const base = d.cal ? new Date(d.cal + "-01T12:00") : d.end ? new Date(d.end + "T12:00") : new Date(min);
-  const y = base.getFullYear(),
-    mo = base.getMonth(),
-    first = (new Date(y, mo, 1).getDay() + 6) % 7,
-    days = new Date(y, mo + 1, 0).getDate(),
-    iso = (x) => `${y}-${String(mo + 1).padStart(2, "0")}-${String(x).padStart(2, "0")}`;
-  const cells = [...Array(first)]
-    .map(() => "<span></span>")
-    .concat(
-      [...Array(days)].map((_, i) => {
-        const dd = new Date(y, mo, i + 1),
-          dis = dd < min,
-          v = iso(i + 1);
-        return `<button type="button" class="cd ${d.end === v ? "on" : ""}" ${dis ? "disabled" : `data-pickday="${v}"`} aria-label="${dd.toLocaleDateString(LOC(), { day: "numeric", month: "long", year: "numeric" })}" aria-pressed="${d.end === v}">${i + 1}</button>`;
-      }),
-    );
-  const canPrev = new Date(y, mo, 1) > new Date(min.getFullYear(), min.getMonth(), 1);
-  return `<div class="cal"><div class="calh"><button type="button" class="ib s" data-calnav="-1" ${canPrev ? "" : "disabled"} aria-label="Mes anterior">${I("angle-left")}</button><b>${((t) => t[0].toUpperCase() + t.slice(1))(base.toLocaleDateString(LOC(), { month: "long", year: "numeric" }))}</b><button type="button" class="ib s" data-calnav="1" aria-label="Mes siguiente">${I("angle-right")}</button></div><div class="calg">${["L", "M", "X", "J", "V", "S", "D"].map((x) => `<i>${x}</i>`).join("")}${cells.join("")}</div></div>`;
-}
-const monthsTo = (iso) => Math.max(0.5, Math.round(((new Date(iso + "T12:00") - Date.now()) / 864e5 / 30.44) * 10) / 10);
 /* the new-project form: what the user chose, turned into project fields */
 const newDraft = () => ({
   step: 1,
@@ -8410,7 +8056,6 @@ function soloSeed() {
   }
 }
 
-const customTeams = (owner) => ((MGR(owner) || {}).custom || []).filter((t) => teamsOf(owner).includes(t));
 /* ===== Conversation of a proposal: every message of the Responsable and of Dirección, so what was asked stays on record ===== */
 function threadOf(p) {
   if (Array.isArray(p.thread)) return p.thread;
@@ -8422,22 +8067,6 @@ function threadOf(p) {
 }
 function pushThread(p, it) {
   p.thread = [...threadOf(p), it];
-}
-function threadHTML(p) {
-  const t = threadOf(p).filter((x) => x.t || x.who === "b");
-  if (t.length < 2) return "";
-  const lbl = { sent: "Envía la propuesta", resent: "Reenvía con cambios", changes: "Pide cambios", reject: "Rechaza", approve: "Aprueba" },
-    open = V.thr === p.id;
-  return `<section class="thr${open ? " open" : ""}"><button class="thrh" data-thr="${p.id}" aria-expanded="${open}">${I("comment-alt")}<span><b>Conversación con Dirección</b><small>${t.length} mensajes · lo que se ha pedido y respondido</small></span>${I(open ? "angle-up" : "angle-down")}</button>${
-    open
-      ? `<ol class="thrl">${t
-          .map((x) => {
-            const b = x.who === "b";
-            return `<li class="${b ? "tb" : "tm"}"><i class="thav" aria-hidden="true">${b ? I("building") : esc(initials(p.owner))}</i><div><small><b>${b ? "Dirección" : esc(p.owner)}</b> · ${lbl[x.k] || ""} · ${esc(fmtShort(new Date(x.ts).toISOString().slice(0, 10)))}</small>${x.t ? `<p>«${esc(x.t)}»</p>` : ""}</div></li>`;
-          })
-          .join("")}</ol>`
-      : ""
-  }</section>`;
 }
 /* ===== Chips on phones: long names cut with «…» (tap shows the full name) and at most two rows, with «Ver más» ===== */
 function chipsPass() {
@@ -8608,22 +8237,6 @@ function noteIc(n) {
   if (/se ha incorporado|ha añadido a|da de alta/i.test(t)) return EVIC.hire;
   if (/ha enviado|ha reenviado|\bpide\b|recuerda su petición/i.test(t)) return EVIC.req;
   return n.ic === "times" ? EVIC.no : n.ic;
-}
-function threadNest(p) {
-  const t = threadOf(p).filter((x) => x.t || x.who === "b"), prev = t.slice(0, -1);
-  if (!prev.length) return "";
-  const open = V.thr === p.id,
-    lbl = { sent: "Envía la propuesta", resent: "Reenvía con cambios", changes: "Pide cambios", reject: "Rechaza", approve: "Aprueba" };
-  return `<div class="thn"><button class="thnb" data-thr="${p.id}" aria-expanded="${open}">${I(open ? "angle-up" : "angle-down")}${open ? "Ocultar mensajes anteriores" : `Ver ${prev.length === 1 ? "el mensaje anterior" : "los " + prev.length + " mensajes anteriores"}`}</button>${
-    open
-      ? `<ol class="thrl thnl">${prev
-          .map((x) => {
-            const b = x.who === "b";
-            return `<li class="${b ? "tb" : "tm"}"><div><small><i class="thav2" aria-hidden="true">${b ? I("building") : esc(initials(p.owner))}</i><b>${b ? "Dirección" : esc(p.owner)}</b><span>${lbl[x.k] || ""} · ${esc(fmtShort(new Date(x.ts).toISOString().slice(0, 10)))}</span></small>${x.t ? `<p>«${esc(x.t)}»</p>` : ""}</div></li>`;
-          })
-          .join("")}</ol>`
-      : ""
-  }</div>`;
 }
 
 /* Badges explain themselves: a short line on hover, focus or tap. Same text for the same badge everywhere. */
