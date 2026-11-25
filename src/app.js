@@ -186,7 +186,7 @@ const toolIc = (oid) => {
 const ALLOPTS = Object.values(TC).flatMap((c) => c.opts),
   opt = (id) => ALLOPTS.find((o) => o.id === id);
 /* Roles: name, group, cost per person/month (€, full time, illustrative), AI-friendliness */
-/* ===== Role taxonomy v1 (brief 10 nov 2026): category · family · grade · responsibility · employment ===== */
+/* ===== Role taxonomy: category · family · grade · responsibility · employment ===== */
 const CATS = [
   [
     "product",
@@ -382,7 +382,7 @@ const TPID = {
   "lead-product-designer": "product",
   "design-systems-lead": "product",
 };
-/* Market references (Spain, gross annual EUR, full time). Researched 2026-11-13: /tmp/data/salaries.json.
+/* Market references (Spain, gross annual EUR, full time). Researched in November 2026.
    g = [junior, mid, senior]; s = indexes into SRC. BASE (€/month, Mid, Spain) = gross mid × (1 + employer on-cost) / 12, rounded to €10. */
 const MP = {
     n: "Michael Page",

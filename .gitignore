@@ -1,0 +1,15 @@
+# Test output
+tests/output/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node (if used for tooling)
+node_modules/

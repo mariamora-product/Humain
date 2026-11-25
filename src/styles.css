@@ -3,7 +3,7 @@
  * Petrol (--petrol #0D3A3E, dark --deep #062427): brand, primary actions, links, sidebar, chart.
  * Neutrals: page --ivory, surfaces #fff. Borders are petrol veils: --line (cards .09), --line2 (row dividers .07),
  *   --ctl (inputs, secondary buttons, chips .16), --hover-bd (control hover .28).
- * Hover: LIST ROW (.rl) = --hover-bg veil, rounded 8px inset; CARD/TILE = --hover-solid + --hover-bd + --hovs. See UI_RULES §5.
+ * Hover: LIST ROW (.rl) = --hover-bg veil, rounded 8px inset; CARD/TILE = --hover-solid + --hover-bd + --hovs.
  * Icons in rows/cards: no box, 18 px, --icon (hover --icon-hover). Alert icons: --terra.
  * Badges: solid soft fills, no outline: --pos-* (green, positive), --neu-* (neutral), --neg-* (terracotta alert), --ai-* (IA), --cnt-* (counts).
  * Terracotta (--terra): ONLY alerts, unread (dot, counters) and the Premium spark. Never for neutral information. */
@@ -659,7 +659,7 @@ textarea.big{resize:vertical;font-family:inherit;height:auto;padding-top:12px;pa
 .tip,
 .toast.out{transition:none;animation:none}
 }
-/* ===== Fase 2 ===== */
+/* ===== Cifras negativas y KPIs ===== */
 .neg{color:var(--terra)}
 b.neg,.neg b{font-weight:600}
 .kpis.k5{grid-template-columns:repeat(5,1fr)}
@@ -1004,7 +1004,7 @@ button.ichip.on:hover{background:#C4E3D4}
 @media(hover:hover){.srcb:hover{color:var(--deep);text-decoration-style:solid}.irow.lrow small a:hover,.srcs a:hover{color:var(--deep)}}
 @media(max-width:600px){.srcb{display:inline-flex;align-items:center;min-height:44px}.irow.lrow span:first-child{max-width:62%}}
 
-/* ===== Jerarquía tipográfica, botones, etiquetas y campos (UI_RULES §2–§4) ===== */
+/* ===== Jerarquía tipográfica, botones, etiquetas y campos ===== */
 .btn-s{background:#fff;color:var(--petrol);border:1px solid var(--line)}
 .btn-p:disabled,.btn-pro:disabled{background:var(--dis-bg);color:var(--dis-fg);opacity:1}
 .btn-s:disabled{background:#fff;border-color:var(--dis-bd);color:var(--dis-fg);opacity:1}
@@ -1155,7 +1155,7 @@ button.ichip.on:hover{background:#C4E3D4}
 .arow.ok{color:var(--ink)}
 .arow.ok .i{color:var(--icon)}
 
-/* ===== Botón secundario tonal + acciones de logo + enlaces sin subrayado (13-nov) ===== */
+/* ===== Botón secundario tonal + acciones de logo + enlaces sin subrayado ===== */
 :root{--sec-bd:rgba(13,58,62,.16);--sec-hov:#E6F1EE;--sec-hov-bd:rgba(13,58,62,.24);--sec-press:#D8EAE5}
 .btn-s,.btn.btn-s{background:#fff;color:var(--petrol);border:1px solid var(--sec-bd);box-shadow:0 1px 2px rgba(13,58,62,.07),0 1px 1px rgba(13,58,62,.03);font-weight:500;transition:var(--tr)}
 @media(hover:hover){.btn-s:not(:disabled):hover{background:var(--sec-hov);border-color:var(--sec-hov-bd);color:var(--deep)}}
@@ -1171,13 +1171,13 @@ button.ichip.on:hover{background:#C4E3D4}
 .srcs .line a{gap:6px}.srcs .line a svg{margin-left:6px;vertical-align:-2px;width:15px;height:15px;color:var(--icon,#53686A);flex:none}
 @media(hover:hover){.irow.lrow small a:hover,.srcs a:hover,.sbody .note a:hover{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}}
 
-/* Divisores: sin línea dentro de cajas con fondo; aire bajo las barras de gasto (13-nov) */
+/* Divisores: sin línea dentro de cajas con fondo; aire bajo las barras de gasto */
 .tbox .irow.tot{border-top:0;margin-top:0;padding:12px 0}
 .tbox{padding:4px 14px}
 .spd{margin-top:16px;padding-top:4px;border-top:1px solid var(--line2)}
 .spd .more.lk{border-top:0;width:auto;padding:0}
 
-/* Móvil: campana y cuenta solo en la barra superior; el menú lateral es navegación + Premium (13-nov) */
+/* Móvil: campana y cuenta solo en la barra superior; el menú lateral es navegación + Premium */
 @media(max-width:900px){
 #side .nv[data-nav=notes],#side .sacct{display:none}
 #side .procard{display:block;margin-bottom:4px}
@@ -1187,7 +1187,7 @@ button.ichip.on:hover{background:#C4E3D4}
 .prow{flex-wrap:wrap}.prow .spb{display:block;flex:0 0 calc(100% - 36px);margin:-2px 0 0 36px}
 @media(min-width:901px){.lnk.prem{display:none}}
 
-/* Personas en móvil: filas compactas en vez de rejilla de 2 columnas (13-nov) */
+/* Personas en móvil: filas compactas en vez de rejilla de 2 columnas */
 .xm{display:none}
 @media(max-width:900px){
 .pplt .tr.th.c6,.pgrp .tr.th.c6{display:none}
@@ -1209,7 +1209,7 @@ button.ichip.on:hover{background:#C4E3D4}
 }
 @media(min-width:901px){.pplt .tr.c6:not(.th){align-items:baseline}.pplt .tr.c6>.acts{align-self:center}}
 
-/* Ajustes en móvil: acciones pequeñas a la derecha en vez de en una línea suelta (13-nov) */
+/* Ajustes en móvil: acciones pequeñas a la derecha en vez de en una línea suelta */
 @media(max-width:600px){
 .rcard .line:has(>.eact){flex-wrap:nowrap;align-items:flex-start}
 .rcard .line:has(>.eact)>span:first-child{flex:1 1 auto}
@@ -1226,7 +1226,7 @@ button.ichip.on:hover{background:#C4E3D4}
 .srcs .line small{margin-top:0}
 }
 
-/* Etiquetas de recuento y «Próximamente», botón de peligro, logo en móvil, menú de fila (13-nov) */
+/* Etiquetas de recuento y «Próximamente», botón de peligro, logo en móvil, menú de fila */
 .sech .cnt{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 8px;border-radius:99px;background:var(--cnt-bg,rgba(13,58,62,.07));color:var(--ink2);font-size:13px;font-weight:600;align-self:center}
 .soonlbl{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:99px;background:#ECEAE5;color:#4E5B5C;font-size:11px;font-weight:500;font-style:normal;letter-spacing:.01em;line-height:1;margin-left:8px;white-space:nowrap}
 .amenu button:disabled .soonlbl,.chip:disabled .soonlbl,.ichip .soonlbl{opacity:1}
@@ -1277,7 +1277,7 @@ button.ichip.on:hover{background:#C4E3D4}
 .uline .pill.ur{grid-area:r;justify-self:start}
 }
 
-/* Ajustes: «Próximamente» visible en chips no disponibles; invitación pendiente en neutro (13-nov) */
+/* Ajustes: «Próximamente» visible en chips no disponibles; invitación pendiente en neutro */
 .ichip.soon{background:#fff;border:1px solid var(--line2);color:var(--ink3)}
 .ichip.soon .soonlbl{margin-left:4px}
 .uline .pill.ualert{background:var(--neu-bg);color:var(--neu-fg)}
@@ -1287,7 +1287,7 @@ button.ichip.on:hover{background:#C4E3D4}
 .amenu.up button>.soonlbl{padding:0 6px}
 .amenu button>.soonlbl{margin-left:auto}
 
-/* Pestañas (filtros de vista): subrayado, no compiten con los botones (13-nov) */
+/* Pestañas (filtros de vista): subrayado, no compiten con los botones */
 .tabs{display:flex;gap:28px;border-bottom:1px solid var(--line);margin:4px 0 20px;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{position:relative;display:inline-flex;align-items:center;gap:8px;flex:none;height:44px;padding:0 2px;margin-bottom:-1px;background:none;border:0;border-radius:0;font:inherit;font-size:15px;font-weight:500;color:var(--ink3);cursor:pointer;transition:color .18s ease}
@@ -1300,7 +1300,7 @@ button.ichip.on:hover{background:#C4E3D4}
 .tab:focus-visible{outline:2px solid var(--petrol);outline-offset:-2px;border-radius:6px}
 @media(max-width:600px){.tabs{gap:20px}.tab{font-size:14px}}
 
-/* Botones de icono: mismo tamaño de icono en toda la app (13-nov) */
+/* Botones de icono: mismo tamaño de icono en toda la app */
 .ib .i,.ib>svg{width:18px;height:18px}
 .ib.x .i,.ib.x>svg,.ib.dk .i{width:20px;height:20px}
 @media(max-width:600px){.rcard .line>.logoact{margin-right:-10px}}
@@ -1327,14 +1327,14 @@ button.ichip.on:hover{background:#C4E3D4}
 @media(hover:hover){.ddo:not([aria-disabled=true]):hover{background:var(--hover-ctl)}}
 @media(max-width:600px){.ddo{min-height:44px}.dsel.sm{height:44px}}
 
-/* Campos de importe con unidad fija y etiqueta «Opcional» (13-nov) */
+/* Campos de importe con unidad fija y etiqueta «Opcional» */
 .inu{position:relative}
 .inu>input{padding-right:64px;font-variant-numeric:tabular-nums}
 .inu>.u{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--ink3);pointer-events:none}
 small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;margin-left:6px;border-radius:99px;background:var(--neu-bg);color:var(--neu-fg);font-size:11px;font-weight:500;vertical-align:1px}
 .note.fh{margin-top:6px}
 
-/* Interruptor y contador compactos también en móvil; área táctil con pseudo-elemento (13-nov) */
+/* Interruptor y contador compactos también en móvil; área táctil con pseudo-elemento */
 .tog,.tog:is(button){box-sizing:border-box;width:46px!important;height:28px!important;min-width:0!important;min-height:0!important;padding:0!important;border:0!important;background-clip:border-box;margin:0;margin-left:auto;flex:none;position:relative}
 .tog::before{content:"";position:absolute;inset:-8px -6px}
 .tog::after{top:3px;left:3px;width:22px;height:22px}
@@ -1346,7 +1346,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .stp .hin{height:40px;width:36px;min-width:36px}
 }
 
-/* «Avanzado» como fila desplegable: título y ayuda a la izquierda, flecha a la derecha (13-nov) */
+/* «Avanzado» como fila desplegable: título y ayuda a la izquierda, flecha a la derecha */
 .advbtn{justify-content:space-between;align-items:center;gap:12px;padding:12px 0}
 .advbtn .advt{display:flex;flex-direction:column;gap:2px;min-width:0;font-size:15px;font-weight:600;color:var(--ink)}
 .advbtn .advt small{font-size:13px;font-weight:400;color:var(--ink3);line-height:1.35}
@@ -1354,7 +1354,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 /* iOS amplía la página al enfocar campos de menos de 16px */
 @media(max-width:600px){input,textarea{font-size:16px!important}}
 
-/* Supuestos del cálculo (13-nov) */
+/* Supuestos del cálculo */
 .rcard.asmc{padding-top:4px;padding-bottom:4px}
 .asmc>.advbtn{border-top:0}
 .asm .line{align-items:flex-start}
@@ -1372,12 +1372,12 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 @media(hover:hover){.asl li small a:hover,.asm .line small a:hover{text-decoration:underline;text-underline-offset:3px}}
 .pgh small{margin-left:auto;text-align:right}
 
-/* Licencias: acción del pie como enlace con icono, a la derecha (13-nov) */
+/* Licencias: acción del pie como enlace con icono, a la derecha */
 .lfoot .lnk.lact{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--petrol);min-height:36px;margin-top:-8px;margin-bottom:-8px}
 .lfoot .lnk.lact .i{width:16px;height:16px;color:var(--petrol)}
 @media(max-width:600px){.lfoot .lnk.lact{min-height:44px;margin-top:-12px;margin-bottom:-12px}}
 
-/* Presupuesto superado: aviso destacado; plazo con «Otra fecha» y servicio continuo (13-nov) */
+/* Presupuesto superado: aviso destacado; plazo con «Otra fecha» y servicio continuo */
 .lup.budw{margin:0 0 16px;align-items:center}
 .lup.budw>.i{color:var(--terra);width:20px;height:20px}
 .lup.budw b{font-size:15px;font-weight:600;color:var(--ink)}
@@ -1389,7 +1389,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .ownchk.pzc small{display:block;font-weight:400;font-size:13px;color:var(--ink3);line-height:1.4;margin-top:2px}
 .ownchk.pzc input{margin-top:1px}
 
-/* «La IA en este equipo» (13-nov) */
+/* «La IA en este equipo» */
 .cblock.aic .aih{font-size:17px;font-weight:600;color:var(--ink);margin:6px 0 4px;max-width:none}
 .cblock.aic.good .aih{color:var(--pos-fg)}
 .cblock.aic p{max-width:520px}
@@ -1401,11 +1401,11 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .cblock.aic .cbtns .lnk.aisrc{white-space:nowrap}
 @media(max-width:600px){.cblock.aic .cbtns{gap:14px}.cblock.aic .cbtns .btn{width:auto;flex:0 0 auto;padding:0 12px;font-size:14px;gap:6px}.cblock.aic .cbtns .btn .i{width:18px;height:18px}}
 
-/* Propuesta: logotipo a tamaño fijo y tablas a todo el ancho en móvil (13-nov) */
+/* Propuesta: logotipo a tamaño fijo y tablas a todo el ancho en móvil */
 .xh .xlogo,.xlogo{height:22px!important;width:auto!important;max-width:160px;flex:none;align-self:flex-start;object-fit:contain}
 @media(max-width:700px){.xh{flex-direction:column;align-items:flex-start;gap:12px}.xh div{text-align:left}.xt{display:table;width:100%}}
 
-/* Portada: gasto del mes, lo siguiente y accesos rápidos (13-nov) */
+/* Portada: gasto del mes, lo siguiente y accesos rápidos */
 .hmon{margin-top:10px;max-width:440px}
 .hmon p{margin:0 0 8px;font-size:14px;color:#ffffffc8}
 .hmon p b{color:#fff;font-weight:600}
@@ -1420,7 +1420,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .hero2 .hact .btn-g .i{width:18px;height:18px}
 @media(max-width:600px){.hnr{flex-wrap:wrap;align-items:flex-start}.hnr>span{flex:1 1 calc(100% - 30px)}.hnr .btn.sm{margin-left:30px;height:40px}.hero2 .hact{flex-wrap:wrap}}
 
-/* Planes: precio en una línea, «Tu plan» y Premium con su identidad crema y teja (13-nov) */
+/* Planes: precio en una línea, «Tu plan» y Premium con su identidad crema y teja */
 .plan{padding:24px}
 .plan .pp{display:flex;align-items:baseline;gap:8px;margin:16px 0 4px;font-size:32px;font-weight:600;letter-spacing:-.02em;flex-wrap:wrap}
 .plan .pp b{font-weight:600}
@@ -1442,11 +1442,11 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .plan .btn{margin-top:auto}
 .hero2 .hact .btn-g{gap:8px}.hero2 .hact .btn-g .i{width:18px;height:18px}
 
-/* Enlaces a fuentes dentro de textos: icono pequeño y en línea (14-nov) */
+/* Enlaces a fuentes dentro de textos: icono pequeño y en línea */
 .srcs small a .i,.srcs small a svg,.tbox a .i,.tbox a svg,.sbody .note a .i,.sbody .note a svg{width:13px!important;height:13px!important;margin-left:2px;vertical-align:-2px;display:inline-block}
 .tbox a,.sbody .note a,.srcs small a{white-space:nowrap}
 
-/* Fase 1: responsables y Dirección (16-nov) */
+/* Responsables y Dirección */
 #side .sacct{margin-top:auto}
 .pill.pend{background:var(--warn-bg);color:var(--neg-fg)}
 .pill.rej{background:var(--neg-bg);color:var(--neg-fg)}
@@ -1574,13 +1574,13 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .pnl .fig b{font-size:26px}
 }
 
-/* Fase 1 · resumen móvil y KPIs a 3 (16-nov) */
+/* Resumen móvil y KPIs a 3 */
 .msum{display:none}
 @media (max-width:600px){.msum{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:12px}.msum small{display:block;font-size:12px;color:var(--ink3)}.msum b{font-size:20px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}.msum b.inv{color:var(--petrol)}}
 .kpis{grid-template-columns:repeat(3,1fr)}
 @media (max-width:600px){.kpis{grid-template-columns:1fr 1fr}}
 
-/* Controles de la demo: lenguaje visual neutro, fuera de la marca (16-nov) */
+/* Controles de la demo: lenguaje visual neutro, fuera de la marca */
 #demo{position:fixed;right:16px;bottom:16px;z-index:900;font-family:inherit}
 .demob{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:99px;background:#2B2B2B;color:#fff;font-size:13px;font-weight:500;border:0;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .demob:hover{background:#000}
@@ -1598,7 +1598,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .demop .i,.demop svg{width:16px;height:16px}
 @media (max-width:600px){#demo{right:12px;bottom:12px}#app{padding-bottom:72px}}
 
-/* Inicio rehecho (16-nov): tu equipo, inversión y tarjetas de proyecto */
+/* Inicio rehecho: tu equipo, inversión y tarjetas de proyecto */
 .tmr{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line2)}
 .tmr:last-of-type{border-bottom:0}
 .tmn{flex:1;min-width:0}.tmn b{display:block;font-size:14px;font-weight:600;color:var(--ink)}.tmn small{display:block;font-size:13px;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -1618,7 +1618,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .hpf small{display:block;font-size:12px;color:var(--ink3)}.hpf b{font-size:16px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}.hpf em{font-style:normal;font-size:12px;font-weight:400;color:var(--ink3)}
 @media (max-width:760px){.hpg{grid-template-columns:1fr}}
 
-/* Cabecera de Inicio: el mes y su reparto en el hueco junto a la imagen (16-nov) */
+/* Cabecera de Inicio: el mes y su reparto en el hueco junto a la imagen */
 .hero2 .hsum{position:relative;margin-left:auto;margin-right:clamp(180px,24%,320px);width:270px;flex:none;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:16px 18px;color:#fff;backdrop-filter:blur(6px)}
 .hsl{display:block;font-size:12px;color:#ffffffa8}
 .hsv{display:block;font-size:26px;font-weight:600;line-height:1.15;margin-top:6px;font-variant-numeric:tabular-nums}
@@ -1636,7 +1636,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 @media (max-width:980px){.hero2{flex-wrap:wrap}.hero2 .hcont{max-width:60%}.hero2 .hsum{margin:16px 0 0;width:100%;max-width:420px}}
 @media (max-width:600px){.hero2 .hcont{max-width:none}.hero2 .hsum{max-width:none;margin-top:16px}}
 
-/* Tareas pendientes: contador visible y acción con forma de botón (16-nov) */
+/* Tareas pendientes: contador visible y acción con forma de botón */
 .ch .cbadge{margin-left:auto;min-width:24px;height:24px;padding:0 7px;border-radius:99px;background:var(--ai-bg);color:var(--petrol);font-size:12px;font-weight:600;display:inline-grid;place-items:center;font-variant-numeric:tabular-nums}
 .ch:has(.cbadge){display:flex;align-items:center;gap:10px}
 .arow .arl{height:34px;padding:0 14px;display:inline-flex;align-items:center;border-radius:10px;background:#fff;border:1px solid var(--sec-bd);box-shadow:0 1px 2px rgba(13,58,62,.07),0 1px 1px rgba(13,58,62,.03);color:var(--petrol);font-size:14px;font-weight:600}
@@ -1644,7 +1644,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .hero2 .hsum{margin-right:clamp(200px,30%,380px)}
 @media (max-width:1180px){.hero2 .hsum{margin-right:clamp(150px,20%,240px)}}
 
-/* Gasto por recurso en Inicio (16-nov) */
+/* Gasto por recurso en Inicio */
 .gspend{margin-top:16px}
 .gsb{display:flex;gap:3px;height:10px;border-radius:99px;overflow:hidden;margin:4px 0 18px}
 .gsb i{display:block;height:100%}
@@ -1661,7 +1661,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 /* Geist sits ~1px high in a 24px box: nudge tag text to optical centre */
 .pill{padding-top:1px}
 
-/* Hero móvil: saludo sobre la foto, resumen compacto debajo (16-nov) */
+/* Hero móvil: saludo sobre la foto, resumen compacto debajo */
 @media (max-width:600px){
 .hero2{background:#0B2427 url(brand/hero.jpg) right top/auto 184px no-repeat;padding:20px 18px 18px;min-height:0}
 .hero2 .hglow{background:linear-gradient(180deg,#0B242700 0,#0B242700 120px,#0B2427 184px),linear-gradient(90deg,#0B2427f2 0%,#0B2427c8 42%,#0B242700 70%)}
@@ -1674,13 +1674,13 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .hero2 .hst{margin:0}
 .hero2 .hsum .hbar{grid-column:1/-1;margin:10px 0 2px}
 }
-/* Equipo: availability badge as in Inicio, project below (16-nov) */
+/* Equipo: availability badge as in Inicio, project below */
 .avs{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
 .tr .avs .pill{display:inline-flex;margin:0}
 .avs .avp{font-size:12px;color:var(--ink3)}
 .xm .avs{margin-top:6px}
 .pill.appr{background:var(--ai-bg);color:var(--ai-fg)}
-/* Secundario sólido arena (16-nov): sin borde ni sombra, hover y pulsado más oscuros */
+/* Secundario sólido arena: sin borde ni sombra, hover y pulsado más oscuros */
 :root{--sec-fill:#E4EDEC;--sec-fill-hov:#D6E4E2;--sec-fill-press:#C9DCD9}
 .btn-s,.btn.btn-s,.arow .arl{background:var(--sec-fill);color:var(--petrol);border:0;box-shadow:none;font-weight:500}
 @media(hover:hover){.btn-s:not(:disabled):hover,.rl.arow:hover .arl{background:var(--sec-fill-hov);border-color:transparent;color:var(--petrol)}}
@@ -1688,7 +1688,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 /* Tags neutras en arena cálida: el secundario es tinte petróleo frío y no se confunden; «Aprobado» en verde agua */
 :root{--neu-bg:#ECEAE5}
 .pill.appr{background:#D3E6E2;color:var(--petrol)}
-/* Contadores y etiquetas con color propio, distinto del secundario tinte petróleo (16-nov) */
+/* Contadores y etiquetas con color propio, distinto del secundario tinte petróleo */
 :root{--cnt-bg:#ECEAE5;--cnt-fg:#3E5456;--ai-bg:#E8E4F1;--ai-fg:#4A3F6B}
 .ch .cbadge{background:var(--cnt-bg);color:var(--cnt-fg)}
 .tab .tcn{background:var(--cnt-bg);color:var(--cnt-fg)}
@@ -1697,7 +1697,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .sech .cnt{color:var(--cnt-fg)}
 /* Aprobado en verde (convención); En curso en azul pizarra */
 .pill.run{background:#DFE5F1;color:#2C4870}
-/* Exportar: portada en petróleo claro en lugar de la línea (16-nov) */
+/* Exportar: portada en petróleo claro en lugar de la línea */
 .xcov{margin:-36px -44px 22px;padding:30px 44px 24px;background:#DCE9E7;border-radius:8px 8px 0 0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .xcov .xh{border-bottom:0;padding-bottom:0}
 .xcov h1{margin:26px 0 4px}
@@ -1708,7 +1708,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 @media print{#demo,#toasts{display:none!important}}
 .ledit .lsave{display:flex;justify-content:flex-end;gap:8px;padding-top:12px}
 .ledit .lsnote{margin:12px 0 0}
-/* ===== Software e IA (16-nov): resumen, qué hacer y una fila por herramienta ===== */
+/* ===== Software e IA: resumen, qué hacer y una fila por herramienta ===== */
 .lvk{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:4px 0 16px}
 .lvk div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
 .lvk b{display:block;font-size:22px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
@@ -1775,7 +1775,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .lvk .lvkl{margin:0 0 4px;font-size:13px;font-weight:500;color:var(--ink2)}
 .lvk b em{font-style:normal;font-size:14px;font-weight:400;color:var(--ink3)}
 @media(max-width:760px){.lvk{grid-template-columns:1fr}.lvk div{display:grid;grid-template-columns:1fr auto;align-items:baseline;column-gap:12px}.lvk .lvkl{margin:0}.lvk b{grid-row:span 2;text-align:right}}
-/* Equipo en móvil: nombre y coste en la misma línea; puesto y estado a todo el ancho, etiqueta y proyecto en línea (17-nov) */
+/* Equipo en móvil: nombre y coste en la misma línea; puesto y estado a todo el ancho, etiqueta y proyecto en línea */
 @media(max-width:760px){
 .ppl4 .tr.c4{grid-template-areas:"n c" "m m";align-items:baseline;row-gap:2px}
 .ppl4 .tr.c4>.cost{align-self:baseline;text-align:right}
@@ -1783,7 +1783,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .ppl4 .tr.c4>.xm .avs{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 8px;margin-top:2px}
 .ppl4 .tr.c4>.xm .avp{font-size:13px}
 }
-/* Conectar integración (17-nov) */
+/* Conectar integración */
 .iperm{margin:16px 0 20px;padding:14px 16px;border-radius:12px;background:var(--note-bg)}
 .iperm h3{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:600}
 .iperm ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
@@ -1797,7 +1797,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .ispin{flex:none;width:22px;height:22px;margin-top:2px;border-radius:50%;border:3px solid var(--neu-bg);border-top-color:var(--petrol);animation:ispin .9s linear infinite}
 @keyframes ispin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){.ispin{animation-duration:2.4s}}
-/* Tabla de herramientas recompuesta (17-nov): herramienta y coste · uso con barra a todo el ancho · estado y renovación */
+/* Tabla de herramientas recompuesta: herramienta y coste · uso con barra a todo el ancho · estado y renovación */
 .lvh,.lvrow{grid-template-columns:minmax(0,1.25fr) minmax(0,1.6fr) minmax(0,.95fr) 20px;column-gap:32px}
 .lvrow{padding-top:14px;padding-bottom:14px;align-items:center}
 .lvu{display:grid;grid-template-columns:1fr auto;align-items:baseline;row-gap:6px;font-size:14px;color:var(--ink2)}
@@ -1814,7 +1814,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .lvrow .lvn{grid-area:n}.lvrow .lvu{grid-area:u}.lvrow .lvf{grid-area:f;align-items:flex-end;text-align:right}.lvrow>.i{grid-area:c;align-self:start;margin-top:2px}
 }
 .lvf small:only-child{font-size:13px;color:var(--ink2)}
-/* Software e IA de la Responsable recompuesta (17-nov) */
+/* Software e IA de la Responsable recompuesta */
 .lvtr{grid-template-columns:minmax(0,1.3fr) minmax(0,1.4fr) minmax(0,1.5fr);grid-template-areas:"n w p" "n w q";column-gap:24px;row-gap:4px;align-items:start}
 .lvtr>.lvn{grid-area:n;font-size:14px;font-weight:600;color:var(--ink);align-self:center}
 .lvtr>.lvw{grid-area:w;align-self:center}
@@ -1830,7 +1830,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 }
 .lvh.lvh3{grid-template-columns:minmax(0,1.3fr) minmax(0,1.4fr) minmax(0,1.5fr);column-gap:24px}
 .lvtr .lvw small{font-size:inherit}
-/* Control segmentado (17-nov): la opción elegida en verde sólido, sin ambigüedad; pista arena (blanca dentro de paneles tintados) */
+/* Control segmentado: la opción elegida en verde sólido, sin ambigüedad; pista arena (blanca dentro de paneles tintados) */
 :root{--seg-track:#ECEAE5;--seg-on:#0F7A70;--seg-on-hov:#0B6A61;--seg-on-fg:#fff}
 .seg{background:var(--seg-track)}
 .advbox .seg{background:#fff}
@@ -1840,7 +1840,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .advbox .seg button:not(:disabled):not([aria-checked=true]):hover{background:var(--seg-track)}
 .sheet>.advbtn{width:100%}
 .advbox{padding-top:12px}
-/* Inicio: la columna izquierda apila tareas y gasto por recurso para no dejar hueco junto a «Tu equipo» (17-nov) */
+/* Inicio: la columna izquierda apila tareas y gasto por recurso para no dejar hueco junto a «Tu equipo» */
 .hcol{display:flex;flex-direction:column;gap:16px;min-width:0}
 .hcol .gspend{margin-top:0}
 .hcol .gsb{margin:2px 0 12px}
@@ -1854,14 +1854,14 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .grid2.hl>.card{margin:0}
 .hteam{display:flex;flex-direction:column}
 .hteam>.more{margin-top:auto}
-/* Notificaciones (17-nov): icono en círculo tintado según el tipo; punto de no leída como insignia con borde, sin pisar el icono */
+/* Notificaciones: icono en círculo tintado según el tipo; punto de no leída como insignia con borde, sin pisar el icono */
 .nic{position:relative;width:36px;height:36px;border-radius:50%;background:var(--neu-bg);color:var(--ink2)}
 .nic .i{width:18px;height:18px}
 .nitem.nok .nic{background:var(--pos-bg);color:var(--pos-fg)}
 .nitem.nalert .nic{background:var(--neg-bg);color:var(--neg-fg)}
 .ndot{top:-1px;right:-1px;left:auto;width:10px;height:10px;box-shadow:0 0 0 2px #fff}
 .nitem.new{background:linear-gradient(90deg,var(--note-bg),#fff 60%)}
-/* Pestaña vacía con ilustración (17-nov) */
+/* Pestaña vacía con ilustración */
 .empty.etab{padding:40px 20px 48px}
 .empty.etab .eill{width:200px;height:140px;margin:0 auto 12px;display:block}
 /* Equipo: resumen legible en lugar de un contador suelto */
@@ -1870,7 +1870,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .sech.tsum p b{font-weight:600;color:var(--ink)}
 .sech.tsum p span+span::before,.sech.tsum p b+span::before{content:"";display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--ink3);margin-right:14px;vertical-align:middle;opacity:.6}
 .sech.tsum .pill{font-style:normal}
-/* Software e IA: una tabla por categoría; en la de la Responsable, la etiqueta en su propia columna (17-nov) */
+/* Software e IA: una tabla por categoría; en la de la Responsable, la etiqueta en su propia columna */
 .lvh.lvh4,.lvtr{grid-template-columns:minmax(0,1.2fr) minmax(0,1.3fr) minmax(0,.7fr) minmax(0,1.6fr);column-gap:24px}
 .lvh span:first-child{color:var(--ink3);font-weight:400}
 .lvtr{grid-template-areas:"n w p q";align-items:center;row-gap:0}
@@ -1881,13 +1881,13 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .lvh.lvh4{display:none}
 .lvtr{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"n p" "w w" "q q";row-gap:4px}
 }
-/* Integraciones sin contorno (17-nov): conectar = relleno secundario; conectado = verde; próximamente = neutro apagado */
+/* Integraciones sin contorno: conectar = relleno secundario; conectado = verde; próximamente = neutro apagado */
 .ichip,.ichip:not(.on):not(.soon){border:0;background:var(--sec-fill);color:var(--petrol)}
 .ichip:not(.on):not(.soon) em{color:var(--petrol);font-weight:600}
 @media(hover:hover){.ichip:not(.on):not(.soon):hover{background:var(--sec-fill-hov);color:var(--petrol)}}
 .ichip:not(.on):not(.soon):active{background:var(--sec-fill-press)}
 .ichip.soon{background:var(--note-bg);color:var(--ink3)}
-/* Borrar: rojo de error por defecto (17-nov) */
+/* Borrar: rojo de error por defecto */
 .btn-del{background:var(--err);color:#fff}
 .btn-del:not(:disabled):hover{background:#921E18;color:#fff}
 .btn-del:not(:disabled):active{background:#7A1813}
@@ -1897,7 +1897,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .srch span{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2)}
 .srch span .i{width:16px;height:16px}
 @media(hover:hover){.srch:hover span{color:var(--petrol);text-decoration:underline;text-underline-offset:3px}}
-/* Hero de Inicio (17-nov): sin caja flotante; el gasto del mes va junto al saludo, separado por una línea fina, todo alineado a la izquierda */
+/* Hero de Inicio: sin caja flotante; el gasto del mes va junto al saludo, separado por una línea fina, todo alineado a la izquierda */
 @media(min-width:601px){
 .hero2{min-height:200px;padding:32px 40px;gap:0;flex-wrap:nowrap}
 .hero2 .hcont{max-width:none;flex:none}
@@ -1915,7 +1915,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 /* Barra de reparto continua, sin cortes */
 .gsb{gap:0}
 .gsb i{border-radius:0}
-/* Tablas de Software e IA con el estilo de la tabla de Equipo: título fuera, cabecera tintada, filas a 16px (17-nov) */
+/* Tablas de Software e IA con el estilo de la tabla de Equipo: título fuera, cabecera tintada, filas a 16px */
 .lvtab{padding:0;margin-bottom:24px}
 .lvtab .lvh{padding:10px 16px;background:var(--th-bg);border:0;font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--ink3)}
 .lvtab .lvh span:first-child{color:var(--ink3);font-weight:500}
@@ -1927,7 +1927,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .lvtab .lvx{margin:0 16px 16px}
 .sech.tsum+.tbl{margin-top:0}
 @media(max-width:760px){.lvtab .lvh{display:none}.lvtab .lvtr,.lvtab .lvrow{padding:14px 16px}}
-/* Iniciales de las personas también en Equipo y en Software e IA (17-nov) */
+/* Iniciales de las personas también en Equipo y en Software e IA */
 .xn.xav{display:flex;align-items:center;gap:12px;min-width:0}
 .xn.xav b{min-width:0;overflow:hidden;text-overflow:ellipsis}
 .lvw{display:flex;align-items:center;gap:10px;min-width:0}
@@ -1940,35 +1940,35 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .avst .av+.av{margin-left:-4px}
 @media(max-width:760px){.lvtr .avn{font-size:13px}}
 .avst{align-items:center}.avst .av{display:inline-grid;place-items:center;line-height:1;vertical-align:middle}
-/* Notificaciones con el mismo patrón que «Tareas pendientes»: icono de línea sin círculo; no leída = punto antes del título y texto en negrita (17-nov) */
+/* Notificaciones con el mismo patrón que «Tareas pendientes»: icono de línea sin círculo; no leída = punto antes del título y texto en negrita */
 .nic,.nitem.nok .nic{position:static;width:24px;height:24px;border-radius:0;background:none;color:var(--icon)}
 .nitem.nalert .nic{background:none;color:var(--terra)}
 .nic .i{width:20px;height:20px}
 .nitem .nt .ndot{position:static;display:inline-block;width:8px;height:8px;margin:0 8px 1px 0;box-shadow:none;vertical-align:middle}
 .nitem.new{background:none}
-/* Portada de la exportación: isotipo en su cuadrado junto al logotipo (17-nov) */
+/* Portada de la exportación: isotipo en su cuadrado junto al logotipo */
 .xbrand{display:inline-flex;align-items:center;gap:12px}
 .xiso{width:40px;height:40px;border-radius:10px;display:block;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .xcov .xlogo{height:16px;width:auto}
 .xcov .xh{align-items:center}
 @media(max-width:700px){.xiso{width:32px;height:32px}.xcov .xlogo{height:13px}}
 .xcov .xbrand .xlogo{height:20px!important;align-self:center}
-/* Resumen bajo el título de sección, en texto discreto; pila de iniciales a tamaño fijo (17-nov) */
+/* Resumen bajo el título de sección, en texto discreto; pila de iniciales a tamaño fijo */
 .sech.tsum{flex-direction:column;align-items:flex-start;gap:2px}
 .sech.tsum p{margin:0;font-size:13px;color:var(--ink3);gap:4px 10px}
 .sech.tsum p b{font-weight:500;color:var(--ink2)}
 .sech.tsum p span+span::before,.sech.tsum p b+span::before{margin-right:10px;width:3px;height:3px}
 .avst .av{width:30px;height:30px;min-width:30px;min-height:30px;padding:0}
-/* Grupo de avatares ordenado (como en Linear, GitHub o Notion): círculos iguales, solape fijo, borde blanco, «+N» con el mismo estilo (17-nov) */
+/* Grupo de avatares ordenado (como en Linear, GitHub o Notion): círculos iguales, solape fijo, borde blanco, «+N» con el mismo estilo */
 .avg{display:inline-flex;align-items:center;flex:none}
 .avg i{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--mist);color:var(--deep);font-family:inherit;font-size:10px;font-weight:600;line-height:1;font-style:normal;letter-spacing:0;box-shadow:0 0 0 2px #fff;box-sizing:border-box}
 .avg i+i{margin-left:-6px}
 .lvw .avn{margin-left:2px}
 @media(max-width:760px){.avg i{width:24px;height:24px;font-size:9.5px}}
 .avg i{background:var(--tint);color:var(--petrol)}
-/* Estados vacíos: tarjeta sólida como el resto, sin borde discontinuo (eso indica zona para soltar archivos) (17-nov) */
+/* Estados vacíos: tarjeta sólida como el resto, sin borde discontinuo (eso indica zona para soltar archivos) */
 .empty{border:1px solid var(--line);border-style:solid;background:#fff;border-radius:16px}
-/* Hero de Inicio, composición en una columna (17-nov): equipo · saludo · gasto del mes con su barra · botón; la foto ocupa la derecha */
+/* Hero de Inicio, composición en una columna: equipo · saludo · gasto del mes con su barra · botón; la foto ocupa la derecha */
 @media(min-width:601px){
 .hero2{display:grid;grid-template-columns:minmax(0,440px);align-content:center;justify-content:start;row-gap:0;padding:36px 44px;min-height:250px}
 .hero2 .hcont{display:contents}
@@ -1986,15 +1986,15 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .hero2 .hact:empty{display:none}
 }
 @media(min-width:601px){.hero2 .hcont>*,.hero2>.hsum{position:relative;z-index:1}}
-/* Notificación: icono alineado con el título, texto alineado, fecha siempre gris, punto de no leída al final de la fila (17-nov) */
+/* Notificación: icono alineado con el título, texto alineado, fecha siempre gris, punto de no leída al final de la fila */
 .nlist .nitem{align-items:flex-start}
 .nitem .nic{margin-top:1px}
 .nitem .nb{flex:1;min-width:0}
 .nitem em,.nitem.new em{color:var(--ink3)}
 .nitem>.ndot{position:static;flex:none;align-self:center;width:8px;height:8px;margin:0 4px 0 12px;box-shadow:none;background:var(--terra);border-radius:50%}
-/* Gasto por recurso: tres colores bien distintos; IA en lavanda, como su etiqueta (17-nov) */
+/* Gasto por recurso: tres colores bien distintos; IA en lavanda, como su etiqueta */
 .gspend .ka{background:#8E80C8}
-/* Hover del control segmentado sutil: un tono más oscuro de la pista, nunca blanco (blanco parecía otra opción elegida) (17-nov) */
+/* Hover del control segmentado sutil: un tono más oscuro de la pista, nunca blanco (blanco parecía otra opción elegida) */
 .seg button:not(:disabled):not([aria-checked=true]):hover{background:rgba(13,58,62,.06);color:var(--ink);box-shadow:none}
 .advbox .seg button:not(:disabled):not([aria-checked=true]):hover{background:var(--note-bg)}
 /* Casilla con la paleta: borde suave; al pasar, borde verde y fondo menta claro; marcada, el mismo verde que el control segmentado */
@@ -2003,14 +2003,14 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .ownchk input:checked{background:var(--seg-on);border-color:var(--seg-on)}
 .ownchk:hover input:not(:disabled):checked{background:var(--seg-on-hov);border-color:var(--seg-on-hov)}
 .ownchk input:focus-visible{outline:2px solid var(--seg-on);outline-offset:2px}
-/* Segmentado desactivado: legible (sin opacidad), texto gris medio; la opción elegida pasa a neutro (17-nov) */
+/* Segmentado desactivado: legible (sin opacidad), texto gris medio; la opción elegida pasa a neutro */
 .seg.pz.off{opacity:1;background:var(--note-bg)}
 .seg.pz.off button,.seg button:disabled{opacity:1;color:#7D8B8C;cursor:not-allowed}
 .seg.pz.off button[aria-checked=true],.seg button:disabled[aria-checked=true]{background:#DDDAD3;color:var(--ink2)}
 @media(min-width:601px){.hero2{padding:30px 44px;min-height:0}}
-/* Segmentado: separación entre opciones para que el hover y lo elegido no se toquen (17-nov) */
+/* Segmentado: separación entre opciones para que el hover y lo elegido no se toquen */
 .seg{gap:3px}
-/* Segmentado «todo en menta» (17-nov): pista menta muy clara, hover un tono más, elegido menta media con texto petróleo. La casilla mantiene su verde propio */
+/* Segmentado «todo en menta»: pista menta muy clara, hover un tono más, elegido menta media con texto petróleo. La casilla mantiene su verde propio */
 :root{--seg-track:#EEF3F2;--seg-hov:#DCE8E6;--seg-on:#CDE7E1;--seg-on-hov:#C2E0D9;--seg-on-fg:var(--petrol);--chk-on:#0F7A70;--chk-on-hov:#0B6A61}
 .seg,.advbox .seg{background:var(--seg-track)}
 .seg button{color:var(--ink2)}
@@ -2023,10 +2023,10 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .ownchk input:focus-visible{outline-color:var(--chk-on)}
 .seg.pz.off button[aria-checked=true],.seg button:disabled[aria-checked=true]{box-shadow:none}
 .advbox .seg{background:#fff}
-/* Ayuda bajo un campo con icono de información (17-nov) */
+/* Ayuda bajo un campo con icono de información */
 /* Segmentado elegido sin contorno */
 .seg button[aria-checked=true]{box-shadow:none}
-/* Selector con el color del botón secundario (17-nov). Regla: el hover toma el color del contenedor.
+/* Selector con el color del botón secundario. Regla: el hover toma el color del contenedor.
    Sobre blanco: pista arena clara y hover blanco. Dentro de un panel arena: pista blanca y hover arena. */
 :root{--seg-track:var(--note-bg);--seg-hov:#fff;--seg-on:var(--sec-fill);--seg-on-hov:var(--sec-fill-hov);--seg-on-fg:var(--petrol)}
 .seg{background:var(--seg-track)}
@@ -2034,46 +2034,46 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .advbox .seg{background:#fff}
 .advbox .seg button:not(:disabled):not([aria-checked=true]):hover{background:var(--note-bg);color:var(--petrol)}
 .seg button[aria-checked=true]{background:var(--seg-on);color:var(--seg-on-fg);font-weight:600;box-shadow:none}
-/* IA en ocre, de la misma familia terrosa que petróleo y terracota; también su etiqueta (17-nov) */
+/* IA en ocre, de la misma familia terrosa que petróleo y terracota; también su etiqueta */
 :root{--ai-bg:#F3E9CF;--ai-fg:#6B5214}
 .gspend .ka{background:#C99A3B}
-/* IA en verde manzana: vibrante y bien distinto del petróleo oscuro y la terracota; etiqueta a juego (17-nov) */
+/* IA en verde manzana: vibrante y bien distinto del petróleo oscuro y la terracota; etiqueta a juego */
 :root{--ai-bg:#E6F5D3;--ai-fg:#2F5A0E}
 .gspend .ka{background:#9ADB62}
-/* Selector: elegido en el verde de marca con texto blanco; el hover sigue tomando el color del contenedor (17-nov) */
+/* Selector: elegido en el verde de marca con texto blanco; el hover sigue tomando el color del contenedor */
 :root{--seg-on:#0F7A70;--seg-on-hov:#0B6A61;--seg-on-fg:#fff}
 .seg button[aria-checked=true]{background:var(--seg-on);color:#fff}
 @media(hover:hover){.seg button[aria-checked=true]:not(:disabled):hover{background:var(--seg-on-hov);color:#fff}}
-/* Foco de teclado en pestañas: aire alrededor del texto, sin recortar ni tocar la línea inferior (17-nov) */
+/* Foco de teclado en pestañas: aire alrededor del texto, sin recortar ni tocar la línea inferior */
 .tabs{gap:8px;margin-left:-10px;margin-right:-10px;padding:0 10px}
 .tab{padding:0 10px}
 .tab::after{left:10px;right:10px}
 .tab:focus-visible{outline:2px solid var(--petrol);outline-offset:-4px;border-radius:10px}
-/* Foco de teclado: siempre con aire y esquinas redondeadas, nunca pegado al texto ni cortado (17-nov) */
+/* Foco de teclado: siempre con aire y esquinas redondeadas, nunca pegado al texto ni cortado */
 .lvrow:focus-visible,.rl:focus-visible{outline:2px solid var(--acc);outline-offset:-4px;border-radius:12px}
 .srch{padding:8px 10px;margin:-8px -10px;border-radius:10px;width:calc(100% + 20px)}
 .srch:focus-visible{outline:2px solid var(--acc);outline-offset:0}
 .ichip:focus-visible{outline-offset:2px}
 .tab:focus-visible{outline-color:var(--acc)}
-/* Notificaciones con jerarquía clara aunque estén leídas: título fuerte, detalle medio, fecha pequeña (17-nov) */
+/* Notificaciones con jerarquía clara aunque estén leídas: título fuerte, detalle medio, fecha pequeña */
 .nitem .nt{font-size:15px;font-weight:500;color:var(--ink);line-height:1.35}
 .nitem.new .nt{font-weight:600}
 .nitem small{font-size:13px;color:var(--ink2);margin-top:3px;line-height:1.4}
 .nitem em,.nitem.new em{font-size:12px;color:var(--ink3);margin-top:6px}
 /* Contadores un punto más de contraste */
 :root{--cnt-bg:#E3E0D9;--cnt-fg:#2C4244}
-/* «Avanzado»: sin subrayado; al pasar, la flecha se rodea de un círculo tintado como los botones de icono (17-nov) */
+/* «Avanzado»: sin subrayado; al pasar, la flecha se rodea de un círculo tintado como los botones de icono */
 .advbtn:hover,.advbtn:hover *{text-decoration:none}
 .advbtn>.i{box-sizing:content-box;padding:8px;border-radius:50%;transition:background .15s,color .15s}
 @media(hover:hover){.advbtn:hover>.i{background:var(--hover-ctl);color:var(--petrol)}.advbtn:hover .advt{color:var(--petrol)}}
 .advbtn:focus-visible{outline-offset:2px;border-radius:10px}
-/* «Avanzado»: la flecha siempre visible dentro de un círculo tintado, para que se entienda que se despliega; al pasar, un tono más (17-nov) */
+/* «Avanzado»: la flecha siempre visible dentro de un círculo tintado, para que se entienda que se despliega; al pasar, un tono más */
 .advbtn{align-items:center}
 .advbtn>.i{width:18px;height:18px;padding:9px;background:var(--sec-fill);color:var(--petrol);border-radius:50%}
 @media(hover:hover){.advbtn:hover>.i{background:var(--sec-fill-hov);color:var(--petrol)}}
 /* «Avanzado» dentro de la hoja: el ancho descuenta sus márgenes, así la flecha y la línea no se salen */
 .sheet>.advbtn{width:calc(100% - 48px);align-self:stretch}
-/* Contadores junto a títulos: siempre la misma píldora que en pestañas y tareas (17-nov) */
+/* Contadores junto a títulos: siempre la misma píldora que en pestañas y tareas */
 .rh .cnt,.sech .cnt,.ch .cnt{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:99px;background:var(--cnt-bg);color:var(--cnt-fg);font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;margin-left:8px;vertical-align:middle}
 .rh:has(>.cnt){justify-content:flex-start}
 /* Objetivo del proyecto: en su propia línea bajo el título, no junto a la etiqueta de estado */
@@ -2081,7 +2081,7 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .pgoal{margin:6px 0 0;max-width:720px;font-size:15px;line-height:1.5;color:var(--ink2)}
 .rh:has(>.cnt){align-items:center}.rcard.blk>.rh .cnt{margin-left:0}
 .pgoal{margin:10px 0 0;color:var(--ink)}
-/* Panel de coste con más aire: bloques separados 20px, cifras y textos con interlineado cómodo (17-nov) */
+/* Panel de coste con más aire: bloques separados 20px, cifras y textos con interlineado cómodo */
 .side.pnl{padding:24px;gap:0}
 .pnl>*+*{margin-top:20px}
 .pnl .fig+.fig,.pnl .frow,.pnl .field.jf,.pnl .just{padding-top:20px}
@@ -2092,18 +2092,18 @@ small.opt-l{display:inline-flex;align-items:center;height:20px;padding:0 7px;mar
 .pnl .frow small{margin-top:4px;line-height:1.45}
 .pnl .field.jf label{margin-bottom:8px}
 .side.pnl>.field.jf,.side.pnl>.just,.side.pnl>.lup,.side.pnl>.btn,.side.pnl>.rvb,.side.pnl>.frow{margin-top:20px}
-/* Inicio: dos tarjetas de la misma altura, con el mismo número de filas (máx. 3 + «Ver…»), y el gasto a todo el ancho debajo. Así nunca quedan huecos (17-nov) */
+/* Inicio: dos tarjetas de la misma altura, con el mismo número de filas (máx. 3 + «Ver…»), y el gasto a todo el ancho debajo. Así nunca quedan huecos */
 .grid2.hl{align-items:stretch}
 .grid2.hl>.card{display:flex;flex-direction:column}
 .grid2.hl>.card>.more{margin-top:auto}
 .grid2.hl+.gspend{margin-top:16px}
 .card.tlist{padding:8px 20px}
 .card.tlist>.arow:first-child::before,.card.tlist>.rl:first-child::before{border-top-color:transparent}
-/* Papelera: gris en reposo; roja con fondo rojo claro al pasar o al enfocar con teclado (17-nov) */
+/* Papelera: gris en reposo; roja con fondo rojo claro al pasar o al enfocar con teclado */
 @media(hover:hover){button:not(:disabled):has(>svg use[href="#u-trash-alt"]):hover{background:var(--errbg);color:var(--err)}
 button:not(:disabled):has(>svg use[href="#u-trash-alt"]):hover .i{color:var(--err)}}
 button:has(>svg use[href="#u-trash-alt"]):focus-visible{outline-color:var(--err)}
-/* Integraciones como lista: nombre a la izquierda; a la derecha, estado (etiqueta) o acción (botón). Dos columnas en escritorio (17-nov) */
+/* Integraciones como lista: nombre a la izquierda; a la derecha, estado (etiqueta) o acción (botón). Dos columnas en escritorio */
 .irows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:24px;margin-top:8px}
 .irow{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;padding:6px 0;border-top:1px solid var(--line2)}
 .irn{font-size:14px;font-weight:500;color:var(--ink);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -2124,12 +2124,12 @@ button:has(>svg use[href="#u-trash-alt"]):focus-visible{outline-color:var(--err)
 @media(max-width:760px){.uline{grid-template-columns:30px minmax(0,1fr) 44px;grid-template-areas:"a n m" ". r .";row-gap:6px}}
 .irow.soon .ira{display:none}
 .rcard .uline>span.av.sm{width:30px;height:30px;min-width:30px;min-height:30px;font-size:11px!important;font-weight:600;background:var(--tint)!important;color:var(--petrol)!important;border-radius:50%;display:grid;place-items:center;line-height:1}
-/* No leída: punto en el margen izquierdo, a la altura del título (como en Slack o GitHub), y fila con fondo tintado (17-nov) */
+/* No leída: punto en el margen izquierdo, a la altura del título (como en Slack o GitHub), y fila con fondo tintado */
 .nitem>.ndot{position:static;flex:none;align-self:flex-start;width:8px;height:8px;margin:8px -4px 0 0;border-radius:50%;background:var(--terra);box-shadow:none}
 .nitem>.ndot.off{background:transparent}
 .nlist .nitem.new{background:var(--warn-bg,#FBF1EC);border-radius:12px}
 /* Notificaciones, patrón estándar (GitHub, Linear, Courier, Knock): no leída = título en negrita + un punto pequeño a la derecha, alineado con el título.
-   Sin fondo tintado ni más señales: una sola marca basta. Al abrir la página quedan leídas (el contador de la campana se vacía) (17-nov) */
+   Sin fondo tintado ni más señales: una sola marca basta. Al abrir la página quedan leídas (el contador de la campana se vacía) */
 .nlist .nitem.new{background:none}
 .nitem{align-items:flex-start}
 .nitem>.ndot{position:static;order:2;flex:none;align-self:flex-start;width:10px;height:10px;margin:6px 0 0 16px;border-radius:50%;background:var(--terra);box-shadow:none}
@@ -2141,9 +2141,9 @@ button:has(>svg use[href="#u-trash-alt"]):focus-visible{outline-color:var(--err)
 /* Campo de texto del panel: tamaño de texto normal, no el grande */
 .pnl .field.jf textarea,.pnl .field.jf textarea::placeholder{font-size:15px;line-height:1.5}
 .pnl .field.jf textarea{padding:12px 14px}
-/* Etiqueta de atención (Por comprar, Pendiente): terracota más saturado para que destaque entre neutras y verdes (17-nov) */
+/* Etiqueta de atención (Por comprar, Pendiente): terracota más saturado para que destaque entre neutras y verdes */
 .pill.pend{background:#F3D5C4;color:#7A3520}
-/* Integraciones en chips, con jerarquía de color clara (17-nov):
+/* Integraciones en chips, con jerarquía de color clara:
    conectado = verde (estado) · por conectar = neutro, con «+ Conectar» en petróleo (acción) · próximamente = neutro apagado */
 .ichip,.ichip:not(.on):not(.soon){border:0;background:var(--note-bg);color:var(--ink2);font-weight:400}
 .ichip:not(.on):not(.soon) em{display:inline-flex;align-items:center;gap:3px;margin-left:6px;color:var(--petrol);font-weight:600;font-size:13px}
@@ -2155,26 +2155,26 @@ button:has(>svg use[href="#u-trash-alt"]):focus-visible{outline-color:var(--err)
 /* Punto de no leída junto al icono, a su izquierda (como Linear o GitHub); las leídas guardan el hueco para que los iconos queden alineados */
 .nitem>.ndot{order:0;align-self:flex-start;width:8px;height:8px;margin:7px -4px 0 0}
 .nitem>.ndot.off{background:transparent}
-/* Primera fila tras el texto introductorio de una tarjeta: sin línea encima (17-nov) */
+/* Primera fila tras el texto introductorio de una tarjeta: sin línea encima */
 .rcard>.rh+p.note+.line,.rcard>.rh+.sub+.line,.rcard>p.note+.line{border-top:0;padding-top:4px}
 /* Hover de chip por conectar: un tono más del mismo neutro, no menta */
 @media(hover:hover){.ichip:not(.on):not(.soon):hover{background:#E6E3DC;color:var(--ink)}}
-/* El punto vive en el margen de la tarjeta: no mueve el icono, que queda alineado con la línea divisoria (17-nov) */
+/* El punto vive en el margen de la tarjeta: no mueve el icono, que queda alineado con la línea divisoria */
 .nlist .nitem{position:relative}
 .nitem>.ndot{position:absolute;left:-3px;top:21px;margin:0}
 .nitem>.ndot.off{display:none}
-/* Punto de no leída como insignia en la esquina superior derecha del icono (17-nov) */
+/* Punto de no leída como insignia en la esquina superior derecha del icono */
 .nitem .nic{position:relative;overflow:visible}
 .nitem .nic>.ndot{position:absolute;left:auto;top:-1px;right:-3px;width:8px;height:8px;margin:0;border-radius:50%;background:var(--terra);box-shadow:0 0 0 2px #fff}
 @media(hover:hover){.nlist .nitem.rl:hover .nic>.ndot{box-shadow:0 0 0 2px var(--hover-solid)}}
-/* «Eliminar puesto» como botón terciario destructivo del sistema: texto e icono rojo de error, sin subrayado; al pasar, fondo rojo claro con aire alrededor (17-nov) */
+/* «Eliminar puesto» como botón terciario destructivo del sistema: texto e icono rojo de error, sin subrayado; al pasar, fondo rojo claro con aire alrededor */
 .rdel{color:var(--err);padding:0 12px;margin-left:-12px;border-radius:10px;height:40px}
 .rdel .i{color:var(--err)}
 .rdel:hover,.rdel:hover *{text-decoration:none}
 @media(hover:hover){.rdel:hover{background:var(--errbg);color:var(--err)}}
 .rdel:active{background:#F7C9C3}
 .rdel:focus-visible{outline:2px solid var(--err);outline-offset:2px}
-/* Edición de un puesto: panel tintado con esquinas redondeadas en lugar de la barra lateral (como «Avanzado») (17-nov) */
+/* Edición de un puesto: panel tintado con esquinas redondeadas en lugar de la barra lateral (como «Avanzado») */
 .redit{margin:12px 0;padding:8px 20px 16px;border-left:0;background:var(--note-bg);border-radius:14px}
 .redit .seg{background:#fff}
 .redit .seg button:not(:disabled):not([aria-checked=true]):hover{background:var(--note-bg)}
@@ -2182,7 +2182,7 @@ button:has(>svg use[href="#u-trash-alt"]):focus-visible{outline-color:var(--err)
 .redit .rdone{border-top-color:var(--line)}
 .redit>:first-child{border-top:0!important}
 .redit{padding-top:4px}
-/* 17 Nov · licences bar shows what is missing; stepper air; alert note; role close at field height; users gap; cards without a divider under the title */
+/* Licences bar shows what is missing; stepper air; alert note; role close at field height; users gap; cards without a divider under the title */
 .lvu .lvb{display:flex;overflow:hidden;background:var(--neu-bg)}
 .lvu .lvb>i{flex:none;height:100%;border-radius:0;background:var(--acc)}
 .lvu .lvb>i.miss{background:var(--err)}
@@ -3446,7 +3446,7 @@ body.hasmbar #demo{bottom:84px}
 /* enlaces destructivos: igual que el resto de enlaces de texto, solo cambia el color al pasar el ratón */
 @media(hover:hover){.lnk.danger:hover,.lnk.dng:hover,.pfdanger .lnk.danger:hover{background:transparent!important;box-shadow:none!important}}
 
-/* ===== lote 20-nov ===== */
+/* ===== Ajustes de detalle ===== */
 /* blanco sobre beige/gris: siempre con el borde fino del sistema */
 .lbuy{border:1px solid rgba(13,58,62,.16)}
 /* «Falta 1» en una fila ámbar: blanca con borde, se ve también al pasar el ratón */
