@@ -12,7 +12,7 @@ const LOC = () => (LANG === "en" ? "en-GB" : "es-ES");
 const I = (n, c = "") => `<svg class="i ${c}" aria-hidden="true" focusable="false"><use href="#u-${n}"/></svg>`;
 const numFmt = (v) => String(Math.round(v)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const eur = (v) => (v < 0 ? "−" : "") + String(Math.round(Math.abs(v))).replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "\u00a0€";
-const FX = 0.9024; /* USD → EUR: 1 / 1,1081, tipo de referencia del BCE del 12/11/2026 */
+const FX = 0.9024; /* USD → EUR: 1 / 1.1081, ECB reference rate of 12/11/2026 */
 /* list prices are in the currency the vendor publishes for Spain: cur "EUR" stays as is, the rest are dollars */
 const toEUR = (id, v) => (opt(id) && opt(id).cur === "EUR" ? v : v * FX);
 const TC = {
@@ -153,7 +153,7 @@ const TC = {
       { id: "chatgpt", n: "ChatGPT Business", p: 20, note: "pago anual · 25 $ mensual · mín. 2" },
     ],
   },
-  /* programs a Responsable asks for that the catalogue does not have yet: they travel with the team proposal */
+  /* programs a project lead asks for that the catalogue does not have yet: they travel with the team proposal */
   other: { n: "Otros programas", roles: [], optional: true, opts: [] },
 };
 
@@ -402,8 +402,8 @@ const REF = {
 };
 const ATEP = { rate: 0.015, n: "BOE, Real Decreto-ley 3/2026 (tarifa de accidentes de trabajo)", u: "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2026-2548" };
 const ONCOST = {
-  base: 0.3065 /* contingencias comunes, desempleo, FOGASA, formación y MEI */,
-  rate: 0.3065 + 0.015 /* + accidentes de trabajo, CNAE 62 */,
+  base: 0.3065 /* common contingencies, unemployment, FOGASA, training and MEI */,
+  rate: 0.3065 + 0.015 /* + workplace accidents, CNAE 62 */,
   n: "BOE, Orden PJC/297/2026 (cotización 2026)",
   u: "https://boe.es/buscar/pdf/2026/BOE-A-2026-7296-consolidado.pdf",
 };
@@ -466,8 +466,8 @@ const EUROSTAT = { n: "Eurostat (lc_lci_lev)", d: "coste laboral por hora del se
 const BLS = { n: "BLS (ECEC)", d: "coste del empleador por hora en el sector Information, 2.º trimestre de 2026", u: "https://www.bls.gov/iag/tgs/iag51.htm" };
 const ONS = { n: "ONS (labour costs and labour share)", d: "remuneración media por hora trabajada en información y comunicaciones, 2025", u: "https://www.ons.gov.uk/economy/economicoutputandproductivity/productivitymeasures/datasets/labourcostsandlabourshare" };
 const GBPREF = { n: "BCE, media anual 2025", d: "1 € = 0,85687 £", u: "https://www.suomenpankki.fi/en/statistics/interest-rates-and-exchange-rates/exchange-rates/average-annual-exchange-rates-for-the-year-2025/" };
-/* «Europa · cualquier país»: para quien contrata en remoto dentro de la UE sin saber aún dónde.
-   Factor = media simple de los países de la UE de la lista (misma serie Eurostat). Es una estimación: no pondera por empleo. */
+/* «Europa · cualquier país»: for hiring remotely inside the EU without knowing where yet.
+   Factor = simple average of the EU countries in the list (same Eurostat series). It is an estimate: it is not weighted by employment. */
 const EUANY = "Europa · cualquier país";
 {
   const eu = ["España", "Portugal", "Francia", "Alemania", "Países Bajos", "Irlanda", "Polonia", "Austria", "Bulgaria", "Chequia", "Chipre", "Croacia", "Dinamarca", "Eslovaquia", "Eslovenia", "Estonia", "Finlandia", "Grecia", "Hungría", "Italia", "Letonia", "Lituania", "Luxemburgo", "Malta", "Rumanía", "Suecia"];
@@ -486,7 +486,7 @@ const MALT = {
   mkt: [190, 214, 282, "Consultores de marketing"],
 };
 const MALT_SRC = { n: "Malt, barómetro de tarifas freelance", u: "https://www.malt.es/t/barometro-tarifas" };
-const FREEF = {}; /* 1.800 h/año ÷ 12 ÷ 8 h = 18,75 días facturables al mes */
+const FREEF = {}; /* 1,800 h/year ÷ 12 ÷ 8 h = 18.75 billable days a month */
 Object.keys(BASE).forEach((k) => (FREEF[k] = MALT[k] ? Math.round(((MALT[k][1] * 1800) / 12 / 8 / BASE[k]) * 100) / 100 : 0.92));
 /* contract factor: freelance depends on the area (Malt); the others are fixed */
 const ctF = (r) => ((r.ct || "free") === "free" ? FREEF[F(r.id).cat] ?? 0.92 : CT[r.ct || "free"][1]);
@@ -868,7 +868,7 @@ const meName = () => (D.me && D.me.name) || "Tú";
 const canSee = (p) => (isBoard() ? p.status !== "draft" : p.owner === meName());
 const PERSON = (id) => (D.people || []).find((x) => x.id === id);
 const MGR = (name) => (D.managers || []).find((m) => m.name === name);
-/* a Responsable can lead several teams: m.teams (the first is m.team); each person belongs to one of them (x.unit) */
+/* a project lead can lead several teams: m.teams (the first is m.team); each person belongs to one of them (x.unit) */
 const teamsOf = (owner) => {
   const m = MGR(owner);
   return m ? m.teams || [m.team] : owner ? [owner] : [];
@@ -909,7 +909,7 @@ const visPeople = () => (D.people || []).filter((x) => isBoard() || x.team === m
 /* free people of OTHER teams with this exact role */
 const otherFree = (pr, fid, except = pr.id) => (D.people || []).filter((x) => x.team !== pr.owner && x.fid === fid && isFree(x.id, except));
 /* The fill rule, seat by seat: a free person of my team (same role; else same area and same or higher level) ->
-   part-time seats may share someone of my team who is already busy -> a free profile of another team (Dirección picks who) -> a new hire. */
+   part-time seats may share someone of my team who is already busy -> a free profile of another team (Leadership picks who) -> a new hire. */
 function autoSeat(pr, r, U) {
   if (pr.startFrom === "new") return { src: "new" };
   const f = F(r.id),
@@ -1019,7 +1019,7 @@ function defTools(fid, pr) {
     return c.length && !c.some((o) => o.id === id) ? c[0].id : id;
   });
 }
-/* what a Responsable can ask for: one entry per product (Figma, Miro…), not per plan;
+/* what a project lead can ask for: one entry per product (Figma, Miro…), not per plan;
    the plan is the one the company already has, or the first one when it has none */
 function toolChoices(cat) {
   const P0 = P() || { ent: (D.ents || [])[0] && D.ents[0].id },
@@ -1315,7 +1315,7 @@ function mkRole(id, n, hours) {
 }
 /* ===== Hours model =====
    HPM: hours in one person-month. ONE constant for price (hours roles cost hours/HPM of a person) and for capacity.
-   150 h = 1.800 h/año / 12: jornada anual máxima del XIX Convenio colectivo estatal de consultoría y TI (BOE-A-2025-7766). */
+   150 h = 1,800 h/year / 12: the maximum annual working time in Spain's 19th national collective agreement for consulting and IT (BOE-A-2025-7766). */
 const HPM = 150;
 const HPM_SRC = { n: "XIX Convenio de consultoría y tecnologías de la información (BOE, 2025)", u: "https://www.boe.es/diario_boe/txt.php?id=BOE-A-2025-7766" };
 /* Productivity gain with AI per area, in %: v = value used, lo/hi = range found in the evidence.
@@ -2052,7 +2052,7 @@ function emptyData() {
   };
   save();
 }
-/* ===== Seed data (the SRC demo): three teams, two projects in progress, one proposal waiting for Dirección, one draft ===== */
+/* ===== Seed data (the SRC demo): three teams, two projects in progress, one proposal waiting for Leadership, one draft ===== */
 const SEED_PEOPLE = [
   ["Lucy Morgan", "product-designer", "senior", "Emma Walker"],
   ["Daniel Price", "frontend-developer", "mid", "Emma Walker"],
@@ -2235,7 +2235,7 @@ function seedData() {
   t.roles = t.roles.filter((r) => r.id !== "product-owner");
   seedFill(t, { "fullstack-developer": [pid("Matthew Hill")] }, {});
   D.projects = [a, c, w, e, t];
-  /* waiting for Dirección: Nora's launch campaign (her people, a designer of another team, new hires) */
+  /* waiting for Leadership: Nora's launch campaign (her people, a designer of another team, new hires) */
   const b = base({
     id: "p2",
     name: "Campaña de lanzamiento",
@@ -2303,7 +2303,7 @@ function seedData() {
   });
   /* tools the projects in progress and approved need for their new people, even if nobody holds them yet */
   [a, c, w, e, t].forEach((pr) => Object.keys(projNeed(pr).need).forEach((oid) => paidSeat(oid) && needOfOpt(pr, oid) > 0 && licFor(oid, pr.ent)));
-  /* contracts sized like real ones: a few spare seats here and there; Jira España one short (a task for Dirección), Copilot México exact, so «Pagos en tienda» needs one before it starts */
+  /* contracts sized like real ones: a few spare seats here and there; Jira España one short (a task for Leadership), Copilot México exact, so «Pagos en tienda» needs one before it starts */
   const spare = { "figma_pro|group": 1, "cc_pro|group": 0, "jira|es": -1, "copilot|mx": 0, "claude_std|es": 2, "jira|mx": 0 };
   D.licenses.forEach((l) => {
     const k = l.opt + "|" + l.scope;
@@ -2312,7 +2312,7 @@ function seedData() {
   });
   /* in April, Adobe's renewal went down by two seats nobody used */
   D.trims = [{ opt: "cc_pro", scope: "group", n: 2, ts: new Date(now.getFullYear(), 3, 14).getTime() }];
-  /* HubSpot renews in two months with a seat nobody uses: a saving for Dirección to decide */
+  /* HubSpot renews in two months with a seat nobody uses: a saving for Leadership to decide */
   const hub = D.licenses.find((l) => l.opt === "hubspot");
   if (hub) hub.renew = isoDay(new Date(now.getFullYear(), now.getMonth(), now.getDate() + 58));
   const jira = D.licenses.find((l) => l.opt === "jira" && l.scope === "es"),
@@ -2443,7 +2443,7 @@ function repairData() {
   if (typeof D.logo !== "string") delete D.logo;
   D.ent = D.ent === "all" || seen.has(D.ent) ? D.ent : "all";
   D.users = arr(D.users).filter((u) => Array.isArray(u) && u.length >= 3);
-  /* Dirección is a user too: the demo's James Carter appears in «Usuarios y permisos» */
+  /* Leadership is a user too: the demo's James Carter appears in «Usuarios y permisos» */
   if (D.me && !D.users.some((u) => u[0] === "James Carter")) D.users.unshift(["James Carter", "Dirección", "SRC"]);
   D._me0 = D.me;
   D.me =
@@ -2583,7 +2583,7 @@ function repairData() {
       });
       delete r._legacy;
       r.fill = r.fill.map((f) =>
-        /* the Responsable only manages their own people: an «other team» seat in a project still being edited becomes a hire (Dirección can cover it when reviewing) */
+        /* the project lead only manages their own people: an «other team» seat in a project still being edited becomes a hire (Leadership can cover it when reviewing) */
         f.src === "other" && (p.status === "draft" || p.status === "changes")
           ? { src: "new" }
           : f.pid && !PERSON(f.pid) ? { src: f.src === "other" ? "other" : "new" } : (f.src === "mine" || f.src === "shared") && !f.pid ? { src: "new" } : f,
@@ -2664,7 +2664,7 @@ function loadData() {
 }
 const fdate = (iso) => new Date(iso + "T12:00").toLocaleDateString(LOC(), { day: "numeric", month: "short", year: "numeric" });
 loadData();
-/* each note goes to Dirección ("board"), to one manager, or to everyone (no "to") */
+/* each note goes to Leadership ("board"), to one manager, or to everyone (no "to") */
 const noteViewer = () => (D.as === "board" ? "board" : meName());
 /* a notification can be deleted by whoever it is shown to; a shared one stays for the others */
 const myNotes = () => D.notes.filter((n) => (!n.to || n.to === noteViewer()) && !(n.hid || []).includes(noteViewer()));
@@ -2703,7 +2703,7 @@ const price = (o) =>
 function scoped() {
   return D.projects.filter((p) => inEnt(p) && !p.archived && canSee(p));
 }
-/* «Tareas pendientes» (manager and Dirección): only real tasks */
+/* «Tareas pendientes» (manager and Leadership): only real tasks */
 function pending(ps) {
   const out = [];
   if (isBoard()) {
@@ -2867,7 +2867,7 @@ function homeTeam(rows = 5) {
   const list = [...free.map((x) => row(x, "Libre", "active")), ...soon.map((o) => row(o.x, o.held ? "Propuesta" : o.n <= 0 ? "Libre este mes" : `Libre en ${monthIn(o.n)}`, o.held ? "pend" : "draft"))];
   return `<div class="card hteam"><div class="ch"><h2>Tu equipo</h2><small>${free.length} de ${ppl.length} libres</small></div>${list.length ? list.slice(0, rows).join("") : `<p class="note">Todo tu equipo está asignado y nadie se libera en los próximos meses.</p>`}<button class="more lk" data-nav="people">${list.length > rows ? `Ver todo tu equipo · ${ppl.length}` : "Ver tu equipo"} ${I("angle-right")}</button></div>`;
 }
-/* Dirección: what is committed and what is waiting for a decision */
+/* Leadership: what is committed and what is waiting for a decision */
 function homeInvest(ps) {
   const act = ps.filter(isLive),
     pend = ps.filter((p) => p.status === "pending"),
@@ -2972,7 +2972,7 @@ function emptyTab(f) {
 /* tabs follow the life of a project; the last ones only appear when they hold something */
 const PF = {
   all: [() => true, "Todos"],
-  /* who has the ball: changes asked → the Responsable must act, so it gets its own tab (not a draft) */
+  /* who has the ball: changes asked → the project lead must act, so it gets its own tab (not a draft) */
   changes: [(p) => p.status === "changes", "Cambios pedidos", 1],
   draft: [(p) => p.status === "draft", "Borradores", 1],
   pending: [(p) => p.status === "pending", "Pendientes"],
@@ -2997,7 +2997,7 @@ function pageProjects() {
       : ""
   }${ps.length ? `<div class="cards">${ps.map(projCard).join("")}</div>` : all.length ? emptyTab(f) : `<div class="empty">${I("layer-group")}<b>Aún no tienes proyectos</b><p>Crea uno y HUMAIN propondrá las personas, el software y la IA que necesita.</p>${isBoard() ? "" : `<button class="btn btn-p sm" data-new>Nuevo proyecto</button>`}</div>`}`;
 }
-/* ===== Equipo: the register of people. A manager sees her team; Dirección sees every team. ===== */
+/* ===== Equipo: the register of people. A manager sees her team; Leadership sees every team. ===== */
 /* a team with nobody yet: its card with a way to add the first person */
 const tact = (lead, t) => {
   const k = esc(lead + "||" + t),
@@ -3010,7 +3010,7 @@ const costOf = (x) => {
   const e = illus({ id: x.fid, grade: x.lvl }, ENT(x.ent).country);
   return e ? { v: e, k: "est" } : { v: 0, k: "none" };
 };
-/* Dirección starts hidden when the company chose «Solo totales»; Responsables start visible. The eye flips it for the session, for anyone. */
+/* Leadership starts hidden when the company chose «Solo totales»; project leads start visible. The eye flips it for the session, for anyone. */
 V.costRoles = V.costRoles || {};
 /* each eye reveals one row; the figure is still the average of the puesto, never one person's salary */
 const costMasked = (x) => !V.costRoles[x.id];
@@ -3038,7 +3038,7 @@ function pagePeople() {
     );
   const row = (x) => {
     const av = avail(x),
-      /* Dirección does not see drafts: someone only in a draft reads as free for them */
+      /* Leadership does not see drafts: someone only in a draft reads as free for them */
       hb = heldBy(x.id).filter((q) => !board || q.status !== "draft"),
       ps = av.ps,
       /* «En proyecto» rather than «Ocupado/a»: it reads the same for everyone */
@@ -3075,7 +3075,7 @@ function pagePeople() {
           fr = ppl.filter((x) => isOpen(x.id));
         return out.join("") + (fr.length ? tbl(fr, `<b>Sin proyecto</b>${sub(fr, true)}`) : "");
       }
-      /* teams the Responsable (or Dirección) created: their own group, before the areas; people placed in one leave their area group */
+      /* teams the project lead (or Leadership) created: their own group, before the areas; people placed in one leave their area group */
       const own = [],
         inOwn = (x) => own.includes(x.unit);
       return (
@@ -3109,8 +3109,8 @@ function pagePeople() {
   }
   return `${head}${toolReqHTML("person")}${viewSeg}${groups(false)}`;
 }
-/* ===== Software e IA. Contracts are Dirección's: it sees what to do (seats to buy, unused seats before a renewal) and every tool with who holds its seats.
-   A Responsable sees the tools of her team and whether her projects have their seats. ===== */
+/* ===== Software e IA. Contracts are Leadership's: it sees what to do (seats to buy, unused seats before a renewal) and every tool with who holds its seats.
+   A project lead sees the tools of her team and whether her projects have their seats. ===== */
 const licPrice = (l) => toEUR(l.opt, opt(l.opt).p);
 const licMonthly = (l) => {
   const o = opt(l.opt);
@@ -3147,7 +3147,7 @@ const firstNames = (ids, max = 3) => {
   const ns = ids.map((pid) => (PERSON(pid) || { name: "" }).name.split(" ")[0]).filter(Boolean);
   return ns.length <= max ? ns.join(", ").replace(/, ([^,]*)$/, " y $1") : `${ns.slice(0, max).join(", ")} y ${ns.length - max} más`;
 };
-/* tool requests: a Responsable asks for software nobody has contracted yet; Dirección decides */
+/* tool requests: a project lead asks for software nobody has contracted yet; Leadership decides */
 const TREQ = { pending: ["Pendiente", "pend"], changes: ["Cambios pedidos", "pend"], approved: ["Aprobada", "active"], rejected: ["Rechazada", "rej"] };
 /* who in my teams already holds this tool through a project of mine */
 const reqName = (r) => (r.asg ? "Asignar: " + r.asg : r.kind === "person" ? "Contratar: " + ((F(r.fid) || {}).t || "persona") : (opt(r.opt) || {}).n || "Herramienta");
@@ -3178,7 +3178,7 @@ const trCostP = (r) => {
 const fmtShort = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(LOC(), { day: "numeric", month: "short" }).replace(".", "");
 const hasToolOpt = (pid, opt) => D.projects.some((q) => !q.archived && q.owner === meName() && q.roles.some((r) => r.tools && Object.values(r.tools).includes(opt) && (r.fill || []).some((f) => f && f.pid === pid)));
 const toolReqPeople = (opt) => (D.people || []).filter((x) => x.team === meName()).map((x) => ({ x, has: !!opt && hasToolOpt(x.id, opt) }));
-/* a hiring request for a project is an amendment inside that project; the Responsable reads it here as a request too */
+/* a hiring request for a project is an amendment inside that project; the project lead reads it here as a request too */
 const personReqs = (all) =>
   D.projects
     .filter((c) => c.parent && !c.full && (all || c.owner === meName()) && !c.archived && c.sentAt && c.roles.length === 1 && ["new", "mine"].includes(((c.roles[0].fill || [])[0] || {}).src))
@@ -3266,7 +3266,7 @@ function pageLicBoard() {
       dl = Math.min(...xs.map((x) => licDays(x.l))),
       fm = fut ? monthIn(Math.max(0, mIdx(fut.start))) : "",
       pct = (v) => Math.min(100, Math.round((v / Math.max(1, cap)) * 100));
-    /* status: what needs Dirección, then the renewal date under it */
+    /* status: what needs Leadership, then the renewal date under it */
     const st = miss
       ? `<span class="pill pend" tabindex="0" title="Hay personas usando la herramienta sin asiento contratado. Cómpralo ya.">Falta ${miss}</span>`
       : later
@@ -3349,14 +3349,14 @@ function licDetail({ l, i, inv }) {
       : ""
   }<div class="lfoot">${SYNC(l.opt) ? `<span class="lsync">${I("check-circle")}Sincronizado con ${esc(o.n.split(" ")[0])} ${rel(l.synced || Date.now())}</span>` : ""}${SYNC(l.opt) || V.ledit === i ? "" : `<div class="lman"><p><span><b>Datos introducidos a mano.</b> ${!plan && INTGOF(l.opt) ? `Si conectas ${esc(INTGOF(l.opt))}, se actualizan solos.` : "Actualízalos cuando cambie el contrato."}</span></p><div class="lmacts">${!plan && INTGOF(l.opt) ? `<button class="btn btn-s sm" data-intg="${esc(INTGOF(l.opt))}">${I("link")}Conectar ${esc(INTGOF(l.opt))}</button>` : ""}<button class="${!plan && INTGOF(l.opt) ? "lnk" : "btn btn-s sm"}" data-ledit="${i}">${I("pen")}${plan ? (l.admin || ADMU(l.opt) ? "Editar" : "Añadir enlace al panel") : "Actualizar a mano"}</button>${l.admin || ADMU(l.opt) ? `<a class="lnk" href="${esc(l.admin || ADMU(l.opt))}" target="_blank" rel="noopener">${I("external-link-alt")}Abrir ${ADM(l.opt)}<span class="sr"> (se abre en una pestaña nueva)</span></a>` : ""}</div></div>`}</div>${edit}</div>`;
 }
-/* Responsable: the tools of her team, who has them, and whether her projects have their seats */
+/* project lead: the tools of her team, who has them, and whether her projects have their seats */
 function pageLicTeam() {
   const team = visPeople().map((x) => x.id),
     mine = D.projects.filter((p) => p.owner === meName() && !p.archived && stOf(p) !== "done" && p.status !== "rejected" && p.status !== "cancelled"),
     ids = new Set();
   D.licenses.forEach((l) => (l.holders || []).some((pid) => team.includes(pid)) && ids.add(l.opt));
   mine.forEach((p) => Object.keys(projNeed(p).need).forEach((oid) => ids.add(oid)));
-  /* what this page is for (Responsable): the tools of her team, asking for one, and following what she asked. Contracts are Dirección's */
+  /* what this page is for (project lead): the tools of her team, asking for one, and following what she asked. Contracts are Leadership's */
   const head = `<div class="ph"><div><h1>Software e IA</h1></div><button class="btn btn-p sm" data-toolreq>Pedir una herramienta</button></div><p class="sub">Qué programas e IA tiene tu equipo, si tus proyectos tienen sus asientos y lo que has pedido. Los contratos y las compras los gestiona Dirección.</p>${toolReqHTML("tool")}`;
   if (!ids.size) return `${head}<div class="empty">${I("key-skeleton")}<b>Aún no hay herramientas</b><p>Cuando Dirección añada las licencias que ya paga la empresa, verás aquí quién de tu equipo tiene cada una.</p></div>`;
   const row = (oid) => {
@@ -3584,7 +3584,7 @@ function importRates(by) {
   D.ratesSrc = { by, ts: Date.now() };
   return n;
 }
-/* where the company's figure sits against the market range (±10 %). For Dirección it is a slider over the market band:
+/* where the company's figure sits against the market range (±10 %). For Leadership it is a slider over the market band:
    drag the dot to set the figure; the field beside it follows */
 const RB = (ref) => [Math.round((ref * 0.7) / 10) * 10, Math.round((ref * 1.3) / 10) * 10];
 const rbPos = (v, ref) => {
@@ -3710,7 +3710,7 @@ function pageExport() {
 /* ===== Software and AI of a proposal: one line per licence, what is already paid and what is new ===== */
 const catOfOpt = (id) => Object.keys(TC).find((k) => TC[k].opts.some((o) => o.id === id)),
   isAiTool = (id) => !!(catOfOpt(id) && TC[catOfOpt(id)].ai);
-/* Dirección decides from this card, so it starts open for them; the Responsable starts with it folded */
+/* Leadership decides from this card, so it starts open for them; the project lead starts with it folded */
 const askOpen = (pr) => (isBoard() ? V.askopen !== "x" + pr.id : V.askopen === pr.id);
 /* what the edit form compares against: «Guardar cambios» stays off until something differs from the request as it was sent */
 const askSig = (d) => JSON.stringify([d.opt || "", d.where || "", d.pid || "", d.fid || "", (d.whoIds || []).slice().sort(), (d.why || "").trim(), d.when || ""]);
@@ -3914,7 +3914,7 @@ function areaTeam(pr, K, ed) {
     "";
 }
 /* side panel: the three figures, the budget, why it is needed and the action that fits the state and who is looking */
-/* móvil: las dos cifras arriba; el panel completo (justificación y decisión) sigue al final */
+/* mobile: the two figures on top; the full panel (justification and decision) follows at the end */
 function mobSum(pr, K) {
   const Mx = K.og ? 1 : K.M,
     per = K.og ? "/mes" : "";
@@ -3994,7 +3994,7 @@ function pageProject() {
  ${(pr.status === "changes" || pr.status === "rejected") && rv && rv.comment ? (() => { const mn = (V.rvfold || []).includes(pr.id), xs = `${mine && !ed && pr.status === "changes" ? `<button class="btn btn-s sm" data-edit>Editar y reenviar</button>` : ""}${mine && pr.parent && pr.status === "rejected" ? `<button class="btn btn-s sm" data-renew="${pr.id}">Crear nueva petición</button>` : ""}${isBoard() && pr.status === "changes" ? `<p class="rvwait">Esperando a ${esc(pr.owner.split(" ")[0])}: lo edita y te lo reenvía. Te avisaremos.</p>` : ""}`; return `<section class="rvc ${pr.status} hasic rvone${mn ? " min" : ""}" data-rvid="${pr.id}" role="status"><button class="rvhd" data-rvfold="${pr.id}" aria-expanded="${!mn}" aria-label="${mn ? "Mostrar" : "Plegar"} el mensaje de Dirección"><i class="rvic" aria-hidden="true">${I("building")}</i><span class="rvtx"><span class="rvl">${pr.status === "changes" ? "Dirección pide cambios" : "Respuesta de Dirección"}</span><span class="rvq">«${esc(rv.comment)}»</span></span><span class="rvch" aria-hidden="true">${I("angle-down")}</span></button>${!mn && xs.trim() ? `<div class="rvb">${xs}</div>` : ""}</section>`; })() : ""}${pr.status === "cancelled" && pr.cancel ? `<section class="rvc rejected hasic rvcx" role="status"><i class="rvic" aria-hidden="true">${pr.cancel.by === "b" ? I("building") : esc(initials(pr.owner))}</i><div class="rvx"><small class="rvl">Cancelado por ${pr.cancel.by === "b" ? "Dirección" : esc(pr.owner.split(" ")[0])} · ${esc(fmtShort(new Date(pr.cancel.ts).toISOString().slice(0, 10)))}</small><p>${esc(pr.cancel.t)}</p><p class="rvwait">Las personas y los asientos que usaba quedan libres.</p></div></section>` : ""}${pr.reply && pr.status === "pending" ? (() => {
     const q = threadOf(pr).filter((x) => x.who === "b" && x.k === "changes" && x.t).pop(),
       fid = pr.id + ":r", mn = (V.rvfold || []).includes(fid);
-    /* same component as Dirección's message: the header folds it; the avatar is the person who wrote it */
+    /* same component as Leadership's message: the header folds it; the avatar is the person who wrote it */
     return `<section class="rvc reply hasic rvone${mn ? " min" : ""}" data-rvid="${fid}" role="status"><button class="rvhd" data-rvfold="${fid}" aria-expanded="${!mn}" aria-label="${mn ? "Mostrar" : "Plegar"} la respuesta de ${esc(pr.owner.split(" ")[0])}"><i class="rvic rvav" aria-hidden="true">${esc(initials(pr.owner))}</i><span class="rvtx"><span class="rvl">Respuesta de ${esc(pr.owner.split(" ")[0])}</span><span class="rvq">«${esc(pr.reply)}»</span></span><span class="rvch" aria-hidden="true">${I("angle-down")}</span></button>${!mn && q ? `<div class="rvb"><p class="rvctx"><b>${isBoard() ? "Pediste" : "Dirección pidió"}:</b> «${esc(q.t)}»</p></div>` : ""}</section>`;
   })() : ""}${kids.length ? `<div class="card ampc"><div class="ch"><h2>Peticiones</h2><p class="note">Lo que has pedido después de aprobar el proyecto. Dirección decide cada petición por separado.</p></div>${kids.map((k) => `<button class="linkrow rl" data-openp="${k.id}"><span class="ampt"><b>${esc(k.name)}</b><small>${(() => { const c = cost(k), n = (k.roles || []).length; return `${n} puesto${n !== 1 ? "s" : ""} · ${eur(c.monthly)}/mes de inversión nueva`; })()}</small></span><span>${stPill(k)}</span></button>`).join("")}</div>` : ""}
 
@@ -4010,7 +4010,7 @@ function pageProject() {
 /* demo controls: outside the product chrome, so nobody mistakes them for a feature */
 function demoHTML() {
   if (!D.me) return "";
-  /* every Responsable of the demo company, so the answer to a project of Nora or Lucas can be followed from their side */
+  /* every project lead of the demo company, so the answer to a project of Nora or Lucas can be followed from their side */
   const who = [
     ...(D.managers || []).map((m) => ["m:" + m.name, m.name, "Responsable"]),
     ["board", "James Carter", "Dirección"],
@@ -4044,7 +4044,7 @@ function syncBar() {
   document.documentElement.style.setProperty("--sbh", (h || 0) + "px");
 }
 window.addEventListener("resize", syncBar);
-/* Desplegable propio (dd): sustituye al <select> nativo. Lista en <body> (position:fixed) para que no la recorte el modal. */
+/* Custom dropdown (dd): replaces the native <select>. The list lives in <body> (position:fixed) so the modal does not clip it. */
 const DDR = {};
 const ddLabel = (id, v) => {
   const o = DDR[id].options.find((x) => x[0] === v);
@@ -4368,7 +4368,7 @@ function ddPick(id, v) {
       pr = P(),
       r = pr && pr.roles[ri];
     if (!r || !r.fill || !r.fill[i]) return;
-    /* Dirección can give the seat to someone of another team or decide to hire instead (it then counts as new investment) */
+    /* Leadership can give the seat to someone of another team or decide to hire instead (it then counts as new investment) */
     if (id.startsWith("asg-")) r.fill[i] = v === "new" ? { src: "new", byBoard: true } : { src: "other", ...(v ? { pid: v } : {}) };
     else {
       const [src, pid] = v.split(":");
@@ -5161,7 +5161,7 @@ function _render() {
   <div class="field"><label for="pfid">Puesto</label>${ddHTML({ id: "pfid", value: d.fid, ariaLabel: "Puesto", options: fids })}</div>
   ${!d.fid || (F(d.fid).gr && F(d.fid).gr.length) ? `<div class="field"><label>Nivel</label>${ddHTML({ id: "plvl", value: d.lvl || "mid", ariaLabel: "Nivel", options: (F(d.fid).gr && F(d.fid).gr.length ? F(d.fid).gr : ["intern", ...LVLS]).map((k) => [k, GR[k][0]]) })}</div>` : ""}
   ${(() => {
-    /* no «Equipo» field: the area comes from the puesto. Dirección only says whose team it is, when there is more than one Responsable */
+    /* no «Equipo» field: the area comes from the puesto. Leadership only says whose team it is, when there is more than one project lead */
     if (!isBoard() || D.managers.length < 2) return "";
     const opts = D.managers.map((x) => [x.name + "||" + teamsOf(x.name)[0], x.name]);
     return `<div class="field"><label for="pteam">Responsable</label>${ddHTML({ id: "pteam", value: d.team + "||" + teamsOf(d.team)[0], ariaLabel: "Responsable", options: opts })}</div>`;
@@ -5313,9 +5313,9 @@ function applyDraft(d) {
     start: d.smode === "pick" && d.start ? d.start : monthKey(),
   };
 }
-/* Dirección approves: the project is in progress; another team's profiles become the person Dirección chose (or the first
+/* Leadership approves: the project is in progress; another team's profiles become the person Leadership chose (or the first
    free one); new hires stay «En contratación». Tools no contract covers yet get a 0-seat licence, so the gap shows in Software e IA. */
-/* Dirección decides a request from its row or its detail, never leaving the page */
+/* Leadership decides a request from its row or its detail, never leaving the page */
 function boardDecide(id, a, cm) {
   if (!isBoard()) return;
   const r = (D.toolReqs || []).find((x) => x.id === id),
@@ -5707,7 +5707,7 @@ document.addEventListener("click", (e) => {
     V.ldraft = null;
     render();
   } else if (ds.bought !== undefined) {
-    /* Dirección bought the seats in the vendor's console: the contract grows and the owners of the projects waiting for them are told */
+    /* Leadership bought the seats in the vendor's console: the contract grows and the owners of the projects waiting for them are told */
     if (!isBoard()) return;
     const l = D.licenses[ds.bought],
       inv = l && seatInventory(l);
@@ -5726,7 +5726,7 @@ document.addEventListener("click", (e) => {
     V.toast = `Asiento${n > 1 ? "s" : ""} añadido${n > 1 ? "s" : ""}. ${[...new Set(ps.map((p) => p.owner.split(" ")[0]))].join(" y ")} ya lo sabe${ps.length > 1 && new Set(ps.map((p) => p.owner)).size > 1 ? "n" : ""}.`;
     render();
   } else if (ds.trimmed !== undefined) {
-    /* Dirección removed unused seats in the vendor's console: smaller contract, a year of those seats saved */
+    /* Leadership removed unused seats in the vendor's console: smaller contract, a year of those seats saved */
     if (!isBoard()) return;
     const l = D.licenses[ds.trimmed],
       tm = l ? trimmable(seatInventory(l)) : 0;
@@ -7304,7 +7304,7 @@ document.addEventListener("click", (e) => {
     }
     V.jerr = false;
     if (pr.status === "changes") {
-      /* answering a request for changes: a short window with what Dirección asked and room to say what changed */
+      /* answering a request for changes: a short window with what Leadership asked and room to say what changed */
       V.draft = { resend: pr.id, reply: "" };
       V.modal = "resend";
       render();
@@ -7387,7 +7387,7 @@ document.addEventListener("click", (e) => {
       ts: Date.now(),
       r: 0,
     });
-    /* Dirección keeps a trace of the changes it asked for (already read: it is its own action) */
+    /* Leadership keeps a trace of the changes it asked for (already read: it is its own action) */
     if (dec === "changes") D.notes.unshift({ ic: "pen", k: "team", to: "board", t: `Has pedido cambios en «${pr.name}»`, s: `Esperando a ${pr.owner}: ${cm}`, p: pr.id, ts: Date.now(), r: 1 });
     save();
     V.toast = dec === "approve" ? (pr.full ? "Cambios aprobados: ya están en el proyecto" : "Propuesta aprobada: ya está en curso") : dec === "changes" ? "Has pedido cambios" : "Propuesta rechazada";
@@ -7989,7 +7989,7 @@ function toolSort(a, b) {
   return ai(a) - ai(b) || nm(a).localeCompare(nm(b), "es");
 }
 
-/* person form: a program that is not in the catalogue. It is added to this person and goes to Dirección with the team. */
+/* person form: a program that is not in the catalogue. It is added to this person and goes to Leadership with the team. */
 function pfNewHTML(d) {
   if (!d.nOpen) return `<button type="button" class="pfnew" data-pfnew>${I("plus")}<span>Otro programa que no está en la lista<small>Lo pides con el equipo y Dirección lo aprueba</small></span></button>`;
   return `<div class="pfnbox"><b>Otro programa</b>
@@ -8018,7 +8018,7 @@ function regAsgHTML(d) {
 }
 
 
-/* the demo has one Responsable (Emma) who leads every team, so a single login shows every case:
+/* the demo has one project lead (Emma) who leads every team, so a single login shows every case:
    running, pending, changes asked, drafts, hiring, people shared between projects */
 function soloSeed() {
   const ME = "Emma Walker", others = ["Nora Mitchell", "Lucas Reed"];
@@ -8029,7 +8029,7 @@ function soloSeed() {
     if (others.includes(p.owner)) p.owner = ME;
     (p.roles || []).forEach((r) => (r.fill || []).forEach((f) => { if (f && f.pid && f.src === "other") f.src = "mine"; }));
   });
-  /* more cases for the single Responsable: changes asked, rejected, and a change proposal on a running project */
+  /* more cases for the single project lead: changes asked, rejected, and a change proposal on a running project */
   const by = (id) => D.projects.find((p) => p.id === id),
     copy = (src, o) => {
       const c = clone(src);
@@ -8056,7 +8056,7 @@ function soloSeed() {
   }
 }
 
-/* ===== Conversation of a proposal: every message of the Responsable and of Dirección, so what was asked stays on record ===== */
+/* ===== Conversation of a proposal: every message of the project lead and of Leadership, so what was asked stays on record ===== */
 function threadOf(p) {
   if (Array.isArray(p.thread)) return p.thread;
   const t = [];
@@ -8109,13 +8109,13 @@ function chipsPass() {
   });
 }
 
-/* ===== Programs a Responsable asked for that the company does not have yet ===== */
+/* ===== Programs a project lead asked for that the company does not have yet ===== */
 const newProgsOf = (pr) => {
   const n = {};
   (pr.roles || []).forEach((r) => Object.values(r.tools || {}).forEach((t) => { const o = t && opt(t); if (o && o.req) n[t] = (n[t] || 0) + (r.n || 1); }));
   return Object.entries(n);
 };
-/* Dirección sees them before deciding and can set or correct the price: the project's cost follows */
+/* Leadership sees them before deciding and can set or correct the price: the project's cost follows */
 function newProgHTML(pr) {
   const ns = newProgsOf(pr);
   if (!ns.length || !isBoard()) return "";
@@ -8224,8 +8224,8 @@ document.addEventListener("click", () => document.querySelectorAll(".mhw .amenu"
 
 /* earlier messages, nested under the latest one (the latest is already on screen) */
 
-/* Iconografía de eventos: un icono por tipo de hecho, en todo HUMAIN.
-   Personas: user-* (alta, asignación, desasignación, baja). Solicitudes: file-plus-alt / check-circle / times-circle. */
+/* Event icons: one icon per kind of event, across HUMAIN.
+   People: user-* (added, assigned, unassigned, removed). Requests: file-plus-alt / check-circle / times-circle. */
 const EVIC = { hire: "user-plus", assign: "user-check", unassign: "user-minus", leave: "user-times", req: "file-plus-alt", ok: "check-circle", no: "times-circle" };
 function noteIc(n) {
   const t = n.t || "";
