@@ -10,7 +10,8 @@ This README covers how the prototype is built. The product story, research and d
 
 ## Stack
 
-- Vanilla HTML, CSS and JavaScript (ES2020+). No framework, no runtime dependencies.
+- Vanilla HTML, CSS and JavaScript (ES2020+). No framework and no build-time dependencies.
+- One runtime dependency: [html2pdf.js](https://github.com/eKoopmans/html2pdf.js) 0.10.1, loaded from the cdnjs CDN only when a proposal is downloaded as a PDF. PDF export needs a network connection; the rest of the app works offline, with a system font in place of Geist.
 - Delivered as one static `index.html`, built from `src/` by a Python script (standard library only).
 - End-to-end tests with Playwright for Python.
 - [Geist](https://vercel.com/font) font, loaded from Google Fonts.
@@ -93,29 +94,30 @@ Set `CHROME_PATH` to use an installed Chrome instead of Playwright's Chromium.
 
 ## Testing
 
-The four suites drive the real interface in a browser. Any JavaScript error, console error or browser dialog fails a run.
+The suites drive the real interface in a browser, with the interface in Spanish (`?lang=es`), the source language.
 
-| Suite | What it checks |
-| --- | --- |
-| `model.py` | Hours model coverage, cost never decreasing as months are added, `cost()` purity, one hours base, one schedule, seat inventory consistency, edits keeping tools, data repair |
-| `smoke.py` | First run, every page in both roles, an active and a draft proposal, export, and the full flow (new project → proposal → send → approve → in progress) at desktop and mobile sizes |
-| `ui.py` | Focus management, HTML injection through the real UI, the review flow (send, ask for changes, approve, hire), reset, no dead controls |
-| `states.py` | Contact sheets of rest, hover, focus, active and disabled states per component, for visual review |
+| Suite | What it checks | Fails on |
+| --- | --- | --- |
+| `model.py` | Cost and hours model: the team covers the estimated work for every project type, size and deadline; a longer deadline doesn't change the work or raise the monthly cost; half a person costs half; the forecast adds up to the project total. Purity: pricing and rendering never change the data or depend on call order. Seats: per-project seat needs match the licence inventory and the Software and AI page. Rates: role, company and market rates in the right order of precedence. With-AI comparison: AI never costs more than its licences, zero gain saves nothing. Data: corrupt saved data is repaired, old data is migrated, user text is escaped. Rules: Leadership doesn't see drafts, approval starts a project, archived projects leave the totals | Any failed check or page error |
+| `smoke.py` | First run (empty company and demo), persistence after reload, every page in both roles, an active and a draft proposal, export, and the full flow (new project → proposal → send → approve → in progress), at desktop and mobile sizes | Any failed check, JavaScript error, console error (except font and network loading) or browser dialog |
+| `ui.py` | Page titles, notifications marked read, focus management in dialogs, HTML injection through the UI, the live region for messages, the person form, seat origin changing the investment, the review flow (a rejection needs a reason, ask for changes, resend, withdraw available, approve, mark a hire as joined), resetting the demo, no enabled control without an effect | Any failed check or page error |
+| `states.py` | Not a pass/fail test: contact sheets of rest, hover, focus, active and disabled states per component, plus page screenshots, for visual review in `tests/output/` | — |
 
-The suites run after every change as a regression check before it is accepted.
+The pass/fail suites are run after every change as a regression check before it is accepted.
 
 ## Technical decisions and trade-offs
 
 | Decision | Why | Cost |
 | --- | --- | --- |
-| No framework, single-file output | Zero dependencies, nothing to install, deploys anywhere as one static file | Source files share one global scope instead of modules |
+| No framework, single-file output | Nothing to install or build beyond Python, deploys anywhere as one static file | Source files share one global scope instead of modules |
+| PDF export through html2pdf.js from a CDN | Real A4 PDFs without adding a build step | Loaded from a third-party CDN without an integrity hash; export fails offline |
 | `localStorage` instead of a backend | Every visitor gets their own working copy of the demo | No accounts, permissions or shared data |
 | Re-render from state | Simple and predictable at this size | Does not scale to large data sets |
 | Translation layer over the DOM | English added without rewriting the Spanish source | Every new string needs a dictionary entry |
 
 ## How it was built
 
-I designed HUMAIN and directed its implementation with Claude (Anthropic) as an AI development tool. I defined the requirements, business rules and acceptance criteria for each change, and reviewed every result in the browser before accepting it. Claude wrote the code, the tests and the translation layer, and ran the test suites. I did not write the code by hand.
+I designed HUMAIN and directed its implementation with Claude (Anthropic) as an AI development tool. I defined the requirements, business rules and acceptance criteria for each change, and reviewed every result in the browser before accepting it. Claude wrote the code, the tests and the translation layer, and ran the test suites.
 
 ## Limitations
 
