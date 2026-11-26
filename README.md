@@ -4,7 +4,7 @@ A functional prototype for planning a project's team, software and AI, and costi
 
 Live demo: **[humain-demo.pages.dev](https://humain-demo.pages.dev)** · English by default, Spanish with `?lang=es`
 
-This README covers how the prototype is built. The product story, research and design decisions are in the case study on [my portfolio](https://mariamoragarcia.com). It is a prototype, not a production product: see [Limitations](#limitations).
+This README covers how the prototype is built. The product story, research and design decisions are in the case study on [my portfolio](https://mariamoragarcia.com/lab/humain). It is a prototype, not a production product: see [Limitations](#limitations).
 
 ![A project proposal waiting for Leadership](docs/project.jpg)
 
