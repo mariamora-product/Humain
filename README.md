@@ -1,4 +1,4 @@
-# HUMAIN
+# Humain
 
 A functional prototype for planning a project's team, software and AI, and costing it before anyone is hired. Team leads get a costed proposal in two steps; Leadership approves it before any money is committed.
 
